@@ -1,0 +1,53 @@
+<div fxLayout="column" fxFlex="100%" fxLayoutGap="2%" >
+  
+  
+    <div fxFlex="5%" fxLayout="row" fxFlex.xs="0%" fxFlex.sm="2%" fxFlex.md="5%"></div>
+    
+  
+    <div fxFlex="90%">
+  
+      <div fxFlex="25%" fxLayout="row" fxFlex.xs="15%" fxFlex.sm="20%" fxFlex.md="25%"></div>
+  
+      <div fxFlex="50%" >
+        <mat-card>
+        <div><span class="blue">G</span><span class="red">o</span><span class="yellow">o</span><span class="blue">g</span><span class="green">l</span><span class="red">e</span></div>
+        <p class="create">Create your Google Account</p>
+        <p>  Continue to Gmail</p>
+        <form>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="First name" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input matInput placeholder="Last name" >
+          </mat-form-field>
+
+          <mat-form-field class="example-form">
+            <input matInput placeholder="username">
+          </mat-form-field>
+         @gmail.com<br><i>You can use letters, numbers and periods</i><br><br>
+          <mat-form-field class="example-full-width">
+            <input matInput type=password placeholder="Password" >
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <input matInput type=password placeholder="Confirm password" >
+          </mat-form-field>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon><br>
+          <i>Use 8 or more characters with a mix of letters, numbers & symbols</i><br><br>
+          <div><a class="a" href="/login" >Sign in instead</a></div>
+          <div  class="button-row"><a mat-flat-button routerLink=".">Next</a></div>
+        </form>
+        
+        
+        </mat-card>
+      </div>
+  
+      <div fxFlex="25%" fxLayout="row" fxFlex.xs="15%" fxFlex.sm="20%" fxFlex.md="25%"></div>
+  
+    </div>
+  
+    <div fxFlex="5%" fxLayout="row" fxFlex.xs="0%" fxFlex.sm="2%" fxFlex.md="5%"  ></div>
+  
+  </div>
+  
+  
