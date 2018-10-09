@@ -1,32 +1,4 @@
-
-.example-form {
-  width: 100%;
-}
-.center{
-  text-align: center;
-}
-.example-full-width {
-  width: 100%;
-}
 .a{
   color:rgb(33, 33, 241);
   text-decoration-line: none;
-}
-.blue{
-  color:rgb(33, 33, 241);font-size: 150%;
-}
-.red{
-  color:red;font-size: 150%;
-}
-.yellow{
-  color:rgb(190, 190, 47);font-size: 150%;
-}
-.green{
-  color:green;font-size: 150%;
-}
-.signin{
-  font-size: 150%;color:rgb(46, 45, 45);text-align: center;
-} 
-.button-row{
-  text-align: end;
 }
