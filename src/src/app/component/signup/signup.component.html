@@ -1,0 +1,48 @@
+<div fxLayout="column" >
+  <div fxFlex.lg="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  <div  fxLayout="row">
+    <div fxFlex.lg="30%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  
+    <div fxFlex.lg="40%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+      <mat-card>
+        <form>
+
+          <div class="center"><img src="../../assets/img/google.webp" height=20% width=20%></div>
+          <mat-card-title>Create your Google Account</mat-card-title><br>
+          <div>Continue to Gmail</div>
+
+          <mat-form-field style="margin-right:2%" class="input">
+            <input matInput placeholder="First name" >
+          </mat-form-field>
+          <mat-form-field class="input">
+            <input matInput placeholder="Last name" >
+          </mat-form-field><br>
+
+          <mat-form-field  class="input"> 
+            <input matInput placeholder="username" >
+          </mat-form-field>@gmail.com<br><i>You can use letters, numbers and periods</i><br><br>
+
+          <mat-form-field style="margin-right:2%" class="input">
+              <input  matInput placeholder="Password" [type]="hide ? 'text' : 'password'">
+          </mat-form-field>
+          <mat-form-field class="input">
+              <input  matInput placeholder="Confirm password" [type]="hide ? 'text' : 'password'">
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          </mat-form-field><br>
+          <i>Use 8 or more characters with a mix of letters, numbers & symbols</i><br><br>
+
+          
+
+          <div><a class="a" href="/login" >Sign in instead</a></div>
+          <div fxLayoutAlign="end"><a mat-flat-button routerLink=".">Next</a></div>
+
+        </form>
+      </mat-card>
+    </div>
+  
+    <div fxFlex.lg="30%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  </div>
+  <div fxFlex.lg="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+</div>
+  
+  
