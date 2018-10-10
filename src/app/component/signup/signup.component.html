@@ -7,43 +7,74 @@
       <mat-card>
         <form>
 
-          <div class="center"><img src="../../assets/img/google.webp" height=20% width=20%></div>
+          <div><img src="../../assets/img/google.webp" height=20% width=20%></div>
           <mat-card-title>Create your Google Account</mat-card-title><br>
           <div>Continue to Gmail</div><br>
 
-          <mat-form-field  class="input">
-            <input matInput placeholder="First name" >
-          </mat-form-field>&nbsp;
-          <mat-form-field class="input">
-            <input matInput placeholder="Last name" >
+          <div  fxLayout="row">
+            <div fxFlex=50%>
+              <mat-form-field  style="width:90%">
+                <input matInput placeholder="First name" name="firstname" #firstname="ngModel" 
+                [(ngModel)]="model.firstname" minlength="4" required>
+              </mat-form-field>
+              <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                <mat-hint *ngIf="firstname.errors.required">firstname is required</mat-hint>
+                <mat-hint *ngIf="firstname.errors.minlength">Name must be at least 4 characters</mat-hint>
+              </div>
+            </div >
+            <div fxFlex=50%>
+              <mat-form-field style="width:90%">
+                <input matInput placeholder="Last name" name="lastname" #lastname="ngModel" 
+                [(ngModel)]="model.lastname" minlength="4" required>
+              </mat-form-field>
+              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                <mat-hint *ngIf="lastname.errors.required">lastname is required</mat-hint>
+                <mat-hint *ngIf="lastname.errors.minlength">Name must be at least 4 characters</mat-hint>
+              </div>
+            </div>
+          </div>
+
+          <mat-form-field  style="width:70%"> 
+            <input matInput placeholder="Email Id" name="email" #email="ngModel" 
+            [(ngModel)]="model.email" required >
           </mat-form-field><br>
-
-          <mat-form-field  class="input"> 
-            <input matInput placeholder="username" >
-          </mat-form-field>@gmail.com<br>
-          <i><small>You can use letters, numbers and periods</small></i><br><br>
+          <div *ngIf="email.invalid && (email.dirty || email.touched)">
+            <mat-hint *ngIf="email.errors.required">email is required</mat-hint>
+          </div>
 
           <mat-form-field class="input">
-              <input  matInput placeholder="Password" [type]="hide ? 'text' : 'password'">
+              <input  matInput placeholder="Password" name="password" #password="ngModel" 
+              [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" required minlength="8">
           </mat-form-field>&nbsp;
           <mat-form-field class="input">
-            <input  matInput placeholder="Confirm password" [type]="hide ? 'text' : 'password'">
+            <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
+            [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'">
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           </mat-form-field><br>
+          <div *ngIf="(password.invalid && (password.dirty || password.touched)) ||
+                      (confpassword.invalid && (confpassword.dirty || confpassword.touched))" >
+            <mat-hint *ngIf="password.errors.required">password is required</mat-hint>
+            <mat-hint *ngIf="password.errors.minlength">password must be at least 8 characters</mat-hint>
+            <!-- <mat-hint *ngIf="password.length !== confpassword.length">password are not matching</mat-hint> -->
+          </div>
+            
           <i><small>Use 8 or more characters with a mix of letters, numbers & symbols</small></i><br><br>
           
           <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="1%">
-              <mat-card fxFlex=50% *ngFor="let data of card" mat-button (click)="response(data)" [ngClass]="data.select ? 'selected' : 'notselected'">
+              <mat-card fxFlex=50% *ngFor="let data of card" mat-button (click)="response(data)" 
+              [ngClass]="data.select ? 'selected' : 'notselected'">
                 <mat-card-title>{{data.name}}</mat-card-title>
                 <mat-card-content>{{data.description}}</mat-card-content>
               </mat-card>
           </div><br>
 
-          <div><a class="a" href="/login" >Sign in instead</a></div>
-          <div fxLayoutAlign="end"><a mat-flat-button routerLink=".">Sign Up</a></div>
+          <div><a class="a" href="/login">Sign in instead</a></div>
+          <div fxLayoutAlign="end"><a mat-flat-button routerLink="."(click)="signup()">Sign Up</a></div>
 
         </form>
+        
       </mat-card>
+     
     </div>
 
     <div fxFlex.lg="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>

@@ -25,6 +25,10 @@
   background-color: rgb(195, 197, 201);
 
 }
+.button{
+  background-color: blue;
+  padding:2%;
+}
 
 .input{
   width:45%

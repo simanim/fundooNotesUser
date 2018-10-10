@@ -14,6 +14,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule} from '@angular/material';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +33,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule 
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
