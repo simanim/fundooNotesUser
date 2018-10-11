@@ -9,12 +9,12 @@ export class HttpService {
   URL="http://34.213.106.173/api";
   constructor(private http: HttpClient) { }
 
-  getData(value1){
-    return this.http.get(this.URL+"/"+value1);
+  getData(path){
+    return this.http.get(this.URL+"/"+path);
   }
 
-  postData(value2,body){
-    return this.http.post(this.URL+"/"+value2,body);
+  postData(path,body){
+    return this.http.post(this.URL+"/"+path,body);
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-// import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-// import {ErrorStateMatcher} from '@angular/material/core';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-signup',
@@ -9,23 +8,20 @@ import { HttpService } from '../../services/http.service';
   styleUrls: ['./signup.component.css']
 })
 
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     const isSubmitted = form && form.submitted;
-//     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//   }
-// }
-
 export class SignupComponent implements OnInit {
  
-  public service;
-  model : any = {}
-  public card=[];
-  constructor(private myFirstService : HttpService) { 
+  public service="";
+  model : any = {
+    "firstname":"",
+    "lastname":"",
+    "email":"",
+    "password":"",
   }
+  public card=[];
+  constructor(private signupService : HttpService,public snackBar: MatSnackBar){ }
 
   ngOnInit() {
-    let obs = this.myFirstService.getData("/user/service"); 
+    let obs = this.signupService.getData("/user/service"); 
     obs.subscribe((response) => {
       // console.log(response["data"]);
       for(let i=0;i<response["data"].data.length;i++)
@@ -50,11 +46,28 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
-    if(this.model.password != this.model.confpassword)
-    return console.log("passwords are not matching");
-    console.log(this.service);
-    console.log(this.model);
-    this.myFirstService.postData("/user/userSignUp", {
+    if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0)
+    {
+      this.snackBar.open("registration failed","try again", {
+        duration: 2000,
+      });
+      return;
+    }
+    if(this.service.length==0){
+      this.snackBar.open("card is required","select a card", {
+        duration: 2000,
+      });
+      return;
+    }
+
+    if(this.model.password != this.model.confpassword){
+      this.snackBar.open("failed","passwords are not matching", {
+        duration: 2000,
+      });
+      return;
+    }
+
+    this.signupService.postData("/user/userSignUp", {
     "firstName" : this.model.firstname,
     "lastName" : this.model.lastname,
     "phoneNumber": "0123456789",
@@ -63,18 +76,21 @@ export class SignupComponent implements OnInit {
     "modifiedDate": "2018-10-10T06:58:34.327Z",
     "username": this.model.email,
     "email": this.model.email,
-     "emailVerified": true,
-     "password":this.model.password
+    "emailVerified": true,
+    "password":this.model.password
     }).subscribe((response) =>{
+      console.log("success");
       console.log(response);
+      this.snackBar.open("","registration Successful", {
+        duration: 2000,
+      });
+    },(error) => {
+      console.log("registration failed");
+      console.log(error);
+      this.snackBar.open("failed","something bad happened", {
+        duration: 2000,
+      });
     });
   }
-
-  // emailFormControl = new FormControl('', [
-  //   Validators.required,
-  //   Validators.email,
-  // ]);
-
-  // matcher = new MyErrorStateMatcher();
 
 }

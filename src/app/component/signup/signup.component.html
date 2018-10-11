@@ -1,83 +1,90 @@
 <div fxLayout="column" >
   <div fxFlex.lg="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
   <div  fxLayout="row">
-    <div fxFlex.lg="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+    <div fxFlex.lg="27%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
 
-    <div fxFlex.lg="50%" fxFlex.md="100%" fxFlex.sm="100%" fxFlex.xs="100%">
+    <div fxFlex.lg="46%" fxFlex.md="80%" fxFlex.sm="100%" fxFlex.xs="100%">
       <mat-card>
-        <form>
+        <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
           <div><img src="../../assets/img/google.webp" height=20% width=20%></div>
           <mat-card-title>Create your Google Account</mat-card-title><br>
           <div>Continue to Gmail</div><br>
 
-          <div  fxLayout="row">
-            <div fxFlex=50%>
-              <mat-form-field  style="width:90%">
+          <div style="width:100%">
+              <mat-form-field  style="width:49%">
                 <input matInput placeholder="First name" name="firstname" #firstname="ngModel" 
-                [(ngModel)]="model.firstname" minlength="4" required>
-              </mat-form-field>
-              <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
-                <mat-hint *ngIf="firstname.errors.required">firstname is required</mat-hint>
-                <mat-hint *ngIf="firstname.errors.minlength">Name must be at least 4 characters</mat-hint>
-              </div>
-            </div >
-            <div fxFlex=50%>
-              <mat-form-field style="width:90%">
+                [(ngModel)]="model.firstname" minlength="4" maxlength="30" pattern="[a-z ]*" 
+                [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" required>
+              </mat-form-field>&nbsp;
+              <mat-form-field style="width:49%">
                 <input matInput placeholder="Last name" name="lastname" #lastname="ngModel" 
-                [(ngModel)]="model.lastname" minlength="4" required>
+                [(ngModel)]="model.lastname" minlength="4" maxlength="30" pattern="[a-z ]*" 
+                [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required>
               </mat-form-field>
-              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
-                <mat-hint *ngIf="lastname.errors.required">lastname is required</mat-hint>
-                <mat-hint *ngIf="lastname.errors.minlength">Name must be at least 4 characters</mat-hint>
-              </div>
             </div>
-          </div>
+              <mat-error *ngIf="f.submitted && firstname.invalid" >
+                <mat-error *ngIf="firstname.errors.required" class="error">firstname is required</mat-error>
+                <mat-error *ngIf="firstname.errors.minlength" class="error">Name must be at least 4 characters</mat-error>
+                <mat-error *ngIf="firstname.errors.pattern" class="error">Invalid firstname</mat-error>
+              </mat-error>
+            
+              
+              <mat-error *ngIf="f.submitted && lastname.invalid">
+                <mat-error *ngIf="lastname.errors.required" class="error">lastname is required</mat-error>
+                <mat-error *ngIf="lastname.errors.minlength" class="error">Name must be at least 4 characters</mat-error>
+                <mat-error *ngIf="lastname.errors.pattern" class="error">Invalid lastname</mat-error>
+              </mat-error>
+          
 
           <mat-form-field  style="width:70%"> 
-            <input matInput placeholder="Email Id" name="email" #email="ngModel" 
-            [(ngModel)]="model.email" required >
+            <input matInput placeholder="Email Id" name="email" maxlength="40" #email="ngModel" 
+            [(ngModel)]="model.email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required >
           </mat-form-field><br>
-          <div *ngIf="email.invalid && (email.dirty || email.touched)">
-            <mat-hint *ngIf="email.errors.required">email is required</mat-hint>
-          </div>
+          <mat-error *ngIf="f.submitted && email.invalid">
+            <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
+            <mat-error *ngIf="email.errors.pattern" class="error">Invalid email</mat-error>
+          </mat-error>
 
-          <mat-form-field class="input">
-              <input  matInput placeholder="Password" name="password" #password="ngModel" 
-              [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" required minlength="8">
-          </mat-form-field>&nbsp;
-          <mat-form-field class="input">
-            <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
-            [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'">
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-          </mat-form-field><br>
-          <div *ngIf="(password.invalid && (password.dirty || password.touched)) ||
-                      (confpassword.invalid && (confpassword.dirty || confpassword.touched))" >
-            <mat-hint *ngIf="password.errors.required">password is required</mat-hint>
-            <mat-hint *ngIf="password.errors.minlength">password must be at least 8 characters</mat-hint>
-            <!-- <mat-hint *ngIf="password.length !== confpassword.length">password are not matching</mat-hint> -->
-          </div>
+          <div>
+              <mat-form-field style="width:49%">
+                <input  matInput placeholder="Password" name="password" maxlength="16" #password="ngModel" 
+                [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" 
+                minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{6,12}$"
+                [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+              </mat-form-field>&nbsp;
             
-          <i><small>Use 8 or more characters with a mix of letters, numbers & symbols</small></i><br><br>
+              <mat-form-field style="width:49%">
+                <input  matInput placeholder="Confirm password" name="confpassword" validateEqual="password" #confpassword="ngModel" 
+                [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'" maxlength="16" required>
+                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </mat-form-field>
+            </div>
+              <mat-error *ngIf="f.submitted">
+                  <mat-error *ngIf="password.errors.validateEqual" class="error">not matching</mat-error>
+                  <mat-error *ngIf="password.errors.required" class="error">conf password is required</mat-error>
+              </mat-error>
+            
+          
+          <i><small>Atleast 8 characters with a mix of uppercase, lowercase, numbers & symbols</small></i><br><br>
           
           <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="1%">
               <mat-card fxFlex=50% *ngFor="let data of card" mat-button (click)="response(data)" 
               [ngClass]="data.select ? 'selected' : 'notselected'">
-                <mat-card-title>{{data.name}}</mat-card-title>
+                <mat-card-subtitle><h2>{{data.name}}</h2></mat-card-subtitle>
                 <mat-card-content>{{data.description}}</mat-card-content>
               </mat-card>
           </div><br>
 
           <div><a class="a" href="/login">Sign in instead</a></div>
-          <div fxLayoutAlign="end"><a mat-flat-button routerLink="."(click)="signup()">Sign Up</a></div>
+          <div fxLayoutAlign="end"><button mat-flat-button type="submit" routerLink="."(click)="signup()">Sign Up</button></div>
 
         </form>
-        
       </mat-card>
-     
     </div>
 
-    <div fxFlex.lg="25%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+    <div fxFlex.lg="27%" fxFlex.md="10%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
   </div>
   <div fxFlex.lg="2%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
 </div>

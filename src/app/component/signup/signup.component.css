@@ -2,37 +2,21 @@
   color:rgb(33, 33, 241);
   text-decoration-line: none;
 }
-.box1{
-  color:rgb(23, 23, 26);
-  width:100%;
-  font-size: 80%;
-}
-.box2{
-  width:100%;
-  color:rgb(23, 23, 26);
-  font-size: 80%;
-}
-
 .selected{
   text-align: center;
   word-wrap: break-word;
   background-color: rgb(133, 148, 196);
 }
-
 .notselected{
   text-align: center;
   word-wrap: break-word;
   background-color: rgb(195, 197, 201);
-
 }
-.button{
-  background-color: blue;
-  padding:2%;
+.error{
+  font-size: 70%;
+  color:red;
 }
-
 .input{
-  width:45%
-}
-.card{
-  background-color: rgb(195, 197, 201); 
+  min-width: 280;;
+  max-width: 500px;
 }

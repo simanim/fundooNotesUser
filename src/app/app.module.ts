@@ -7,12 +7,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { ForgotpassComponent } from './component/forgotpass/forgotpass.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule} from '@angular/material';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -20,7 +23,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    DashboardComponent
+    DashboardComponent,
+    ForgotpassComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
