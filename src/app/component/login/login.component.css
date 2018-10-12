@@ -2,3 +2,7 @@
   color:rgb(33, 33, 241);
   text-decoration-line: none;
 }
+.error{
+  font-size: 70%;
+  color:red;
+}

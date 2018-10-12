@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule} from '@angular/material';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ResetComponent } from './component/reset/reset.component';
 
 
 
@@ -24,7 +25,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     LoginComponent,
     SignupComponent,
     DashboardComponent,
-    ForgotpassComponent
+    ForgotpassComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,

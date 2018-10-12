@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,43 +17,48 @@ export class SignupComponent implements OnInit {
     "lastname":"",
     "email":"",
     "password":"",
+    "confpassword":""
   }
   public card=[];
-  constructor(private signupService : HttpService,public snackBar: MatSnackBar){ }
+  constructor(private signupService : HttpService,public snackBar: MatSnackBar,  private router: Router){ }
 
   ngOnInit() {
     let obs = this.signupService.getData("/user/service"); 
     obs.subscribe((response) => {
-      // console.log(response["data"]);
       for(let i=0;i<response["data"].data.length;i++)
       {
         response["data"].data[i].select=false;
         this.card.push(response["data"].data[i]);
       }
-      // console.log(this.card);
     });
   }
 
   response(data){
-    // console.log(data.name);
-    this.service=data.name;
     data.select=!data.select;
+    if(data.select==false){
+      this.service="";
+    }
+    else{
+      this.service=data.name;
+    }
     for(var j=0;j<this.card.length;j++)
     {
       if(data.name==this.card[j].name)
       continue;
       this.card[j].select=false;
-    }//console.log(this.card);
+    }
   }
 
   signup(){
-    if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0)
+    console.log("inn");
+    if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0 || this.model.confpassword.length==0)
     {
-      this.snackBar.open("registration failed","try again", {
+      this.snackBar.open("failed","please fill all the details", {
         duration: 2000,
       });
       return;
     }
+    console.log(this.service);
     if(this.service.length==0){
       this.snackBar.open("card is required","select a card", {
         duration: 2000,
@@ -70,20 +76,13 @@ export class SignupComponent implements OnInit {
     this.signupService.postData("/user/userSignUp", {
     "firstName" : this.model.firstname,
     "lastName" : this.model.lastname,
-    "phoneNumber": "0123456789",
     "service": this.service,
-    "createdDate": "2018-10-10T06:58:34.327Z",
-    "modifiedDate": "2018-10-10T06:58:34.327Z",
-    "username": this.model.email,
     "email": this.model.email,
-    "emailVerified": true,
     "password":this.model.password
     }).subscribe((response) =>{
       console.log("success");
       console.log(response);
-      this.snackBar.open("","registration Successful", {
-        duration: 2000,
-      });
+      this.router.navigateByUrl('/login');
     },(error) => {
       console.log("registration failed");
       console.log(error);

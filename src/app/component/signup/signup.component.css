@@ -20,3 +20,18 @@
   min-width: 280;;
   max-width: 500px;
 }
+.example-form {
+  max-width: 250px;
+  width: 100%;
+}
+.example-form2 {
+  max-width: 300px;
+  width: 100%;
+}
+.logo{
+  color:rgb(34, 34, 148);
+  font-style: oblique;
+  font-weight: 1000;
+  font-size: 200%;
+  text-align:center;
+}

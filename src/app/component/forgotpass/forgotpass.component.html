@@ -6,8 +6,8 @@
     <div fxFlex.lg="40%" fxFlex.md="50%" fxFlex.sm="60%" fxFlex.xs="100%">
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-            <div fxLayoutAlign="center"><img src="../../assets/img/google.webp" height=30% width=30%></div><br>
-            <mat-card-title fxLayoutAlign="center">Find your email</mat-card-title>
+            <div fxLayoutAlign="center" style="margin-top:-10%"><img src="../../assets/img/fundoo.png" height=50% width=50%></div><br>
+            <mat-card-title fxLayoutAlign="center" style="margin-top:-10%">Find your email</mat-card-title>
             <mat-card-actions fxLayoutAlign="center">Enter your recovery email</mat-card-actions>
             
             <mat-form-field style="width:100%">
@@ -18,7 +18,7 @@
                 <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
             </mat-error><br><br><br><br>
 
-            <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Reset</button></div>
+            <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
             <p><a class="a" href="/login">back</a></p>
         </form>
       </mat-card>
