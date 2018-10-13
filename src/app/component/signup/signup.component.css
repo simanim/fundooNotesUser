@@ -20,11 +20,11 @@
   min-width: 280;;
   max-width: 500px;
 }
-.example-form {
+.example-container {
   max-width: 250px;
   width: 100%;
 }
-.example-form2 {
+.example-container2 {
   max-width: 300px;
   width: 100%;
 }

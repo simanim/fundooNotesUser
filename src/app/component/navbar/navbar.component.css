@@ -1,0 +1,51 @@
+.navbar{
+    background-color: #fb0;
+    /* width:100% */
+}.search{
+    padding:8%;
+    width:100%;
+    background-color: rgb(240, 176, 0);
+    border: none;
+    margin-right:400%;
+}
+.searchbutton{
+    background-color: rgb(240, 176, 0);
+    border: none;
+    padding:5% 3% 7% 5%;
+    color:rgb(87, 85, 85);
+    padding-top:5%;
+    margin-left:10%;
+}
+.refresh{
+    margin-left:45%;
+    margin-right:2%;
+    color:rgb(87, 85, 85);
+}
+.app{
+    color:rgb(87, 85, 85);
+    margin-left:7%;
+    margin-right:2%;
+}
+.account{
+    color:rgb(87, 85, 85);
+    margin-left:2%;
+}
+.menu{
+    font-size: 200%;
+    margin-left:2%;
+    margin-right:2%;
+}
+
+
+
+.example-container {
+    width: 20%;
+    height: 500px;
+    border:none;
+    overflow-y: scroll;
+  }
+  .button{
+       background-color: #fb0;
+      border:none;
+      border-radius:50%;
+  }

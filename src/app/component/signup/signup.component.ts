@@ -50,7 +50,6 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
-    console.log("inn");
     if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0 || this.model.confpassword.length==0)
     {
       this.snackBar.open("failed","please fill all the details", {
@@ -65,14 +64,33 @@ export class SignupComponent implements OnInit {
       });
       return;
     }
-
     if(this.model.password != this.model.confpassword){
       this.snackBar.open("failed","passwords are not matching", {
         duration: 2000,
       });
       return;
     }
-
+    var regexName = /^[a-z]+(([',. -][ a-z])?[a-z]*)*$/;
+    var regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if(regexName.test(this.model.firstname) == false){
+      this.snackBar.open("failed","invalid firstname", {
+        duration: 2000,
+      });
+      return;
+    }
+    if(regexName.test(this.model.lastname) == false){
+      this.snackBar.open("failed","invalid lastname", {
+        duration: 2000,
+      });
+      return;
+    }
+    if(regexEmail.test(this.model.email) == false){
+      this.snackBar.open("failed","invalid email", {
+        duration: 2000,
+      });
+      return;
+    }
+    
     this.signupService.postData("/user/userSignUp", {
     "firstName" : this.model.firstname,
     "lastName" : this.model.lastname,

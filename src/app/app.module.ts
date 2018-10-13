@@ -16,7 +16,9 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule} from '@angular/material';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ResetComponent } from './component/reset/reset.component';
-
+import { NavbarComponent } from './component/navbar/navbar.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { ResetComponent } from './component/reset/reset.component';
     SignupComponent,
     DashboardComponent,
     ForgotpassComponent,
-    ResetComponent
+    ResetComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { ResetComponent } from './component/reset/reset.component';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatToolbarModule,MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
