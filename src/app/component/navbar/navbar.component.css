@@ -1,51 +1,66 @@
 .navbar{
     background-color: #fb0;
-    /* width:100% */
-}.search{
-    padding:8%;
     width:100%;
-    background-color: rgb(240, 176, 0);
+    /* justify-content: space-evenly; */
+}
+.search{
+    padding:2%;
+    width:80%;
+    background-color: transparent;
     border: none;
-    margin-right:400%;
+}
+.searchbr{
+    background-color: rgb(240, 176, 0);
+    height:150%;
+    margin-bottom:-2%;
 }
 .searchbutton{
-    background-color: rgb(240, 176, 0);
+    background-color: transparent;
     border: none;
-    padding:5% 3% 7% 5%;
-    color:rgb(87, 85, 85);
-    padding-top:5%;
-    margin-left:10%;
+    padding-bottom: 2%;
+    cursor: pointer;
 }
-.refresh{
-    margin-left:45%;
-    margin-right:2%;
-    color:rgb(87, 85, 85);
+.button{
+    background-color: #fb0;
+    border:none;
+    /* margin-right:2%; */
+    cursor: pointer;
 }
 .app{
-    color:rgb(87, 85, 85);
-    margin-left:7%;
-    margin-right:2%;
+    background-color: #fb0;
+    border:none;
+    /* margin-left:5%; */
+    /* margin-right:2%; */
+    cursor: pointer;
 }
-.account{
-    color:rgb(87, 85, 85);
-    margin-left:2%;
+.refresh{
+    background-color: #fb0;
+    border:none;
+    /* margin-left:40%; */
+    /* margin-right:2%; */
+    cursor: pointer;
 }
-.menu{
-    font-size: 200%;
-    margin-left:2%;
-    margin-right:2%;
-}
-
 
 
 .example-container {
-    width: 20%;
-    height: 500px;
-    border:none;
-    overflow-y: scroll;
-  }
-  .button{
-       background-color: #fb0;
-      border:none;
-      border-radius:50%;
-  }
+    width: 22%;
+    height: 87%;
+    background-color: #e8e8e8;
+}
+.example-sidenav {
+    background-color: #e8e8e8;
+  width:100%;
+}
+.plus{
+   margin-left:30%;
+}
+.buttonicon{
+    width:95%;
+    text-align: start;
+}
+.name{
+    margin-left:30%;
+} 
+.edit{
+    margin-left:20%;
+}
