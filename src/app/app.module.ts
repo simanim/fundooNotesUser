@@ -19,6 +19,7 @@ import { ResetComponent } from './component/reset/reset.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { NotesComponent } from './component/notes/notes.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     DashboardComponent,
     ForgotpassComponent,
     ResetComponent,
-    NavbarComponent
+    NavbarComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

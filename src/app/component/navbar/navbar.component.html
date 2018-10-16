@@ -1,4 +1,103 @@
-<div class="navbar" ngStyle.xs="height:40px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
+
+<div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
+    <mat-toolbar-row>
+      <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
+          <div fxFlex="5%"></div>
+          <div fxLayout="row" fxFlex="100%" >
+
+            <div class="example-sidenav-content">
+              <button class="button" type="button" (click)="drawer.toggle()">
+                <i class="material-icons"
+                ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">menu</i>
+              </button>
+            </div>
+
+            <span fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" style="margin-left:10px" >Fundoo Keep</span>
+            <span  class="person" ngStyle.xs="font-size:20px" ngStyle.sm="font-size:20px" fxHide.md=true fxHide.lg=true fxHide.xl=true class="keep" >Keep</span>
+
+            <button class="searchbutton">
+              <i class="material-icons">search</i>
+            </button>
+            <input type="text" class="search" placeholder="Search.." name="search"ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" fxHide.xs=true>
+            
+            <button class="refresh"><i class="material-icons"
+              ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">refresh</i>
+            </button>
+            
+            <button class="button"><i class="material-icons"
+                fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">view_stream</i>
+            </button>
+
+            <button class="person" ><i class="material-icons"
+              fxHide.xs=true ngStyle.sm="font-size:25px" ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">apps</i>
+            </button>
+            
+            <button class="button"><i class="material-icons"
+              fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">notifications</i>
+            </button>
+
+            <button class="button">
+              <i class="material-icons" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">account_circle</i>
+            </button>
+      </div>
+      <div fxFlex="5%"></div></div>
+       </mat-toolbar-row>
+    </div>
+  
+    <mat-drawer-container class="example-container"autosize>
+
+        <mat-drawer #drawer class="example-sidenav"  mode="side" opened >
+          <p><button mat-button class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Notes</small></button></p>
+          <p><button mat-button class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminders</small></button></p><hr>
+          
+          <p>
+            <small style="margin-left:10%">Labels</small>
+            <button mat-button class="edit"><small >EDIT</small></button>
+          </p>
+          <p><button mat-button style="width:95%"><i class="material-icons">add</i> <span class="plus">Create new label</span></button></p><hr>
+      
+          <p><button mat-button class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></button></p>
+          <p><button mat-button class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></button></p><hr>
+      
+          <p><button mat-button class="buttonicon"><i class="material-icons">settings</i><small class="name">Settings</small></button></p>
+          <p><button mat-button class="buttonicon"><i class="material-icons">feedback</i><small class="name">send feedback</small></button></p>
+          <p><button mat-button class="buttonicon"><i class="material-icons">help</i><small class="name">help</small></button></p>
+          <p><button mat-button class="buttonicon"><img src="../../../assets/img/appdownload.svg"><small class="name">App download</small></button></p>
+          <p><button mat-button class="buttonicon"><i class="material-icons">keyboard</i><small class="name">Keyboard shortcuts</small></button></p>
+      
+          <div style="margin-left:5%">
+            <button mat-button>
+              <span>privacy</span>
+            </button>
+            <button mat-button>
+              <span>terms</span>
+            </button>
+          </div>
+          <div style="margin-left:8%">
+            <button mat-button><span>Open-source licenses</span>
+            </button>
+          </div>
+        </mat-drawer>
+      <app-notes></app-notes>
+        
+      </mat-drawer-container>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="navbar" ngStyle.xs="height:40px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
   <mat-toolbar-row>
     <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
         <div fxFlex="5%"></div>
@@ -15,7 +114,7 @@
               <i class="material-icons" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:14px" ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">search</i>
             </button>
             <input type="text" class="search" placeholder="Search.." name="search"
-            ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px">
+            ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" fxHide.xs=true>
           </div>
 
           <div fxFlex="4.9%" style="text-align:left">
@@ -39,31 +138,44 @@
     </div>
     <div fxFlex="5%"></div></div>
      </mat-toolbar-row>
-  </div>
+  </div> -->
 
 
 
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p><button mat-button class="buttonicon"><img src="../../../assets/img/notes.svg" ><small  class="name"ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Notes</small></button></p>
-    <p><button mat-button class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Reminders</small></button></p><hr>
+<!-- <mat-drawer-container class="example-container"autosize>
+
+  <mat-drawer #drawer class="example-sidenav"  ngStyle.xs="width:33%" ngStyle.sm="width:26%" ngStyle.md="width:25%" ngStyle.lg="width:20%" ngStyle.xl="width:20%" mode="side">
+    <p><button mat-button class="buttonicon"><img src="../../../assets/img/notes.svg" ngStyle.xs="width:10px" ngStyle.sm="width:15px" ngStyle.md="width:18px" ngStyle.lg="width:20px"><small  class="name"ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Notes</small></button></p>
+    <p><button mat-button class="buttonicon"><img src="../../../assets/img/reminder.svg" ngStyle.xs="width:10px" ngStyle.sm="width:15px" ngStyle.md="width:18px" ngStyle.lg="width:20px"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Reminders</small></button></p><hr>
     
     <p>
       <small style="margin-left:10%"ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Labels</small>
       <button mat-button class="edit" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px"><small >EDIT</small></button>
     </p>
-    <p><button mat-button style="width:95%"><i class="material-icons">add</i> <span ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px" class="plus">Create new label</span></button></p><hr>
+    <p><button mat-button style="width:95%"><i class="material-icons" ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:25px">add</i> <span ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px" class="plus">Create new label</span></button></p><hr>
 
-    <p><button mat-button class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Archive</small></button></p>
-    <p><button mat-button class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Trash</small></button></p><hr>
+    <p><button mat-button class="buttonicon"><img src="../../../assets/img/archive.svg" ngStyle.xs="width:10px" ngStyle.sm="width:15px" ngStyle.md="width:18px" ngStyle.lg="width:20px"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Archive</small></button></p>
+    <p><button mat-button class="buttonicon"><img src="../../../assets/img/trash.svg" ngStyle.xs="width:10px" ngStyle.sm="width:15px" ngStyle.md="width:18px" ngStyle.lg="width:20px"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Trash</small></button></p><hr>
 
-    <p><button mat-button class="buttonicon"><i class="material-icons">settings</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Settings</small></button></p>
-    <p><button mat-button class="buttonicon"><i class="material-icons">feedback</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">send feedback</small></button></p>
-    <p><button mat-button class="buttonicon"><i class="material-icons">help</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">help</small></button></p>
-    <p><button mat-button class="buttonicon"><img src="../../../assets/img/appdownload.svg"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">App download</small></button></p>
-    <p><button mat-button class="buttonicon"><i class="material-icons">keyboard</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Keyboard shortcuts</small></button></p>
+    <p><button mat-button class="buttonicon"><i class="material-icons" ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:18px" ngStyle.lg="font-size:20px">settings</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Settings</small></button></p>
+    <p><button mat-button class="buttonicon"><i class="material-icons" ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:18px" ngStyle.lg="font-size:20px">feedback</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">send feedback</small></button></p>
+    <p><button mat-button class="buttonicon"><i class="material-icons" ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:18px" ngStyle.lg="font-size:20px">help</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">help</small></button></p>
+    <p><button mat-button class="buttonicon"><img src="../../../assets/img/appdownload.svg" ngStyle.xs="width:10px" ngStyle.sm="width:15px" ngStyle.md="width:18px" ngStyle.lg="width:20px"><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">App download</small></button></p>
+    <p><button mat-button class="buttonicon"><i class="material-icons" ngStyle.xs="font-size:10px" ngStyle.sm="font-size:15px" ngStyle.md="font-size:18px" ngStyle.lg="font-size:20px">keyboard</i><small class="name" ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Keyboard shortcuts</small></button></p>
 
-    <div style="margin-left:5%"><button mat-button><small>privacy</small></button><button mat-button><small>terms</small></button></div>
-    <div style="margin-left:8%"><button mat-button><small>Open-source licenses</small></button></div>
+    <div style="margin-left:5%">
+      <button mat-button>
+        <span ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">privacy</span>
+      </button>
+      <button mat-button>
+        <span ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">terms</span>
+      </button>
+    </div>
+    <div style="margin-left:8%">
+      <button mat-button><span ngStyle.xs="font-size:8px" ngStyle.sm="font-size:10px" ngStyle.md="font-size:12px" ngStyle.lg="font-size:13px">Open-source licenses</span>
+      </button>
+    </div>
   </mat-drawer>
-</mat-drawer-container>
+<app-notes></app-notes>
+  
+</mat-drawer-container> -->
