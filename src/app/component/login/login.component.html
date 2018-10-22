@@ -4,11 +4,11 @@
     <div fxFlex.lg="35%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
 
     <div fxFlex.lg="30%" fxFlex.md="50%" fxFlex.sm="60%" fxFlex.xs="100%">
-      <mat-card  >
+      <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
           <div fxLayoutAlign="center" style="margin-top: -10%"><img src="../../assets/img/fundoo.png" height=50% width=50%></div><br>
-          <mat-card-title fxLayoutAlign="center" style="margin-top: -10%">Sign in</mat-card-title>
-          <mat-card-actions fxLayoutAlign="center">Continue to Fundoo</mat-card-actions>
+          <mat-card-title fxLayoutAlign="center" style="margin-top: -10%"><h3>Sign in</h3></mat-card-title>
+          <mat-card-title fxLayoutAlign="center">Continue to Fundoo</mat-card-title>
 
           <mat-form-field style="width:100%">
             <input matInput placeholder="Email Id" [(ngModel)]="model.email" name="email" 

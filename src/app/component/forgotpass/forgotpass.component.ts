@@ -14,10 +14,17 @@ export class ForgotpassComponent implements OnInit {
 
   ngOnInit() {
   }
-
+ /**
+  * 
+  * @description reset of password
+  */
   reset(){
     if(this.model.email.length==0)
     {
+     /**
+      * 
+      * @description checking the email is entered or not
+      */
       this.snackBar.open("failed","please enter email", {
         duration: 2000,
       });
@@ -25,19 +32,21 @@ export class ForgotpassComponent implements OnInit {
     }
     this.resetService.postData("/user/reset", {
       "email": this.model.email
-     }).subscribe((response) =>{
-       console.log("Set password link sent to you registered email, please check");
-       this.snackBar.open("check your email","Set password link sent to you registered email", {
-        duration: 2000,
+    }).subscribe(
+    (response) =>{
+      console.log("Set password link sent to you registered email, please check");
+      this.snackBar.open("check your email","Set password link sent to you registered email", {
+      duration: 2000,
       });
-       console.log(response);
-     },(error) => {
-       console.log("login unsuccess");
-       console.log(error);
-       if(error.status==404)
-       this.snackBar.open("failed","email not found", {
+    },
+    (error) => {
+      console.log("login unsuccess");
+      console.log(error);
+      if(error.status==404){
+        this.snackBar.open("failed","email not found", {
          duration: 2000,
-       });
-     });
+        });
+      }
+    });
   }
 }

@@ -1,60 +1,94 @@
-<!-- <div fxLayout="column" fxLayoutGap="2%" fxFlex="100%">
-  <div fxFlex=20%>
-    <mat-toolbar class="navbar">
-    <mat-toolbar-row>
-      <span class="menu"><button class="button" (click)="drawer.toggle()"><i class="material-icons">menu</i></button></span> 
-      <span>Fundoo Keep</span>
-      <form>
-        <span class="searchbutton"><i class="material-icons">search</i></span>
-        <input type="text" placeholder="Search.." class="search" name="search"> 
-      </form>
-      <span class="refresh"><i class="material-icons">refresh</i></span>
-      <span style="color:rgb(87, 85, 85)"><i class="material-icons">view_stream</i></span>
-      <span class="app"><i class="material-icons">apps</i></span>
-      <span style="color:rgb(87, 85, 85)"><i class="material-icons">notifications</i></span>
-      <span class="account"><i class="material-icons">person</i></span>
-     </mat-toolbar-row>
-</mat-toolbar>
-</div>
-<div fxFlex=80%>
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
-      
-    </mat-drawer>
-  
-  </mat-drawer-container>
-  
-</div>
-  </div> -->
+<div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
+  <mat-toolbar-row>
+    <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
+      <div fxFlex="5%"></div>
+      <div fxLayout="row" fxFlex="100%" >
 
+        <div fxFlex.xl="2%" fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
 
-  
+        <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
+          <div class="example-sidenav-content">
+              <button class="button" type="button" (click)="drawer.toggle()">
+                <mat-icon ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">menu</mat-icon>
+              </button>
+            </div>
+          </div>
 
-<div fxLayout="column">
-  <div fxFlex="0%"></div>
-  <div  fxLayout="row" fxFlex="100%">
-    <div fxFlex="0%"></div>
-    
-    <div fxFlex="100%" style="background-color:#fb0">
-      <mat-toolbar >
-         <mat-toolbar-row class="navbar">
-                     <span><button (click)="drawer.toggle()"><i class="material-icons">menu</i></button></span> 
-                    <span>Fundoo Keep</span>
-              <form>
-                <span class="searchbutton"><i class="material-icons">search</i></span>
-                <!-- <input type="text" placeholder="Search.." class="search" name="search">  -->
-              </form>
-              <span><i class="material-icons">refresh</i></span>
-              <span style="color:rgb(87, 85, 85)"><i class="material-icons">view_stream</i></span>
-              <span ><i class="material-icons">apps</i></span>
-              <span style="color:rgb(87, 85, 85)"><i class="material-icons">notifications</i></span>
-              <span ><i class="material-icons">person</i></span> 
-             </mat-toolbar-row>
-        </mat-toolbar> 
+          <div fxFlex.xl="15%" fxFlex.lg="15%" fxFlex.md="15%" fxFlex.sm="30%" fxFlex.xs="0%">
+            <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" ngStyle.xl="font-size:25px">Fundoo Keep</span>
+          </div>
+          <div fxFlex.xl="0%" fxFlex.lg="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="30%">
+            <span ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Keep</span>
+          </div>
+
+          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="3%" fxFlex.sm="5%" fxFlex.xs="10%" style="background-color:rgb(240, 176, 0);padding:0.9%"> 
+            <button class="searchbutton"><mat-icon>search</mat-icon></button>
+          </div>
+
+          <div fxFlex.xl="51%" fxFlex.lg="51%" fxFlex.md="50%" fxFlex.sm="25%" fxFlex.xs="20%">
+            <input type="text"  class="search" placeholder="Search.." name="search" ngStyle.lg="font-size:16px" ngStyle.md="font-size:13px" ngStyle.sm="font-size:13px" fxHide.xs=true>
+          </div>
+
+          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%" ></div>
+
+          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
+            <button class="button">
+              <mat-icon ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" (click)="refresh()">refresh</mat-icon>
+            </button>
+          </div>
+
+          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="0%">
+            <button class="button">
+              <mat-icon fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">view_stream</mat-icon>
+            </button>
+          </div>
+
+          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
+            <button class="button" (click)="account()">
+              <mat-icon ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">account_circle</mat-icon>
+            </button>
+          </div>
+
+          <div fxFlex.xl="2%" fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+      </div>
+      <div fxFlex="5%"></div>
     </div>
-
-    <div fxFlex="0%"></div>
-  </div>
-  <div fxFlex="0%"></div>
+  </mat-toolbar-row>
 </div>
+
+<mat-card class="account" *ngIf="signoutCard">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>Simani Meher</mat-card-title>
+    <mat-card-subtitle>simanimeher@gmail.com</mat-card-subtitle>
+  </mat-card-header>
+  <div><button mat-raised-button color="primary">Fundoo Account</button></div><hr>
+  <button style="float: right" class="signout" (click)="logout()">Sign out</button>
+</mat-card>
+  
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer class="example-sidenav"  mode="side" closed >
+    <p class="side_icon"><a routerLink="/navbar/notes" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p><hr>
+          
+    <p><small style="margin-left:10%">Labels</small><button mat-button class="edit"><small >EDIT</small></button></p>
+    <p><button mat-button style="width:95%"><i class="material-icons">add</i> <span class="plus">Create new label</span></button></p><hr>
+
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p><hr>
+      
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">settings</i><small class="name">Settings</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">feedback</i><small class="name">send feedback</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">help</i><small class="name">help</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/appdownload.svg"><small class="name">Archive</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">keyboard</i><small class="name">Keyboard shortcuts</small></a></p>
+
+    <div style="margin-left:5%">
+      <button mat-button><span>privacy</span></button>
+      <button mat-button><span>terms</span></button>
+    </div>
+    <div style="margin-left:8%"><button mat-button><span>Open-source licenses</span></button></div>
+    <p></p>
+  </mat-drawer>
+  <router-outlet></router-outlet>
+</mat-drawer-container>

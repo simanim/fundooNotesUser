@@ -21,8 +21,15 @@ export class ResetComponent implements OnInit {
   ngOnInit() {
   }
   public id = this.route.snapshot.params.id
+  /**
+  * 
+  * @description password reset
+  */
   reset(){
-    console.log("inn");
+   /**
+    * 
+    * @description checking the passwords are matching or not
+    */
     if(this.model.password != this.model.confpassword)
     {
       this.snackBar.open("failed","passwords are not matching", {
@@ -30,10 +37,15 @@ export class ResetComponent implements OnInit {
       });
       return;
     }
+
     var body={ "newPassword": this.model.password}
     this.resetService.postDataReset("/user/reset-password", body,this.id)
     .subscribe((response) =>{
        console.log("password successfully changed");
+     /**
+      * 
+      * @description if the reset password is success then it will directly take to login page
+      */
        this.router.navigateByUrl('/login');
      },(error) => {
        console.log("unsuccess");

@@ -1,51 +1,88 @@
 .navbar{
     background-color: #fb0;
-    /* width:100% */
-}.search{
-    padding:8%;
-    width:100%;
-    background-color: rgb(240, 176, 0);
-    border: none;
-    margin-right:400%;
+}
+.button{
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    opacity:0.5;
+}
+.button:hover{
+    background-color:rgb(240, 176, 0);
+    border-radius: 50%;
 }
 .searchbutton{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity:0.6;
+}
+.search{
+    padding:2%;
     background-color: rgb(240, 176, 0);
     border: none;
-    padding:5% 3% 7% 5%;
-    color:rgb(87, 85, 85);
-    padding-top:5%;
-    margin-left:10%;
+    width:90%;
+    /* padding-left:10%; */
+} 
+input:focus{
+    background-color: white;
 }
-.refresh{
-    margin-left:45%;
-    margin-right:2%;
-    color:rgb(87, 85, 85);
-}
-.app{
-    color:rgb(87, 85, 85);
-    margin-left:7%;
-    margin-right:2%;
-}
+
 .account{
-    color:rgb(87, 85, 85);
-    margin-left:2%;
+    width:20%;
+    float: right;
+    margin:0% 1% -20% 0%;
+    z-index: 2;
 }
-.menu{
-    font-size: 200%;
-    margin-left:2%;
-    margin-right:2%;
+
+.signout{
+    background-color: transparent;
+    padding:3%;
+    border:1px solid rgb(211, 210, 210);
+    cursor: pointer;
 }
 
 
+.person{
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    margin-left:5%;
+}
 
 .example-container {
-    width: 20%;
-    height: 500px;
-    border:none;
-    overflow-y: scroll;
-  }
-  .button{
-       background-color: #fb0;
-      border:none;
-      border-radius:50%;
+    height: 89%;
+    width:100%;
+    background-color: #e8e8e8;
+}
+.example-sidenav {
+    background-color: #e8e8e8;
+    width:315px;
+}
+.plus{
+   margin-left:10%;
+}
+.buttonicon{
+    margin-left:15%;
+    text-decoration-line: none;
+}
+.name{
+    margin-left:20%;
+    color:black;
+    margin-top:-4%;
+} 
+.edit{
+    margin-left:25%;
+}
+.side_icon{
+    width:90%;
+    padding:2% 0% 2% 0%;
+
+opacity:0.7;}
+.side_icon:hover{
+    background-color: rgb(211, 210, 210);
+}
+.example-header-image {
+    background-color: pink;
+    background-size: cover;
   }

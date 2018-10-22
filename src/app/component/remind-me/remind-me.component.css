@@ -1,0 +1,14 @@
+.card_layout{
+    width:20%;
+    margin-top:-1%;
+    border:1px solid rgb(223, 221, 221);
+}
+p{
+    padding:2%;
+    width:100%;
+    cursor: pointer;
+    font-size: 13px;
+}
+p:hover{
+    background-color: rgb(212, 212, 212);
+}

@@ -13,12 +13,15 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule} from '@angular/material';
+import {MatInputModule,MatButtonModule,MatCardModule,MatIconModule,MatListModule} from '@angular/material';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ResetComponent } from './component/reset/reset.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { NotesComponent } from './component/notes/notes.component';
+import { RouterModule, Routes } from '@angular/router';
+import { RemindMeComponent } from './component/remind-me/remind-me.component';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     DashboardComponent,
     ForgotpassComponent,
     ResetComponent,
-    NavbarComponent
+    NavbarComponent,
+    NotesComponent,
+    RemindMeComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatCardModule,
     MatIconModule,
     MatSnackBarModule,
-    MatToolbarModule,MatSidenavModule
+    MatToolbarModule,MatSidenavModule,RouterModule,MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

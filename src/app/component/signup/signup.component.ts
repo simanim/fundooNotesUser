@@ -23,6 +23,10 @@ export class SignupComponent implements OnInit {
   constructor(private signupService : HttpService,public snackBar: MatSnackBar,  private router: Router){ }
 
   ngOnInit() {
+   /**
+    * 
+    * @description getting the service cards
+    */
     let obs = this.signupService.getData("/user/service"); 
     obs.subscribe((response) => {
       for(let i=0;i<response["data"].data.length;i++)
@@ -50,6 +54,10 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
+   /**
+    * 
+    * @description checking the details are filled or not
+    */
     if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0 || this.model.confpassword.length==0)
     {
       this.snackBar.open("failed","please fill all the details", {
@@ -57,19 +65,31 @@ export class SignupComponent implements OnInit {
       });
       return;
     }
-    console.log(this.service);
+   /**
+    * 
+    * @description card selection
+    */
     if(this.service.length==0){
       this.snackBar.open("card is required","select a card", {
         duration: 2000,
       });
       return;
     }
+   /**
+    * 
+    * @description checking the passwords are matching
+    */
     if(this.model.password != this.model.confpassword){
       this.snackBar.open("failed","passwords are not matching", {
         duration: 2000,
       });
       return;
     }
+
+   /**
+    * 
+    * @description validation for names and email
+    */
     var regexName = /^[a-z]+(([',. -][ a-z])?[a-z]*)*$/;
     var regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     if(regexName.test(this.model.firstname) == false){
@@ -100,6 +120,10 @@ export class SignupComponent implements OnInit {
     }).subscribe((response) =>{
       console.log("success");
       console.log(response);
+     /**
+      * 
+      * @description if the registration is success then it will directly take to login page
+      */
       this.router.navigateByUrl('/login');
     },(error) => {
       console.log("registration failed");
