@@ -1,0 +1,17 @@
+<div fxLayoutAlign="center" >
+  <div class="main" fxFlex.xl="750px" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="750px" fxFlex.xs="300px">
+      <mat-card *ngFor="let data of array" class="div">
+              <mat-card-subtitle><h2>{{data.title}}</h2></mat-card-subtitle>
+              <mat-card-content>{{data.description}}</mat-card-content>
+              <abbr title="Remind me"><a><img src="../../../assets/img/reminder.1.svg" style=" padding-right:1%;opacity:0.6"></a></abbr>
+              <abbr title="Collaborator"><mat-icon class="card2" >person_add</mat-icon></abbr>
+              <abbr title="Change color"><mat-icon class="card2" >palette</mat-icon></abbr>
+              <abbr title="Add image"><mat-icon class="card2" >panorama</mat-icon></abbr>
+              <abbr title="Archive"><mat-icon class="card2" >archive</mat-icon></abbr>
+              <abbr title="More"><mat-icon class="card2" >more_vert</mat-icon></abbr>
+         
+          
+      </mat-card>
+
+  </div>
+</div>

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     "password":""
   }
   constructor(private loginService : HttpService, public snackBar: MatSnackBar,private router: Router) { }
-
+  
   ngOnInit() {
   }
  /**
@@ -51,7 +51,9 @@ export class LoginComponent implements OnInit {
      "password":this.model.password
     }).subscribe((response) =>{
       console.log(response);
-      localStorage.setItem("fundooUserId",response["id"]);
+      localStorage.setItem("fundooUserToken",response["id"]);
+      localStorage.setItem("fundooUserId",response["userId"]);
+
       /**
       * 
       * @description if the login is success then it will directly take to dashboard page

@@ -1,4 +1,4 @@
-<div fxLayoutAlign="center">
+<div fxLayoutAlign="center" *ngIf="remind" (click)="reminder()">
   <mat-card class="card_layout">
     <span style="margin-left: 2%; font-size:15px">Reminder:</span>
     <p><span>Later today</span><span style="float:right">8:00 PM</span></p>

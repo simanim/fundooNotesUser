@@ -17,22 +17,10 @@ export class HttpService {
     return this.http.post(this.URL+"/"+path,body);
   }
 
-  // postDataReset(path,body,id){
-  //   console.log(id);
-  //   const httpOptions = {
-  //     headers:new HttpHeaders({
-  //       "content-type": "application/json",
-  //       "Authorization":id
-  //     })
-  //   };
-  //   console.log(httpOptions)
-  //   return this.http.post(this.URL+"/"+path,body,httpOptions);
-  // }
-
-  postDataReset(adress,bodydata,acessToken)
+  postDataReset(path,bodydata,acessToken)
   {
-    console.log(acessToken);
-    console.log(bodydata);
+    // console.log(acessToken);
+    // console.log(bodydata);
     
     var httpAuthOptions1 = {
       headers: new HttpHeaders({
@@ -43,7 +31,20 @@ export class HttpService {
     };
     
   
-    return this.http.post(this.URL+"/"+adress,this.getFormUrlEncoded(bodydata),httpAuthOptions1)
+    return this.http.post(this.URL+"/"+path,this.getFormUrlEncoded(bodydata),httpAuthOptions1)
+  }
+  getDataNotes(path,accesstoken)
+  {
+    var httpAuthOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': accesstoken
+      })
+
+    };
+    
+  
+    return this.http.get(this.URL+"/"+path,httpAuthOptions1)
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];

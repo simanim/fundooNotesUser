@@ -9,15 +9,15 @@
 <div fxLayoutAlign="center" *ngIf="popupCard">
   <mat-card class="card">
     <div fxLayout="row">
-      <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea" style="font-weight: 600"></div>
+      <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea" style="font-weight: 600"  id="title"></div>
       <div fxFlex="10%" class="card2"><img src="../../../assets/img/pin.svg"></div>
-      </div>
+    </div>
       <!-- <mat-icon class="card2" (click)="star()" *ngIf="star_border">star_border</mat-icon> -->
       <!-- <mat-icon class="card2" (click)="star()" *ngIf="star_filled" style="color:blue">star</mat-icon> -->
-    <div data-text="Take a Note..." contenteditable="true" class="textarea"></div>
+    <div data-text="Take a Note..." contenteditable="true" class="textarea" id="description"></div>
 
     <abbr title="Remind me"><a routerLink="/navbar/notes/remind" routerLinkActive="active">
-      <img src="../../../assets/img/reminder.svg" style=" padding-right:1%;opacity:0.6"></a></abbr>
+      <img src="../../../assets/img/reminder.svg" style="opacity:0.6;margin-right:1%"></a></abbr>
 
     <abbr title="Collaborator"><mat-icon class="card2" >person_add</mat-icon></abbr>
     <abbr title="Change color"><mat-icon class="card2" >palette</mat-icon></abbr>
@@ -26,9 +26,11 @@
     <abbr title="More"><mat-icon class="card2" >more_vert</mat-icon></abbr>
     <abbr title="Undo"><mat-icon class="card2" >undo</mat-icon></abbr>
     <abbr title="Redo"><mat-icon class="card2" >redo</mat-icon></abbr>
-    <button mat-button style="float: right" (click)="openDialog()">close</button>
+    <button mat-button style="float: right" (click)="send()">close</button>
+    <!-- <a (click)="send()"  routerLinkActive="active" style="text-decoration-line: none;border:1px solid gray;padding:1%;color:gray">close</a> -->
   </mat-card>
  
 </div>
 <div>
 <router-outlet></router-outlet></div>
+<app-notes-add></app-notes-add>

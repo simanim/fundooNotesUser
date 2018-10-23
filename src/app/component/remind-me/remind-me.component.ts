@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RemindMeComponent implements OnInit {
 
+  public remind:boolean=false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  reminder(){
+    this.remind=false;
+  }
 }

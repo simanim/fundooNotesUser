@@ -21,18 +21,22 @@ export class NavbarComponent implements OnInit {
     console.log("refresh")
     this.router.navigateByUrl('/dashboard');
   }
-  // logout(){
-  //   var id=localStorage.getItem("fundooUserId");
-  //   console.log(id);
-  //   this.navbarService.postDataReset("/user/logout", {},id
-  //   )
-  //   .subscribe(
-  //     (response) =>{
-  //       console.log(response);
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+  logout(){
+    var token=localStorage.getItem("fundooUserToken");
+    console.log(token);
+    console.log("logout")
+    this.navbarService.postDataReset("/user/logout", {},token
+    )
+    .subscribe(
+      (response) =>{
+        console.log("in ")
+        localStorage.removeItem("fundooUserToken");
+        localStorage.removeItem("fundooUserId");
+        this.router.navigateByUrl('/login');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }

@@ -1,0 +1,17 @@
+.main{
+    display: -webkit-flex;
+    -webkit-flex-wrap: wrap; 
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:2%;
+}
+.div{
+    width:190px;
+    margin:3px;
+}
+.card2{
+    padding-left:5%;
+    cursor: pointer;
+    opacity: 0.7;
+    font-size: 20px;
+}

@@ -1,61 +1,53 @@
 <div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
-  <mat-toolbar-row>
-    <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
-      <div fxFlex="5%"></div>
-      <div fxLayout="row" fxFlex="100%" >
+    <mat-toolbar-row>
+      <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
+          <div fxFlex="5%"></div>
+          <div fxLayout="row" fxFlex="100%" >
+            <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
 
-        <div fxFlex.xl="2%" fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
-
-        <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
-          <div class="example-sidenav-content">
+            <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+            <div class="example-sidenav-content">
               <button class="button" type="button" (click)="drawer.toggle()">
-                <mat-icon ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">menu</mat-icon>
+                <i class="material-icons"
+                ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">menu</i>
               </button>
+            </div></div>
+            <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%">
+              <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" ngStyle.xl="font-size:25px" style="margin-left:10px" >Fundoo Keep</span>
             </div>
-          </div>
+            <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%">
+               <span  class="person" ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true class="keep" >Keep</span>
+            </div>
 
-          <div fxFlex.xl="15%" fxFlex.lg="15%" fxFlex.md="15%" fxFlex.sm="30%" fxFlex.xs="0%">
-            <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" ngStyle.xl="font-size:25px">Fundoo Keep</span>
-          </div>
-          <div fxFlex.xl="0%" fxFlex.lg="0%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="30%">
-            <span ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Keep</span>
-          </div>
+            <div fxFlex.xs="30%" fxFlex.sm="45%" fxFlex.md="56%" fxFlex.lg="56%" fxFlex.xl="56%">
+            <button class="searchbutton">
+              <i class="material-icons">search</i>
+            </button>
+            <input type="text" class="search" placeholder="Search.." name="search"ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" fxHide.xs=true>
+            </div>
 
-          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="3%" fxFlex.sm="5%" fxFlex.xs="10%" style="background-color:rgb(240, 176, 0);padding:0.9%"> 
-            <button class="searchbutton"><mat-icon>search</mat-icon></button>
+            <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+            <button class="refresh"><i class="material-icons"
+              ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">refresh</i>
+            </button>
           </div>
+            
+          <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+            <button class="button"><i class="material-icons"
+                fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">view_stream</i>
+            </button></div>
 
-          <div fxFlex.xl="51%" fxFlex.lg="51%" fxFlex.md="50%" fxFlex.sm="25%" fxFlex.xs="20%">
-            <input type="text"  class="search" placeholder="Search.." name="search" ngStyle.lg="font-size:16px" ngStyle.md="font-size:13px" ngStyle.sm="font-size:13px" fxHide.xs=true>
-          </div>
-
-          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%" ></div>
-
-          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
+            <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
             <button class="button">
-              <mat-icon ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" (click)="refresh()">refresh</mat-icon>
-            </button>
-          </div>
-
-          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="0%">
-            <button class="button">
-              <mat-icon fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">view_stream</mat-icon>
-            </button>
-          </div>
-
-          <div fxFlex.xl="5%" fxFlex.lg="5%" fxFlex.md="5%" fxFlex.sm="5%" fxFlex.xs="10%">
-            <button class="button" (click)="account()">
-              <mat-icon ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">account_circle</mat-icon>
-            </button>
-          </div>
-
-          <div fxFlex.xl="2%" fxFlex.lg="2%" fxFlex.md="2%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+              <i class="material-icons" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" (click)="account()">account_circle</i>
+            </button></div>
+            <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
       </div>
       <div fxFlex="5%"></div>
     </div>
-  </mat-toolbar-row>
-</div>
-
+       </mat-toolbar-row>
+    </div>
+  
 <mat-card class="account" *ngIf="signoutCard">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>

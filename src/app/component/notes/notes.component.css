@@ -22,4 +22,12 @@
     content: attr(data-text);
     opacity: 0.5;
     font-size: 14px;
+    width:60%;
+    height:10%;
+    margin-top:2%;
+}
+.text{
+    width:100%;
+    height:300%;
+    border: none;
 }
