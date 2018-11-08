@@ -1,3 +1,14 @@
+/******************************************************************************
+ *  Execution       :   1. default node         cmd> notes.component.ts 
+ *
+ *  Purpose         : To display the notes page
+ * 
+ *  @file           : notes.component.ts
+ *  @author         : simani meher
+ *  @version        : 1.0
+ *  @since          : 19-10-2018
+ *
+ ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 
@@ -8,58 +19,39 @@ import { HttpService } from '../../services/http.service';
 })
 export class NotesComponent implements OnInit {
 
+  constructor( private noteService : HttpService ){}
   public token=localStorage.getItem("fundooUserToken");
-  public id=localStorage.getItem("fundooUserId");
-  public array=[];
-  public noteCard:boolean=true;
-  public popupCard:boolean=false;
-  public star_border:boolean=true;
-  public star_filled:boolean=false;
-  
-
-  constructor(private noteService : HttpService){
-  }
-
+  public notesArray=[];
 
   ngOnInit() {
-    
-}
-
-
-  openDialog(){
-    this.noteCard=!(this.noteCard);
-    this.popupCard=!(this.popupCard);
-  }
-  send(){
-    console.log("hiii")
-    var title=document.getElementById("title").innerHTML;
-    var description=document.getElementById("description").innerHTML;
-    this.noteCard=!(this.noteCard);
-    this.popupCard=!(this.popupCard);
-    
-
-    console.log(title);
-    console.log(description);
-    // console.log(id);
-    // console.log(token);
-
-    this.noteService.postDataReset("/notes/addNotes", {
-      "title" : title,
-      "description" : description,
-      "labelIdList" : this.id,
-      "checklist" :"yes",
-      "isPined"	: false
-      },this.token).subscribe((response) =>{
-        console.log("success");
-        // console.log(response);
-      },(error) => {
-        console.log("failed");
-        console.log(error);
-      });
-  }
-  star(){
-    this.star_border=!(this.star_border);
-    this.star_filled=!(this.star_filled);
+    this.getNotes();
   }
 
+  /**
+  * 
+  * @description refresh the page after any change in notelist
+  */
+  refresh(event){
+    if(event){
+      this.getNotes();
+    }
+  }
+
+  /**
+  * 
+  * @description getting the note list
+  */
+  getNotes(){
+    this.noteService.getDataNotes("/notes/getNotesList", this.token)
+    .subscribe((response) =>{
+      this.notesArray=[];
+      for(var i=response["data"].data.length; i>0 ; i--){
+        if((response["data"].data[i-1]["isDeleted"] == false) && (response["data"].data[i-1]["isArchived"] == false)){
+        this.notesArray.push(response["data"].data[i-1])
+        }
+      }
+    },(error) =>{
+    });
+  }
+  
 }

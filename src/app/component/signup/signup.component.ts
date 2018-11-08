@@ -1,7 +1,18 @@
+/******************************************************************************
+ *  Execution       :   1. default node         cmd> signup.component.ts 
+ *
+ *  Purpose         : To signup to a account
+ * 
+ *  @file           : signup.component.ts
+ *  @author         : simani meher
+ *  @version        : 1.0
+ *  @since          : 19-10-2018
+ *
+ ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
 import {MatSnackBar} from '@angular/material';
-import {Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -20,13 +31,17 @@ export class SignupComponent implements OnInit {
     "confpassword":""
   }
   public card=[];
-  constructor(private signupService : HttpService,public snackBar: MatSnackBar,  private router: Router){ }
+  constructor(private signupService : HttpService,public snackBar: MatSnackBar, private router : Router ){ }
 
   ngOnInit() {
-   /**
-    * 
-    * @description getting the service cards
-    */
+    this.getService();
+  }
+
+ /**
+  * 
+  * @description getting the service cards
+  */
+  getService(){
     let obs = this.signupService.getData("/user/service"); 
     obs.subscribe((response) => {
       for(let i=0;i<response["data"].data.length;i++)
@@ -45,8 +60,7 @@ export class SignupComponent implements OnInit {
     else{
       this.service=data.name;
     }
-    for(var j=0;j<this.card.length;j++)
-    {
+    for(var j=0;j<this.card.length;j++){
       if(data.name==this.card[j].name)
       continue;
       this.card[j].select=false;
@@ -112,22 +126,18 @@ export class SignupComponent implements OnInit {
     }
     
     this.signupService.postData("/user/userSignUp", {
-    "firstName" : this.model.firstname,
-    "lastName" : this.model.lastname,
-    "service": this.service,
-    "email": this.model.email,
-    "password":this.model.password
+      "firstName" : this.model.firstname,
+      "lastName" : this.model.lastname,
+      "service": this.service,
+      "email": this.model.email,
+      "password":this.model.password
     }).subscribe((response) =>{
-      console.log("success");
-      console.log(response);
      /**
       * 
       * @description if the registration is success then it will directly take to login page
       */
       this.router.navigateByUrl('/login');
     },(error) => {
-      console.log("registration failed");
-      console.log(error);
       this.snackBar.open("failed","something bad happened", {
         duration: 2000,
       });

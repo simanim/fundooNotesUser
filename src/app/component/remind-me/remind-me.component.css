@@ -1,14 +1,8 @@
-.card_layout{
-    width:20%;
-    margin-top:-1%;
-    border:1px solid rgb(223, 221, 221);
-}
-p{
-    padding:2%;
-    width:100%;
+.menu{
     cursor: pointer;
     font-size: 13px;
+    width:200px;
 }
-p:hover{
+.menu:hover{
     background-color: rgb(212, 212, 212);
 }

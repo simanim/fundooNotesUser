@@ -2,7 +2,9 @@
   font-size: 70%;
   color:red;
 }
-.a{
-  color:rgb(33, 33, 241);
-  text-decoration-line: none;
+.password{
+  width:90%;
+}
+.header{
+  margin-top:-10%;
 }

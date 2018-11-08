@@ -1,7 +1,18 @@
+/******************************************************************************
+ *  Execution       :   1. default node         cmd> login.component.ts 
+ *
+ *  Purpose         : To login to Fundoo Account  
+ * 
+ *  @file           : login.component.ts
+ *  @author         : simani meher
+ *  @version        : 1.0
+ *  @since          : 19-10-2018
+ *
+ ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import {MatSnackBar} from '@angular/material';
-import {Router} from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,9 +24,13 @@ export class LoginComponent implements OnInit {
     "email":"",
     "password":""
   }
-  constructor(private loginService : HttpService, public snackBar: MatSnackBar,private router: Router) { }
+  constructor( private loginService : HttpService, public snackBar : MatSnackBar, private router : Router ) { }
+  public id= localStorage.getItem("fundooUserToken");
   
   ngOnInit() {
+    if(this.id != null){
+      this.router.navigateByUrl('/dashboard');
+    }
   }
  /**
   * 
@@ -50,9 +65,12 @@ export class LoginComponent implements OnInit {
      "email": this.model.email,
      "password":this.model.password
     }).subscribe((response) =>{
-      console.log(response);
       localStorage.setItem("fundooUserToken",response["id"]);
       localStorage.setItem("fundooUserId",response["userId"]);
+      localStorage.setItem("fundooUserFirstname",response["firstName"]);
+      localStorage.setItem("fundooUserLastname",response["lastName"]);
+      localStorage.setItem("fundooUserEmail",response["email"]);
+      localStorage.setItem("fundooUserImage",response["imageUrl"]);
 
       /**
       * 
@@ -60,12 +78,11 @@ export class LoginComponent implements OnInit {
       */
       this.router.navigateByUrl('/dashboard');
     },(error) => {
-      console.log("login unsuccess");
-      console.log(error);
-      if(error.status==401)
-      this.snackBar.open("login failed","wrong email or password", {
-        duration: 2000,
-      });
+      if(error.status==401){
+        this.snackBar.open("login failed","wrong email or password", {
+          duration: 2000,
+        });
+      }
     });
   }
 }

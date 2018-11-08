@@ -12,27 +12,6 @@ export class HttpService {
   getData(path){
     return this.http.get(this.URL+"/"+path);
   }
-
-  postData(path,body){
-    return this.http.post(this.URL+"/"+path,body);
-  }
-
-  postDataReset(path,bodydata,acessToken)
-  {
-    // console.log(acessToken);
-    // console.log(bodydata);
-    
-    var httpAuthOptions1 = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': acessToken
-      })
-
-    };
-    
-  
-    return this.http.post(this.URL+"/"+path,this.getFormUrlEncoded(bodydata),httpAuthOptions1)
-  }
   getDataNotes(path,accesstoken)
   {
     var httpAuthOptions1 = {
@@ -42,10 +21,39 @@ export class HttpService {
       })
 
     };
-    
-  
     return this.http.get(this.URL+"/"+path,httpAuthOptions1)
   }
+
+  postData(path,body){
+    return this.http.post(this.URL+"/"+path,body);
+  }
+
+  postDataReset(path,body,acessToken)
+  {
+    var httpAuthOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': acessToken
+      })
+
+    };
+    return this.http.post(this.URL+"/"+path,this.getFormUrlEncoded(body),httpAuthOptions1)
+  }
+  postDataMore(path,body,acessToken)
+  {
+    var httpAuthOptions1 = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': acessToken
+      })
+    };
+    return this.http.post(this.URL+"/"+path,body,httpAuthOptions1);
+  }
+
+  deleteDate(path){
+    return this.http.delete(this.URL+"/"+path);
+  }
+  
   getFormUrlEncoded(toConvert) {
     const formBody = [];
     for (const property in toConvert) {

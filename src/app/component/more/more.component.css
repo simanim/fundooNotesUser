@@ -1,0 +1,7 @@
+.menu:hover{
+    background-color: rgb(219, 219, 219);
+}
+.input{
+    outline: none;
+    border: none;
+}

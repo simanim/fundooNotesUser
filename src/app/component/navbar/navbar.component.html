@@ -1,85 +1,124 @@
-<div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" ngStyle.lg="height:70px" ngStyle.xl="height:80px">
-    <mat-toolbar-row>
-      <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
-          <div fxFlex="5%"></div>
-          <div fxLayout="row" fxFlex="100%" >
-            <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
+<!-- ******************************navbar******************************** -->
 
-            <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-            <div class="example-sidenav-content">
-              <button class="button" type="button" (click)="drawer.toggle()">
-                <i class="material-icons"
-                ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">menu</i>
-              </button>
-            </div></div>
-            <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%">
-              <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" ngStyle.xl="font-size:25px" style="margin-left:10px" >Fundoo Keep</span>
-            </div>
-            <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%">
-               <span  class="person" ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true class="keep" >Keep</span>
-            </div>
+<div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" 
+ngStyle.lg="height:70px" ngStyle.xl="height:80px">
+  <mat-toolbar-row>
+  <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
+  <div fxFlex="5%"></div>
+  <div fxLayout="row" fxFlex="100%" >
+    <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
+          
+    <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%" class="example-sidenav-content">
+      <mat-icon (click)="drawer.toggle()"ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" class="button">menu</mat-icon>
+    </div>
 
-            <div fxFlex.xs="30%" fxFlex.sm="45%" fxFlex.md="56%" fxFlex.lg="56%" fxFlex.xl="56%">
-            <button class="searchbutton">
-              <i class="material-icons">search</i>
-            </button>
-            <input type="text" class="search" placeholder="Search.." name="search"ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" fxHide.xs=true>
-            </div>
+    <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%">
+      <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+      ngStyle.xl="font-size:25px" >Fundoo Note</span>
+    </div>
 
-            <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-            <button class="refresh"><i class="material-icons"
-              ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">refresh</i>
-            </button>
-          </div>
+    <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%">
+      <span ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
+    </div>
+
+    <div fxFlex.xs="30%" fxFlex.sm="45%" fxFlex.md="56%" fxFlex.lg="56%" fxFlex.xl="56%">
+      <mat-icon class="searchbutton">search</mat-icon>
+      <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
+      placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" 
+      fxHide.xs=true>
+    </div>
+
+    <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+      <mat-icon class="button" (click)="refresh()" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">refresh</mat-icon>
+    </div>
             
-          <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-            <button class="button"><i class="material-icons"
-                fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">view_stream</i>
-            </button></div>
+    <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+      <mat-icon class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
+      ngStyle.lg="font-size:30px">view_stream</mat-icon>
+    </div>
 
-            <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-            <button class="button">
-              <i class="material-icons" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" (click)="account()">account_circle</i>
-            </button></div>
-            <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
-      </div>
-      <div fxFlex="5%"></div>
+    <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+      <mat-icon class="button" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" 
+      ngStyle.lg="font-size:30px" (click)="account()">account_circle</mat-icon>
+      <!-- <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
+      style="height:50px;width:50px;border-radius:50%;float: left;" (click)="account()"
+      ngStyle.xs="width:25px;height:25px" ngStyle.sm="width:25px;height:25px"ngStyle.md="width:30px;height:30px" 
+      ngStyle.lg="width:40px;height:40px" ngStyle.lg="width:50px;height=50%"></div> -->
     </div>
-       </mat-toolbar-row>
-    </div>
+
+    <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
+  </div>
+  <div fxFlex="5%"></div>
+  </div>
+  </mat-toolbar-row>
+</div>
   
+<!-- ***********************profile**************************** -->
+
 <mat-card class="account" *ngIf="signoutCard">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Simani Meher</mat-card-title>
-    <mat-card-subtitle>simanimeher@gmail.com</mat-card-subtitle>
-  </mat-card-header>
-  <div><button mat-raised-button color="primary">Fundoo Account</button></div><hr>
-  <button style="float: right" class="signout" (click)="logout()">Sign out</button>
+      <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
+    style="height:50px;width:50px;border-radius:50%;float: left;"></div>
+    <!-- <div mat-card-avatar class="example-header-image">{{firstLetter}}</div> -->
+      
+    <mat-card-title>{{firstName}} {{lastName}}</mat-card-title>
+    <mat-card-subtitle>{{email}}</mat-card-subtitle>
+  </mat-card-header><hr>
+  <button  class="signout" (click)="logout()">Sign out</button>
 </mat-card>
   
+
+<!-- *************************menu************************************* -->
+
+
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav"  mode="side" closed >
-    <p class="side_icon"><a routerLink="/navbar/notes" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p><hr>
+    <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p><hr>
           
-    <p><small style="margin-left:10%">Labels</small><button mat-button class="edit"><small >EDIT</small></button></p>
-    <p><button mat-button style="width:95%"><i class="material-icons">add</i> <span class="plus">Create new label</span></button></p><hr>
+    
+      <div fxLayout="row">
+        <div fxFlex=10%></div>
+        <div fxFlex=40%><small>Labels</small></div>
+        <div fxFlex=40%><button mat-button class="edit"(click)=createLabel()><small>EDIT</small></button></div>
+      </div>
 
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p><hr>
+    <a *ngFor="let data of labelList" routerLink="/label/{{data}}" routerLinkActive=active class="buttonicon">
+      <div fxLayout=row>
+        <div fxFlex="10%"></div>
+        <div fxFlex="20%"><mat-icon class=label>label</mat-icon></div>
+        <div fxFlex="60%" class=label >{{data}}</div>
+      </div>
+    </a>
+
+    <p><button mat-button class=labelCreate (click)=createLabel()><mat-icon>add</mat-icon> 
+      <span class="plus">Create new label</span></button></p><hr>
+
+    <p class="side_icon"><a routerLink="/archive" (click)="searchValue=null" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></p>
+    <p class="side_icon"><a routerLink="/trash" (click)="searchValue=null" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p><hr>
       
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">settings</i><small class="name">Settings</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">feedback</i><small class="name">send feedback</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">help</i><small class="name">help</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><img src="../../../assets/img/appdownload.svg"><small class="name">Archive</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon"><i class="material-icons" style="color:black">keyboard</i><small class="name">Keyboard shortcuts</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <mat-icon class="material-icons">settings</mat-icon><small class="name">Settings</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <mat-icon class="material-icons">feedback</mat-icon><small class="name">send feedback</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <mat-icon class="material-icons">help</mat-icon><small class="name">help</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <img src="../../../assets/img/appdownload.svg"><small class="name">App downloads</small></a></p>
+    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
+      <mat-icon class="material-icons">keyboard</mat-icon><small class="name">Keyboard shortcuts</small></a></p>
 
-    <div style="margin-left:5%">
+    <div>
       <button mat-button><span>privacy</span></button>
       <button mat-button><span>terms</span></button>
     </div>
-    <div style="margin-left:8%"><button mat-button><span>Open-source licenses</span></button></div>
+    <div><button mat-button><span>Open-source licenses</span></button></div>
     <p></p>
   </mat-drawer>
   <router-outlet></router-outlet>

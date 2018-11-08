@@ -1,17 +1,58 @@
-<div fxLayoutAlign="center" >
-  <div class="main" fxFlex.xl="750px" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="750px" fxFlex.xs="300px">
-      <mat-card *ngFor="let data of array" class="div">
-              <mat-card-subtitle><h2>{{data.title}}</h2></mat-card-subtitle>
-              <mat-card-content>{{data.description}}</mat-card-content>
-              <abbr title="Remind me"><a><img src="../../../assets/img/reminder.1.svg" style=" padding-right:1%;opacity:0.6"></a></abbr>
-              <abbr title="Collaborator"><mat-icon class="card2" >person_add</mat-icon></abbr>
-              <abbr title="Change color"><mat-icon class="card2" >palette</mat-icon></abbr>
-              <abbr title="Add image"><mat-icon class="card2" >panorama</mat-icon></abbr>
-              <abbr title="Archive"><mat-icon class="card2" >archive</mat-icon></abbr>
-              <abbr title="More"><mat-icon class="card2" >more_vert</mat-icon></abbr>
-         
-          
-      </mat-card>
+<div fxLayoutAlign="center" *ngIf="noteCard" >
+  <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="600px" fxFlex.lg="600px" fxFlex.md="500px" 
+  fxFlex.sm="500px" fxFlex.xs="300px">
+    <span>Take a note...</span>
+    <mat-icon class="icon">edit</mat-icon>
+    <mat-icon class="icon">panorama</mat-icon>
+    <mat-icon class="icon" (click)="list()">list</mat-icon>
+  </mat-card>
+</div>
 
-  </div>
+
+<div fxLayoutAlign="center" *ngIf="!noteCard">
+  <mat-card class="card" [ngStyle]="{'background-color':cardColor}" fxFlex.xl="600px" fxFlex.lg="600px" 
+  fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="300px">
+    <div fxLayout="row">
+      <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea"
+      #title></div>
+      <app-pin class=pin (onChange)="onPinChange($event)"></app-pin>
+    </div>
+
+    <div *ngIf=!listNote data-text="Take a Note..." contenteditable="true" class="textarea" #description></div>
+
+    <div *ngIf=listNote>
+      <div *ngFor="let data of listArray" fxLayout=row class=listInput>
+        <div fxFlex=5%><mat-checkbox (click)=checked(data)></mat-checkbox></div>
+        <input fxFlex=85% type=text name=input [(ngModel)]=data.itemName class=input>
+        <div fxFlex=5%><mat-icon class=clear (click)=removeList(data)>clear</mat-icon></div>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxLayout=row class=listInput>
+        <div fxFlex=5%><mat-icon class=clear>add</mat-icon></div>
+        <input fxFlex=85% placeholder="List item" #item=ngModel class=input [(ngModel)]="model.item"
+        (keydown.enter)="listitem()">
+        <div fxFlex=5%><mat-icon class=clear (click)=clear()>clear</mat-icon></div>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+
+    <mat-chip-list>
+        <span *ngFor="let cardData of labels" >
+          <mat-chip class="chip">
+            {{cardData.label}}<mat-icon class="cancelIcon">cancel</mat-icon>
+          </mat-chip>
+        </span>
+      </mat-chip-list>
+
+    <div class="iconsList">
+      <span class="iconButton"><app-remind-me></app-remind-me></span>
+      <span class="iconButton"><app-collaborator></app-collaborator></span>
+      <span class="iconButton"><app-change-color (onChangeColor)="onColorChange($event)"></app-change-color></span>
+      <span class="iconButton"><app-add-image></app-add-image></span>
+      <span class="iconButton"><app-notes-archive (onArchiveEntry)="onArchive($event)"></app-notes-archive></span>
+      <span class="iconButton"><app-more (onChanges)="addRemoveLabel($event)" (showCheckbox)=showCheckBox($event)></app-more></span>
+      <button mat-button class="pin" (click)="close()">close</button>
+    </div>
+  </mat-card>
+
 </div>

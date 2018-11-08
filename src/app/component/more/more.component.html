@@ -1,0 +1,35 @@
+<abbr *ngIf="!isDelete" title="More"><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></abbr>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item class="menu" (click)="deleteNotes()">Delete Note</button>
+    <button mat-menu-item class="menu" [matMenuTriggerFor]="nestedMenu" (click)="showLabel()">Add label</button>
+    <button mat-menu-item class="menu" (click)="showCheckBox()">Show checkboxes</button>
+</mat-menu>
+
+<mat-menu #nestedMenu="matMenu">
+    <div>Label note</div>
+    <div  fxLayout="row">    
+        <div fxFlex=80%>
+            <input type=text class=input placeholder="Enter label name" [(ngModel)]="searchLabel" 
+            (click)=$event.stopPropagation()>
+        </div>
+        <div fxFlex=10% ><mat-icon><small>search</small></mat-icon></div>
+    </div>
+    <div>
+        <div fxLayout=row *ngFor="let data of labelList | search: searchLabel">
+            <div fxFlex=10%>
+                <input *ngIf="data.isChecked==true" type="checkbox" (click)=removeLabel(data) 
+                (click)=$event.stopPropagation() checked>
+                <input *ngIf="data.isChecked==false" type="checkbox" (click)=addLabel(data) 
+                (click)=$event.stopPropagation() unchecked>
+            </div>
+            <div fxFlex=80%>{{data.label}}</div>
+        </div>
+    </div>
+</mat-menu>
+
+<abbr *ngIf="isDelete" title="More"><mat-icon [matMenuTriggerFor]="menuDelete">more_vert</mat-icon></abbr>
+<mat-menu #menuDelete="matMenu">
+    <button mat-menu-item class="menu">Delete Forever</button>
+    <button mat-menu-item class="menu" (click)=deleteNotes()>Restore</button>
+</mat-menu>

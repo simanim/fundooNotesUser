@@ -1,0 +1,50 @@
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:2%;
+}
+.div{
+    margin:5px;
+    border-radius: 5%;
+    height: min-content;
+}
+.title{
+    word-wrap: break-word;
+    font-weight: bold;
+    font-size: 20px;
+}
+.description{
+    word-wrap: break-word;
+}
+.icon{
+    visibility:hidden;
+}
+.iconButton{
+    opacity:0.7;
+    cursor: pointer;
+    margin-right:5%;
+}
+.iconButton:hover{
+    opacity:1;
+} 
+.div:hover .icon {
+    visibility: visible;
+}
+.label{
+    background-color: rgba(135, 167, 159, 0.465);
+    font-size: 11px;
+}
+.chip .cancelIcon{
+    visibility: hidden;
+}
+.chip:hover .cancelIcon{
+    visibility: visible;
+}
+.pin{
+    float:right;
+    cursor:pointer;
+    visibility:hidden;
+}
+.div:hover .pin {
+    visibility: visible;
+}

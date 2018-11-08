@@ -6,34 +6,34 @@
     <div fxFlex.lg="40%" fxFlex.md="50%" fxFlex.sm="60%" fxFlex.xs="100%">
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-            <div fxLayoutAlign="center" style="margin-top:-10%"><img src="../../assets/img/fundoo.png" height=50% width=50%></div><br>
-            <mat-card-title fxLayoutAlign="center" style="margin-top:-10%">Reset Password</mat-card-title>
+          <div fxLayoutAlign="center"class=header>
+            <img src="../../assets/img/fundoo.png" height=50% width=50%></div>
+          <mat-card-title fxLayoutAlign="center" class=header>Reset Password</mat-card-title>
             
-            <div>
-              <mat-form-field style="width:90%">
-                <input  matInput placeholder="Password" name="password" maxlength="16" #password="ngModel" 
-                [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" 
-                minlength="4" pattern="[a-zA-Z0-9!@#$%^&*]*"
-                [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
-              </mat-form-field>
-            </div>
-            <mat-error class="error" *ngIf="f.submitted && password.invalid">
+          <div>
+            <mat-form-field class=password>
+              <input  matInput placeholder="Password" name="password" maxlength="16" #password="ngModel"
+              [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" pattern="[a-zA-Z0-9!@#$%^&*]*"
+              [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+            </mat-form-field>
+          </div>
+          <mat-error class="error" *ngIf="f.submitted && password.invalid">
               <mat-error *ngIf="password.errors.required" >password is required</mat-error>
-            </mat-error>
-            <div>
-              <mat-form-field style="width:90%">
-                <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
-                [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'" maxlength="16" 
-                [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
-                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-              </mat-form-field>
-            </div>
-            <mat-error class="error" *ngIf="f.submitted && confpassword.invalid">
-              <mat-error *ngIf="confpassword.errors.required" >conf password is required</mat-error>
-            </mat-error>
+          </mat-error>
+          <div>
+            <mat-form-field class=password>
+              <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
+              [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'"
+              [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+          </div>
+          <mat-error class="error" *ngIf="f.submitted && confpassword.invalid">
+            <mat-error *ngIf="confpassword.errors.required" >conf password is required</mat-error>
+          </mat-error>
 
-            <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
-            </form>
+          <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
+        </form>
       </mat-card>
     </div>
 

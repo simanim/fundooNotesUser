@@ -7,21 +7,22 @@
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
-          <div fxLayoutAlign="center" style="margin-top:-10%"><img src="../../assets/img/fundoo.png" height=20% width=40%></div>
-          <mat-card-title style="margin-top:-6%">Create your Fundoo Account</mat-card-title><br>
+          <div fxLayoutAlign="center" class="header">
+            <img src="../../assets/img/fundoo.png" height=20% width=40%></div>
+          <mat-card-title class=header>Create your Fundoo Account</mat-card-title>
 
-          <div style="width:100%">
-              <mat-form-field  class="example-container">
+          <div>
+              <mat-form-field  class=firstInput>
                 <input matInput placeholder="First name" name="firstname" #firstname="ngModel" 
                 [(ngModel)]="model.firstname" pattern="[a-z ]*" 
                 [ngClass]="{ 'is-invalid': f.submitted && firstname.invalid }" required>
-              </mat-form-field>&nbsp;
-              <mat-form-field class="example-container">
+              </mat-form-field>
+              <mat-form-field class=lastInput>
                 <input matInput placeholder="Last name" name="lastname" #lastname="ngModel" 
                 [(ngModel)]="model.lastname" pattern="[a-z ]*" 
                 [ngClass]="{ 'is-invalid': f.submitted && lastname.invalid }" required>
               </mat-form-field>
-            </div>
+          </div>
               <mat-error *ngIf="f.submitted && firstname.invalid" >
                 <mat-error *ngIf="firstname.errors.required" class="error">firstname is required</mat-error>
                 <mat-error *ngIf="firstname.errors.pattern" class="error">Invalid firstname</mat-error>
@@ -30,26 +31,26 @@
               <mat-error *ngIf="f.submitted && lastname.invalid">
                 <mat-error *ngIf="lastname.errors.required" class="error">lastname is required</mat-error>
                 <mat-error *ngIf="lastname.errors.pattern" class="error">Invalid lastname</mat-error>
-              </mat-error><br>
+              </mat-error>
           
 
-          <mat-form-field class="example-container2"> 
+          <mat-form-field class="email"> 
             <input matInput placeholder="Email Id" name="email"#email="ngModel" 
             [(ngModel)]="model.email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
             [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required >
-          </mat-form-field><br>
+          </mat-form-field>
           <mat-error *ngIf="f.submitted && email.invalid">
             <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
             <mat-error *ngIf="email.errors.pattern" class="error">Invalid email</mat-error>
           </mat-error>
 
           <div>
-            <mat-form-field class="example-container">
+            <mat-form-field class="firstInput">
               <input  matInput placeholder="Password" name="password" maxlength="16" #password="ngModel" 
               [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" 
               minlength="4"[ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
-            </mat-form-field>&nbsp;
-            <mat-form-field class="example-container">
+            </mat-form-field>
+            <mat-form-field class="lastInput">
               <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
               [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'" maxlength="16" 
               [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
@@ -59,7 +60,7 @@
           <mat-error class="error" *ngIf="f.submitted && (password.invalid || confpassword.invalid)">
             <mat-error *ngIf="password.errors.required" >password is required</mat-error>
             <mat-error *ngIf="confpassword.errors.required" >conf password is required</mat-error>
-          </mat-error><br>
+          </mat-error>
           
           <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="1%">
             <mat-card fxFlex=40% *ngFor="let data of card" mat-button (click)="response(data)" 
@@ -67,10 +68,11 @@
               <mat-card-subtitle><h2>{{data.name}}</h2></mat-card-subtitle>
               <mat-card-content>{{data.description}}</mat-card-content>
             </mat-card>
-          </div><br>
+          </div>
 
-          <div><a class="a" href="/login">Sign in instead</a></div>
-          <div fxLayoutAlign="end"><button mat-flat-button type="submit" routerLink="."(click)="signup()">Sign Up</button></div>
+          <p><a class="a" href="/login">Sign in instead</a></p>
+          <div fxLayoutAlign="end"><button mat-flat-button type="submit" routerLink="."
+            (click)="signup()">Sign Up</button></div>
 
         </form>
       </mat-card>

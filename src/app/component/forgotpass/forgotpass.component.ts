@@ -1,6 +1,18 @@
+/******************************************************************************
+ *  Execution       :   1. default node         cmd> forgotpass.component.ts 
+ *
+ *  Purpose         : To send a request to registered email id if user has forgotten password
+ * 
+ *  @file           : forgotpass.component.ts
+ *  @author         : simani meher
+ *  @version        : 1.0
+ *  @since          : 19-10-2018
+ *
+******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
+
 @Component({
   selector: 'app-forgotpass',
   templateUrl: './forgotpass.component.html',
@@ -34,14 +46,11 @@ export class ForgotpassComponent implements OnInit {
       "email": this.model.email
     }).subscribe(
     (response) =>{
-      console.log("Set password link sent to you registered email, please check");
       this.snackBar.open("check your email","Set password link sent to you registered email", {
       duration: 2000,
       });
     },
     (error) => {
-      console.log("login unsuccess");
-      console.log(error);
       if(error.status==404){
         this.snackBar.open("failed","email not found", {
          duration: 2000,
