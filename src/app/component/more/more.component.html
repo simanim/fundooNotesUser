@@ -30,6 +30,6 @@
 
 <abbr *ngIf="isDelete" title="More"><mat-icon [matMenuTriggerFor]="menuDelete">more_vert</mat-icon></abbr>
 <mat-menu #menuDelete="matMenu">
-    <button mat-menu-item class="menu">Delete Forever</button>
+    <button mat-menu-item class="menu" (click)=deleteForver()>Delete Forever</button>
     <button mat-menu-item class="menu" (click)=deleteNotes()>Restore</button>
 </mat-menu>

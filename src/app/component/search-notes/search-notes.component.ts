@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { HttpService } from '../../services/http.service';
+import { DataService } from '../../core/services/data/data.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-search-notes',
@@ -9,7 +9,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class SearchNotesComponent implements OnInit {
   message : string
-  constructor( private data: DataService, private searchService : HttpService ) { }
+  constructor( private data: DataService, private searchService : NotesService ) { }
   public notesArray=[];
   public token=localStorage.getItem("fundooUserToken")
   ngOnInit() {
@@ -20,7 +20,7 @@ export class SearchNotesComponent implements OnInit {
   }
 
   getNotes(){
-    this.searchService.getDataNotes("/notes/getNotesList", this.token)
+    this.searchService.getNoteList()
     .subscribe((response) =>{
       this.notesArray=[];
       for(var i=response["data"].data.length; i>0 ; i--){

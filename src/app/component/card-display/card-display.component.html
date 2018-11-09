@@ -4,27 +4,38 @@
   <div mat-dialog-title contenteditable="true" #title class="input"[innerHTML]=data.noteData.title></div>
   <p *ngIf="data.noteData.noteCheckLists.length==0" mat-dialog-content contenteditable="true" #description class="textarea" [innerHTML]=data.noteData.description></p>
   <div *ngIf="data.noteData.noteCheckLists.length!=0">
-    <div *ngFor="let list of data.noteData.noteCheckLists" >
-      <div *ngIf="list.isDeleted==false" fxLayout=row>
-      <div fxFlex=5%>
-        <mat-checkbox *ngIf="list.status=='close'"checked=true (click)=check(list,data)></mat-checkbox>
-        <mat-checkbox *ngIf="list.status=='open'" (click)=check(list)></mat-checkbox>
+    <div *ngFor="let list of checkList" >
+      <div *ngIf="list.isDeleted==false && list.status=='open'" fxLayout=row>
+      <div fxFlex=10%>
+        <mat-checkbox (click)=check(list,data)></mat-checkbox>
       </div>
-      <div fxFlex=85%>
+      <div fxFlex=75%>
         <input placeholder="List item" class=input [(ngModel)]="list.itemName"(keydown.enter)="listitem(list)">
       </div>
-      <div fxFlex=5%><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
+      <div fxFlex=10%><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
       </div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout=row class=listInput>
-      <div fxFlex=5%><mat-icon class=clear>add</mat-icon></div>
-      <input fxFlex=85% placeholder="List item" #item=ngModel class=input [(ngModel)]="model.item"
+      <div fxFlex=10%><mat-icon class=clear>add</mat-icon></div>
+      <input fxFlex=75% placeholder="List item" #item=ngModel class=input [(ngModel)]="model.item"
       (keydown.enter)="listAdd()">
-      <div fxFlex=5%><mat-icon class=clear (click)=clear()>clear</mat-icon></div>
+      <div fxFlex=10%><mat-icon class=clear (click)=clear()>clear</mat-icon></div>
     </div>
     <mat-divider></mat-divider>
+    <div *ngFor="let list of checkList" >
+      <div *ngIf="list.isDeleted==false && list.status=='close'" fxLayout=row>
+      <div fxFlex=10%>
+        <mat-checkbox checked=true (click)=check(list,data)></mat-checkbox>
+      </div>
+      <div fxFlex=75%>
+        <input placeholder="List item" class=input2 [(ngModel)]="list.itemName"(keydown.enter)="listitem(list)">
+      </div>
+      <div fxFlex=10%><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
+      </div>
+    </div>
   </div>
+
 
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
@@ -37,13 +48,12 @@
   <p>
     <span *ngIf=!isDelete class="iconButton"><app-remind-me></app-remind-me></span>
     <span *ngIf=!isDelete class="iconButton"><app-collaborator></app-collaborator></span>
-    <span *ngIf=!isDelete class="iconButton"><app-change-color [card]=data.noteData (onChangeColor)=changes($event)>
+    <span *ngIf=!isDelete class="iconButton"><app-change-color [card]=data.noteData (onChangeColor)=colorChanges($event)>
       </app-change-color></span>
     <span *ngIf=!isDelete class="iconButton"><app-add-image></app-add-image></span>
     <span *ngIf=!isDelete class="iconButton"><app-notes-archive [card]=data.noteData 
       (onArchiveEntry)="archive($event)"></app-notes-archive></span>
-    <span class="iconButton"><app-more [card]=data.noteData (onChanges)="entry($event)" 
-      (popupChange)="popup($event)"></app-more></span>
+    <span class="iconButton"><app-more [card]=data.noteData (popupChange)="labelChanges($event)"></app-more></span>
     <button *ngIf=!isDelete mat-button (click)="click()" class=pin>Close</button>
   </p>
 

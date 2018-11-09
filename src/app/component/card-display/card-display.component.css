@@ -31,6 +31,12 @@ opacity:0.7;
     outline: none;
     background-color: transparent;
 }
+.input2{
+    border:none;
+    outline: none;
+    background-color: transparent;
+    text-decoration: line-through;
+}
 .clear{
     cursor: pointer;
 }

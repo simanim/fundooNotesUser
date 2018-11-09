@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-notes',
@@ -19,7 +19,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class NotesComponent implements OnInit {
 
-  constructor( private noteService : HttpService ){}
+  constructor( private noteService : NotesService ){}
   public token=localStorage.getItem("fundooUserToken");
   public notesArray=[];
 
@@ -42,7 +42,7 @@ export class NotesComponent implements OnInit {
   * @description getting the note list
   */
   getNotes(){
-    this.noteService.getDataNotes("/notes/getNotesList", this.token)
+    this.noteService.getNoteList()
     .subscribe((response) =>{
       this.notesArray=[];
       for(var i=response["data"].data.length; i>0 ; i--){

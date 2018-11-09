@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-trash',
@@ -19,7 +19,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class TrashComponent implements OnInit {
 
-  constructor( private trashService : HttpService ) { }
+  constructor( private trashService : NotesService ) { }
   public token=localStorage.getItem("fundooUserToken");
   public trashList=[];
 
@@ -38,7 +38,7 @@ export class TrashComponent implements OnInit {
   * @description getting the trashed notes list
   */
   getTrashList(){
-    this.trashService.getDataNotes("/notes/getTrashNotesList",this.token)
+    this.trashService.getTrashNotes()
     .subscribe((response) =>{
       this.trashList=[];
       for(var i=response["data"].data.length;i>0;i--){

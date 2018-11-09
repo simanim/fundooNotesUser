@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-pin',
@@ -11,7 +11,7 @@ export class PinComponent implements OnInit {
   @Input() card;
   @Output() onChange = new EventEmitter;
   public token=localStorage.getItem("fundooUserToken");
-  constructor( private pinService : HttpService ) { }
+  constructor( private pinService : NotesService ) { }
   public isPin:boolean=false;
 
   ngOnInit() {
@@ -23,11 +23,11 @@ export class PinComponent implements OnInit {
     if(this.card){
       var id=[];
       id.push(this.card.id);
-      this.pinService.postDataMore("/notes/pinUnpinNotes", 
-      {
+      var body={
         "isPined":this.isPin,
         "noteIdList":id
-      },this.token)
+      }
+      this.pinService.pinChange(body)
       .subscribe((response) =>{
         this.onChange.emit({})
       });

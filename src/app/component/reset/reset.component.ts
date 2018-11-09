@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { UserService } from '../../core/services/user/user.service';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -25,7 +25,7 @@ export class ResetComponent implements OnInit {
     "confpassword":""
   };
 
-  constructor( private resetService : HttpService, public snackBar : MatSnackBar, public route : ActivatedRoute, private router : Router ) { }
+  constructor( private resetService : UserService, public snackBar : MatSnackBar, public route : ActivatedRoute, private router : Router ) { }
 
 
   public id = this.route.snapshot.params.id;
@@ -49,7 +49,7 @@ export class ResetComponent implements OnInit {
     }
 
     var body={ "newPassword" : this.model.password }
-    this.resetService.postDataReset("/user/reset-password", body, this.id)
+    this.resetService.resetPassword(this.getFormUrlEncoded(body), this.id)
     .subscribe((response) =>{
      /**
       * 
@@ -62,5 +62,13 @@ export class ResetComponent implements OnInit {
       });
     });
   }
-
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+   }
 }

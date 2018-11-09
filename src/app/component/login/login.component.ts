@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { UserService } from '../../core/services/user/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     "email":"",
     "password":""
   }
-  constructor( private loginService : HttpService, public snackBar : MatSnackBar, private router : Router ) { }
+  constructor( private loginService : UserService, public snackBar : MatSnackBar, private router : Router ) { }
   public id= localStorage.getItem("fundooUserToken");
   
   ngOnInit() {
@@ -60,19 +60,19 @@ export class LoginComponent implements OnInit {
       });
       return;
     }
-    
-    this.loginService.postData("/user/login", {
-     "email": this.model.email,
-     "password":this.model.password
-    }).subscribe((response) =>{
+    var body={
+      "email": this.model.email,
+      "password":this.model.password
+    }
+    this.loginService.userLogin(body)
+    .subscribe((response) =>{
       localStorage.setItem("fundooUserToken",response["id"]);
       localStorage.setItem("fundooUserId",response["userId"]);
       localStorage.setItem("fundooUserFirstname",response["firstName"]);
       localStorage.setItem("fundooUserLastname",response["lastName"]);
       localStorage.setItem("fundooUserEmail",response["email"]);
       localStorage.setItem("fundooUserImage",response["imageUrl"]);
-
-      /**
+     /**
       * 
       * @description if the login is success then it will directly take to dashboard page
       */

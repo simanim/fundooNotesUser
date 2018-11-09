@@ -10,11 +10,12 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
 import { Router } from '@angular/router';
 import { CreateLabelComponent } from '../create-label/create-label.component';
 import { MatDialog } from '@angular/material';
-import { DataService } from '../../services/data.service'
+import { DataService } from '../../core/services/data/data.service'
+import { UserService } from '../../core/services/user/user.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-navbar',
@@ -36,13 +37,18 @@ export class NavbarComponent implements OnInit {
   public img;
   public firstLetter = this.firstName[0];
   public labelList=[];
-  constructor( private navbarService : HttpService, private router : Router, public dialog : MatDialog, private data: DataService ) { }
+  public selectedFile=null;
+  public moduleView:boolean=true
+  constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, private router : Router, public dialog : MatDialog, private data: DataService ) { }
   
   ngOnInit() {
     this.router.navigateByUrl('/notes');
     this.showLabel()
     this.data.currentMessage.subscribe(message => this.message = message);
     this.img="http://34.213.106.173/" + this.image;
+  }
+  view(){
+    this.moduleView=!this.moduleView;
   }
   search(){
     this.router.navigateByUrl('/search');
@@ -74,8 +80,7 @@ export class NavbarComponent implements OnInit {
   * @description for logging out from account
   */
   logout(){
-    var token=localStorage.getItem("fundooUserToken");
-    this.navbarService.postDataMore("/user/logout", {},token)
+    this.NavbarServiceUser.userLogout()
     .subscribe((response) =>{
       localStorage.removeItem("fundooUserToken");
       localStorage.removeItem("fundooUserId");
@@ -96,7 +101,7 @@ export class NavbarComponent implements OnInit {
     });
   }  
   showLabel(){
-  this.navbarService.getDataNotes("/noteLabels/getNoteLabelList",this.token)
+  this.NavbarServiceNotes.showNoteLabels()
     .subscribe((response) =>{
       this.labelList=[];
       for(var i=0;i<response["data"].details.length;i++){
@@ -105,6 +110,21 @@ export class NavbarComponent implements OnInit {
       this.labelList.sort()
     },(error) => {
     });
+  }
+  profileImage(event){
+    this.selectedFile = event.path[0].files[0];
+    const uploadData = new FormData();
+    
+    uploadData.append('file', this.selectedFile, this.selectedFile.name);
+
+    this.NavbarServiceUser.addProfileImage(uploadData)
+    .subscribe(res => {
+      this.img = "http://34.213.106.173/" + res['status'].imageUrl;
+      localStorage.setItem("fundooUserImage",res['status'].imageUrl);
+    }, error => {
+    })
+
+    
   }
 
 }

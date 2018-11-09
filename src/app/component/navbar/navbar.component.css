@@ -1,6 +1,9 @@
+
 .navbar {
     background-color: #fb0;
     width:100%;
+    /* position: absolute; */
+    /* height:10%; */
 }
 .search {
     padding:3% 4% 2% 9%;
@@ -31,13 +34,14 @@ input:focus {
     padding:10% 20% 15% 10%;
 }
 .example-container {
-    height: 89%;
+    height:90%;
     width:100%;
     background-color: #e8e8e8;
+    overflow: hidden;
 }
 .example-sidenav {
     background-color: #e8e8e8;
-    width:315px;
+    width:260px;
 }
 .plus {
    margin-left:10%;
@@ -85,4 +89,10 @@ input:focus {
 }
 .labelCreate{
     width:95%;
+}
+.fileSelect{
+    display:none;
+}
+.img{
+    height:50px;width:50px;border-radius:50%
 }

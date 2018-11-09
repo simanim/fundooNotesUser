@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -29,7 +29,7 @@ export class MoreComponent implements OnInit {
   public token=localStorage.getItem("fundooUserToken");
   public arr=[];
   public arr2=[];
-  constructor( private moreService : HttpService, public snackBar : MatSnackBar) { }
+  constructor( private MoreService : NotesService, public snackBar : MatSnackBar) { }
   public isDelete=false;
   public string="Note trashed"
   ngOnInit() {
@@ -38,19 +38,19 @@ export class MoreComponent implements OnInit {
       if(this.card.isDeleted==true)this.string="Note Restored"
     }
   }
-  /**
+ /**
   * 
   * @description deleting the selecting note
   */
-  deleteNotes(){
+ deleteNotes(){
     if(this.card){
     var id=[];
     id.push(this.card.id);
-    this.moreService.postDataMore("/notes/trashNotes", 
-    {
+    var body={
       "isDeleted":!this.isDelete,
       "noteIdList":id
-    },this.token)
+    }
+    this.MoreService.deleteNote(body)
     .subscribe((response) =>{
       this.onChanges.emit({})
       this.snackBar.open(this.string,"undo", {
@@ -59,11 +59,14 @@ export class MoreComponent implements OnInit {
       },(error) =>{
     });}
   }
-
+ /**
+  * 
+  * @description getting label list
+  */
   showLabel(){
     this.arr=[];
     this.arr2=[];
-    this.moreService.getDataNotes("/noteLabels/getNoteLabelList",this.token)
+    this.MoreService.showNoteLabels()
     .subscribe((response) =>{
       this.labelList=[];
       this.labelList=response["data"].details;
@@ -78,11 +81,14 @@ export class MoreComponent implements OnInit {
       }}
     },(error) => {
     });
-      }
-
+  }
+ /**
+  * 
+  * @description adding label to note
+  */
   addLabel(label){
     if(this.card){
-    this.moreService.postDataMore("/notes/"+this.card.id+"/addLabelToNotes/"+label.id+"/add",{},this.token)
+    this.MoreService.addLabelToNotes(this.card.id,label.id)
     .subscribe((response) =>{
       this.onChanges.emit({})
       for(var i=0;i<this.arr2.length;i++){
@@ -108,9 +114,12 @@ export class MoreComponent implements OnInit {
       this.onChanges.emit(this.arr);
     }
   }
-  
+ /**
+  * 
+  * @description remove label from list
+  */
   removeLabel(label){
-    this.moreService.postDataMore("/notes/"+this.card.id+"/addLabelToNotes/"+label.id+"/remove",{},this.token)
+    this.MoreService.removeLabelFromNotes(this.card.id,label.id)
     .subscribe((response) =>{
       this.onChanges.emit({})
       for(var i=0;i<this.arr2.length;i++){
@@ -128,6 +137,21 @@ export class MoreComponent implements OnInit {
 
   showCheckBox(){
     this.showCheckbox.emit({});
+  }
+ /**
+  * 
+  * @description deleting a note permanently
+  */
+  deleteForver(){
+    if(this.card){
+      var id=[];
+      id.push(this.card.id);
+      var body={ "noteIdList":id }
+      this.MoreService.permanentDeleteNote(body)
+      .subscribe((response) =>{
+        this.onChanges.emit({})
+        },(error) =>{
+      });}
   }
 
 }

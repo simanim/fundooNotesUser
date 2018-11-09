@@ -10,7 +10,7 @@
  *
  ******************************************************************************/
 import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-notes-add',
@@ -38,7 +38,7 @@ export class NotesAddComponent implements OnInit {
   model : any={
     "item":""
   }
-  constructor( private noteAddService : HttpService ){}
+  constructor( private NoteAddService : NotesService ){}
   ngOnInit() {
   }
 
@@ -50,6 +50,7 @@ export class NotesAddComponent implements OnInit {
   * @description adding a checklist
   */
   listitem(){
+    if(this.model.item=='') return false;
     this.listArray.push({"itemName":this.model.item,"status":"open"});
     this.model.item="";
   }
@@ -105,28 +106,31 @@ export class NotesAddComponent implements OnInit {
     if(this.listNote==false){
 
     var description1=this.description.nativeElement.innerHTML;
-
-    this.noteAddService.postDataReset("/notes/addNotes", {
+    var body={
       "title" : title1,
       "description" : description1,
       "isPined"	: this.isPin,
       "color":this.cardColor,
       "isArchived":this.isAchive,
       "labelIdList":	JSON.stringify(labelId)
-    },this.token).subscribe((response) =>{
+    }
+    this.NoteAddService.addNote(this.getFormUrlEncoded(body))
+    .subscribe((response) =>{
       this.onNewEntry.emit({})
     },(error) => {
     });}
     else{
       var checkList1=this.listArray;
-      this.noteAddService.postDataReset("/notes/addNotes", {
+      var bodyList={
         "title" : title1,
         "checklist" : JSON.stringify(checkList1),
         "isPined"	: this.isPin,
         "color":this.cardColor,
         "isArchived":this.isAchive,
         "labelIdList":	JSON.stringify(labelId)
-      },this.token).subscribe((response) =>{
+      }
+      this.NoteAddService.addNote(this.getFormUrlEncoded(bodyList))
+      .subscribe((response) =>{
         this.onNewEntry.emit({})
       },(error) => {
       });
@@ -183,4 +187,14 @@ export class NotesAddComponent implements OnInit {
   showCheckBox(event){
     this.list();
   }
+
+  getFormUrlEncoded(toConvert) {
+    const formBody = [];
+    for (const property in toConvert) {
+      const encodedKey = encodeURIComponent(property);
+      const encodedValue = encodeURIComponent(toConvert[property]);
+      formBody.push(encodedKey + '=' + encodedValue);
+    }
+    return formBody.join('&');
+   }
 }

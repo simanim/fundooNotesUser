@@ -10,9 +10,10 @@
  *
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { UserService } from '../../core/services/user/user.service';
+
 import {MatSnackBar} from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +32,7 @@ export class SignupComponent implements OnInit {
     "confpassword":""
   }
   public card=[];
-  constructor(private signupService : HttpService,public snackBar: MatSnackBar, private router : Router ){ }
+  constructor(private signupService : UserService,public snackBar: MatSnackBar, private router : Router ){ }
 
   ngOnInit() {
     this.getService();
@@ -42,8 +43,8 @@ export class SignupComponent implements OnInit {
   * @description getting the service cards
   */
   getService(){
-    let obs = this.signupService.getData("/user/service"); 
-    obs.subscribe((response) => {
+    this.signupService.getService()
+    .subscribe((response) => {
       for(let i=0;i<response["data"].data.length;i++)
       {
         response["data"].data[i].select=false;
@@ -124,14 +125,15 @@ export class SignupComponent implements OnInit {
       });
       return;
     }
-    
-    this.signupService.postData("/user/userSignUp", {
+    var body={
       "firstName" : this.model.firstname,
       "lastName" : this.model.lastname,
       "service": this.service,
       "email": this.model.email,
       "password":this.model.password
-    }).subscribe((response) =>{
+    }
+    this.signupService.userSignup(body)
+    .subscribe((response) =>{
      /**
       * 
       * @description if the registration is success then it will directly take to login page

@@ -12,7 +12,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class CreateLabelComponent implements OnInit {
   @ViewChild('labelName') labelName: ElementRef;
   @ViewChild('newName') newName: ElementRef;
 
-  constructor( public dialogRef : MatDialogRef<NavbarComponent>, private noteAddService : HttpService ) { }
+  constructor( public dialogRef : MatDialogRef<NavbarComponent>, private NoteAddService : NotesService ) { }
   public token=localStorage.getItem("fundooUserToken");
   public id=localStorage.getItem("fundooUserId");
   public labelList;
@@ -51,7 +51,7 @@ export class CreateLabelComponent implements OnInit {
   * @description getting the list of labels
   */
   show(){
-    this.noteAddService.getDataNotes("/noteLabels/getNoteLabelList",this.token)
+    this.NoteAddService.showNoteLabels()
     .subscribe((response) =>{
       this.labelList=[];
       this.labelList=response["data"].details;
@@ -65,7 +65,7 @@ export class CreateLabelComponent implements OnInit {
   * @description deleting a label from list
   */
   delete(labelId){
-    this.noteAddService.deleteDate("/noteLabels/"+labelId+"/deleteNoteLabel")
+    this.NoteAddService.deleteLabel(labelId)
     .subscribe((response) =>{
       this.show();
     },(error) => {
@@ -77,10 +77,8 @@ export class CreateLabelComponent implements OnInit {
   */
   update(labelId){ 
     var label=this.newName.nativeElement.innerHTML
-    this.noteAddService.postDataMore("/noteLabels/"+labelId+"/updateNoteLabel",
-    {
-      "label":label
-    },this.token)
+    var body={ "label":label }
+    this.NoteAddService.updateLabel(labelId,body)
     .subscribe((response) =>{
       this.show();
     },(error) => {
@@ -96,12 +94,12 @@ export class CreateLabelComponent implements OnInit {
       this.dialogRef.close();
       return false;
     }
-    this.noteAddService.postDataMore("/noteLabels",
-    {
+    var body= {
       "label": label,
       "isDeleted": false,
       "userId":this.id
-    },this.token)
+    }
+    this.NoteAddService.createLabel(body)
     .subscribe((response) =>{
       this.show();
       this.labelName.nativeElement.innerHTML=null;

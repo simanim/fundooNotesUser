@@ -12,7 +12,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CardDisplayComponent } from '../card-display/card-display.component';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 export interface DialogData {
   noteData:object
@@ -32,8 +32,8 @@ export class NotesListComponent implements OnInit {
   @Input() notes;
   @Input() searchItem;
   @Output() anyChanges= new EventEmitter();
-  
-  constructor( public dialog: MatDialog, private noteListService : HttpService ) { }
+  public view:boolean=true;
+  constructor( public dialog: MatDialog, private noteListService : NotesService ) { }
 
   ngOnInit() {
   }
@@ -47,7 +47,6 @@ export class NotesListComponent implements OnInit {
     }
   }
   check(list){
-    console.log(list);
     
     if(list.status=="open"){
       list.status="close";
@@ -55,14 +54,13 @@ export class NotesListComponent implements OnInit {
     else{
       list.status="open";
     }
-    this.noteListService.postDataMore("/notes/"+list.notesId+"/checklist/"+list.id+"/update", {
+    var body={
       "itemName":list.itemName,
       "status":list.status
-    },this.token)
+    }
+    this.noteListService.updateCheckList(list.notesId,list.id,body)
     .subscribe((response) =>{
-      console.log(response)
     },(error) => {
-      console.log(error)
     });
   }
 
@@ -72,7 +70,7 @@ export class NotesListComponent implements OnInit {
   */
   openDialog(noteData1): void {
     const dialogRef = this.dialog.open(CardDisplayComponent, {
-      width: '50%',
+      width: '600px',
       data: { noteData : noteData1 }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -81,7 +79,7 @@ export class NotesListComponent implements OnInit {
   }
 
   removeLabel(labelId, cardId){
-    this.noteListService.postDataMore("/notes/"+cardId+"/addLabelToNotes/"+labelId+"/remove",{},this.token)
+    this.noteListService.removeLabelFromNotes(cardId,labelId)
     .subscribe((response) =>{
       this.anyChanges.emit({})
     },(error) => {

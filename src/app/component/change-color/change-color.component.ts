@@ -10,7 +10,7 @@
  *
 ******************************************************************************/
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-change-color',
@@ -20,8 +20,7 @@ import { HttpService } from '../../services/http.service';
 export class ChangeColorComponent implements OnInit {
   @Input() card;
   @Output() onChangeColor= new EventEmitter()
-  constructor(private changeColorService : HttpService) { }
-  public token=localStorage.getItem("fundooUserToken");
+  constructor(private changeColorService : NotesService) { }
 
   ngOnInit() {
   }
@@ -33,12 +32,11 @@ export class ChangeColorComponent implements OnInit {
     if(this.card){
       var id=[];
       id.push(this.card.id);
-
-      this.changeColorService.postDataMore("/notes/changesColorNotes", 
-      {
+      var body={
         "color":color,
         "noteIdList":id
-      },this.token)
+      }
+      this.changeColorService.cardColorChange(body)
       .subscribe((response) =>{
       this.onChangeColor.emit(color)
       },(error) =>{

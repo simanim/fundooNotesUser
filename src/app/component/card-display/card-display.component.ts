@@ -12,7 +12,7 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NotesListComponent, DialogData } from '../notes-list/notes-list.component';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service'
 
 @Component({
   selector: 'app-card-display',
@@ -25,15 +25,16 @@ export class CardDisplayComponent implements OnInit {
   model : any={
     "item":""
   }
-  public token=localStorage.getItem("fundooUserToken");
-  constructor( private updateService : HttpService, public dialogRef : MatDialogRef<NotesListComponent>, @Inject(MAT_DIALOG_DATA) public data : DialogData ) {}
+  constructor( private UpdateService : NotesService, public dialogRef : MatDialogRef<NotesListComponent>, @Inject(MAT_DIALOG_DATA) public data : DialogData ) {}
   public labels=[];
+  public checkList=[];
   public isDelete=false;
   public cardColor;
   ngOnInit() {
     this.labels=this.data.noteData["noteLabels"];
     this.isDelete=this.data.noteData["isDeleted"];
     this.cardColor=this.data.noteData["color"];
+    this.checkList=this.data.noteData["noteCheckLists"];
   }
 
   /**
@@ -48,11 +49,12 @@ export class CardDisplayComponent implements OnInit {
     }    
     if(this.data.noteData["noteCheckLists"].length==0){
       var descriptionValue=this.description.nativeElement.innerHTML;
-      this.updateService.postDataMore("/notes/updateNotes", {
+      var body={
         "noteId":this.data.noteData["id"],
         "title" : titleValue,
         "description" : descriptionValue
-      },this.token)
+      }
+      this.UpdateService.updateNotes(body)
       .subscribe((response) =>{
       },(error) => {
       });
@@ -60,8 +62,12 @@ export class CardDisplayComponent implements OnInit {
     this.dialogRef.close();
   }
 
+ /**
+  *
+  * @description remove a lebel from the note while displaying the card
+  */
   removeLabel(labelId, cardId){
-    this.updateService.postDataMore("/notes/"+cardId+"/addLabelToNotes/"+labelId+"/remove",{},this.token)
+    this.UpdateService.removeLabelFromNotes(cardId,labelId)
     .subscribe((response) =>{
       for(var i=0;i<this.labels.length;i++){
         if(this.labels[i]['id']==labelId)
@@ -71,21 +77,39 @@ export class CardDisplayComponent implements OnInit {
     }); 
   }
 
-  changes(event){
+ /**
+  *
+  * @description on color change
+  */
+  colorChanges(event){
     if(event)
     this.cardColor=event;
   }
-  popup(event){
+
+ /**
+  *
+  * @description on adding or removing of label
+  */
+  labelChanges(event){
     this.labels=[];
     for(var i=0;i<event.length;i++){
       this.labels.push(event[i])
     }
   }
+
+ /**
+  *
+  * @description on note archive
+  */
   archive(event){
     if(event)
     this.dialogRef.close();
   }
 
+ /**
+  *
+  * @description checked or unchecked the note when display the card
+  */
   check(list){
     if(list.status=="open"){
       list.status="close";
@@ -93,39 +117,65 @@ export class CardDisplayComponent implements OnInit {
     else{
       list.status="open";
     }
-    this.updateService.postDataMore("/notes/"+list.notesId+"/checklist/"+list.id+"/update", {
+    var body={
       "itemName":list.itemName,
       "status":list.status
-    },this.token)
+    }
+    this.UpdateService.updateCheckList(list.notesId, list.id, body)
     .subscribe((response) =>{
     },(error) => {
     });
   }
+
+ /**
+  *
+  * @description update the list item 
+  */
   listitem(list){
-    this.updateService.postDataMore("/notes/"+list.notesId+"/checklist/"+list.id+"/update", {
+    if(list.itemName=='')return false;
+    var body= {
       "itemName":list.itemName,
       "status":list.status
-    },this.token)
+    }
+    this.UpdateService.updateCheckList(list.notesId, list.id, body)
     .subscribe((response) =>{
     },(error) => {
     });
   }
+
+ /**
+  *
+  * @description remove a checklist
+  */
   removeCheckList(list){
-    this.updateService.postDataMore("/notes/"+list.notesId+"/checklist/"+list.id+"/remove", {},this.token)
+    this.UpdateService.removeChecklist(list.notesId,list.id)
     .subscribe((response) =>{
+      for(var i=0;i<this.checkList.length;i++){
+        if(this.checkList[i]==list)
+        this.checkList.splice(i, 1);
+      }
     },(error) => {
     });
   }
+
   clear(){
     this.model.item="";
   }
+
+ /**
+  *
+  * @description adding a checklist
+  */
   listAdd(){
-    this.updateService.postDataMore("/notes/"+this.data.noteData["id"]+"/checklist/add", {
+    if(this.model.item=='')return false;
+    var body={
       "itemName":this.model.item,
       "status":"open"
-    },this.token)
+    }
+    this.UpdateService.addCheckList( this.data.noteData["id"], body )
     .subscribe((response) =>{
-    this.model.item="";
+      this.checkList.push(response["data"].details)
+      this.model.item="";
     },(error) => {
     });
   }

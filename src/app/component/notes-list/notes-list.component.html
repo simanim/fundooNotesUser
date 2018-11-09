@@ -1,7 +1,49 @@
 <div fxLayoutAlign="center" >
-  <div class="main" fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="600px" fxFlex.xs="300px">
+  <div class="main" fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="600px" fxFlex.xs="350px">
+    
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" ngStyle.xl="width:200px" 
-    ngStyle.lg="width:190px" ngStyle.md="width:190px"ngStyle.sm="width:230px" ngStyle.xs="width:300px"
+    ngStyle.lg="width:190px" ngStyle.md="width:190px" ngStyle.sm="width:230px" ngStyle.xs="width:350px"
+    [ngStyle]="{'background-color':data.color}">
+      <app-pin class=pin [card]=data (onChange)="entry($event)"></app-pin>
+      <div (click)="openDialog(data)">
+        <mat-card-subtitle class=title [innerHTML]="data.title"></mat-card-subtitle>
+        <mat-card-content class=decscription [innerHTML]="data.description"></mat-card-content>
+      </div>
+      <mat-card-content>        
+        <div *ngFor="let list of data.noteCheckLists">
+          <mat-checkbox *ngIf="list.status=='open' && list.isDeleted==false" (click)=check(list)>{{list.itemName}}
+          </mat-checkbox>
+        </div>
+        <div *ngFor="let list of data.noteCheckLists">
+          <mat-checkbox *ngIf="list.status=='close' && list.isDeleted==false"checked=true (click)=check(list)>
+          <del>{{list.itemName}}</del></mat-checkbox>
+        </div>
+      </mat-card-content>
+      <mat-chip-list>
+        <span *ngFor="let cardData of data.noteLabels" class="chip">
+          <mat-chip class="label"*ngIf="cardData.isDeleted==false">
+            {{cardData.label}}<mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
+            class="cancelIcon">cancel</mat-icon>
+          </mat-chip>
+        </span>
+      </mat-chip-list>
+      <p>
+      <span class="icon">
+        <span *ngIf="!data.isDeleted" class="iconButton"><app-remind-me></app-remind-me></span>
+        <span *ngIf="!data.isDeleted" class="iconButton"><app-collaborator></app-collaborator></span>
+        <span *ngIf="!data.isDeleted" class="iconButton">
+          <app-change-color [card]=data (onChangeColor)="entry($event)"></app-change-color></span>
+        <span *ngIf="!data.isDeleted" class="iconButton"><app-add-image></app-add-image></span>
+        <span *ngIf="!data.isDeleted" class="iconButton">
+          <app-notes-archive [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive></span>
+        <span class="iconButton"><app-more [card]=data (onChanges)="entry($event)"></app-more></span>
+      </span></p>
+    </mat-card>
+    
+
+    <!-- <div *ngIf=!view>
+    <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" ngStyle.xl="width:200px" 
+    ngStyle.lg="width:190px" ngStyle.md="width:190px" ngStyle.sm="width:230px" ngStyle.xs="width:350px"
     [ngStyle]="{'background-color':data.color}">
       <app-pin class=pin [card]=data (onChange)="entry($event)"></app-pin>
       <div (click)="openDialog(data)">
@@ -35,6 +77,8 @@
         <span class="iconButton"><app-more [card]=data (onChanges)="entry($event)"></app-more></span>
       </span></p>
     </mat-card>
+    </div> -->
+
   </div>
 
 </div>

@@ -1,7 +1,7 @@
 <!-- ******************************navbar******************************** -->
-
-<div class="navbar" ngStyle.xs="height:50px" ngStyle.sm="height:50px" ngStyle.md="height:50px" 
-ngStyle.lg="height:70px" ngStyle.xl="height:80px">
+<!-- <div style=height:100%> -->
+<div class="navbar" ngStyle.xs="height:7%"ngStyle.sm="height:5%"
+      ngStyle.md="height:5%" ngStyle.lg="height:10%" ngStyle.xl="height:10%">
   <mat-toolbar-row>
   <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
   <div fxFlex="5%"></div>
@@ -22,7 +22,7 @@ ngStyle.lg="height:70px" ngStyle.xl="height:80px">
       <span ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
     </div>
 
-    <div fxFlex.xs="30%" fxFlex.sm="45%" fxFlex.md="56%" fxFlex.lg="56%" fxFlex.xl="56%">
+    <div fxFlex.xs="25%" fxFlex.sm="40%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="56%">
       <mat-icon class="searchbutton">search</mat-icon>
       <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
       placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" 
@@ -35,17 +35,15 @@ ngStyle.lg="height:70px" ngStyle.xl="height:80px">
     </div>
             
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <mat-icon class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px">view_stream</mat-icon>
+      <mat-icon *ngIf=moduleView class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
+      ngStyle.lg="font-size:30px" (click)=view()>view_module</mat-icon>
+      <mat-icon *ngIf=!moduleView class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
+      ngStyle.lg="font-size:30px" (click)=view()>view_stream</mat-icon>
     </div>
 
     <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <mat-icon class="button" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px" (click)="account()">account_circle</mat-icon>
-      <!-- <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
-      style="height:50px;width:50px;border-radius:50%;float: left;" (click)="account()"
-      ngStyle.xs="width:25px;height:25px" ngStyle.sm="width:25px;height:25px"ngStyle.md="width:30px;height:30px" 
-      ngStyle.lg="width:40px;height:40px" ngStyle.lg="width:50px;height=50%"></div> -->
+      <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','height':'40px','width':'40px'}" 
+      class=img (click)="account()"></div>
     </div>
 
     <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
@@ -55,25 +53,25 @@ ngStyle.lg="height:70px" ngStyle.xl="height:80px">
   </mat-toolbar-row>
 </div>
   
-<!-- ***********************profile**************************** -->
+<!-- ***********************profile start**************************** -->
 
 <mat-card class="account" *ngIf="signoutCard">
   <mat-card-header>
-      <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
-    style="height:50px;width:50px;border-radius:50%;float: left;"></div>
-    <!-- <div mat-card-avatar class="example-header-image">{{firstLetter}}</div> -->
-      
+    <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" class="img"
+   (click)=image.click()></div>      
     <mat-card-title>{{firstName}} {{lastName}}</mat-card-title>
     <mat-card-subtitle>{{email}}</mat-card-subtitle>
   </mat-card-header><hr>
+  <input type=file class="fileSelect" (change)=profileImage($event) #image>
   <button  class="signout" (click)="logout()">Sign out</button>
 </mat-card>
-  
+  <!-- ***********************profile end**************************** -->
 
 <!-- *************************menu************************************* -->
 
 
-<mat-drawer-container class="example-container">
+<mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
+ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
   <mat-drawer #drawer class="example-sidenav"  mode="side" closed >
     <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null" routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
@@ -123,3 +121,4 @@ ngStyle.lg="height:70px" ngStyle.xl="height:80px">
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>
+<!-- </div> -->

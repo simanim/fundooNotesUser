@@ -7,7 +7,7 @@ import { ForgotpassComponent } from './component/forgotpass/forgotpass.component
 import { ResetComponent } from './component/reset/reset.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { NotesComponent } from './component/notes/notes.component';
-import { AuthGuard } from "./component/auth/auth.guard";
+import { AuthGuard } from "./core/services/auth/auth.guard";
 import { ArchiveComponent} from "./component/archive/archive.component";
 import { TrashComponent } from "./component/trash/trash.component";
 import { LabelComponent } from "./component/label/label.component";

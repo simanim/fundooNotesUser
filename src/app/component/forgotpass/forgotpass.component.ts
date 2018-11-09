@@ -10,9 +10,8 @@
  *
 ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
 import { MatSnackBar } from '@angular/material';
-
+import { UserService } from '../../core/services/user/user.service'
 @Component({
   selector: 'app-forgotpass',
   templateUrl: './forgotpass.component.html',
@@ -22,7 +21,7 @@ export class ForgotpassComponent implements OnInit {
   model : any = {
     "email":""
   }
-  constructor(private resetService : HttpService, public snackBar: MatSnackBar) { }
+  constructor(private resetService : UserService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -42,10 +41,11 @@ export class ForgotpassComponent implements OnInit {
       });
       return;
     }
-    this.resetService.postData("/user/reset", {
+    var body={
       "email": this.model.email
-    }).subscribe(
-    (response) =>{
+    }
+    this.resetService.forgotPassword(body)
+    .subscribe((response) =>{
       this.snackBar.open("check your email","Set password link sent to you registered email", {
       duration: 2000,
       });

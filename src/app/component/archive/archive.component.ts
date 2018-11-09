@@ -9,8 +9,8 @@
  *  @since          : 19-10-2018
  *
 ******************************************************************************/
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { Component, OnInit } from '@angular/core';
+import { NotesService } from '../../core/services/notes/notes.service';
 
 @Component({
   selector: 'app-archive',
@@ -19,8 +19,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor( private archiveService : HttpService ) { }
-  public token=localStorage.getItem("fundooUserToken");
+  constructor( private archiveService : NotesService ) { }
   public archiveList=[];
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class ArchiveComponent implements OnInit {
   * @description getting the archieved note list
   */
   getArchiveList(){
-    this.archiveService.getDataNotes("/notes/getArchiveNotesList",this.token)
+    this.archiveService.getArchivedList()
     .subscribe((response) =>{
       this.archiveList=[];
       for(var i=response["data"].data.length;i>0;i--){

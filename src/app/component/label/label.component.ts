@@ -10,7 +10,7 @@
  *
 ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
+import { NotesService } from '../../core/services/notes/notes.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class LabelComponent implements OnInit {
 
-  constructor(private labelService : HttpService, public route : ActivatedRoute) { }
+  constructor(private labelService : NotesService, public route : ActivatedRoute) { }
   public labelNotesList=[];
   public token = localStorage.getItem("fundooUserToken");
   public label='';
@@ -43,7 +43,7 @@ export class LabelComponent implements OnInit {
   * @description getting the notes according to label
   */
   labelNotes(){
-    this.labelService.postDataMore("/notes/getNotesListByLabel/"+this.label,{},this.token)
+    this.labelService.getNotelistByLabel(this.label)
     .subscribe((response) =>{
       this.labelNotesList=[];
       for(var i=response["data"].data.length;i>0;i--){
