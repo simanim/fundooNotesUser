@@ -19,23 +19,23 @@ export class UserService {
     })
   };
   
-  constructor( private http: HttpClient ) { }
+  constructor( private service: HttpService,private http: HttpClient ) { }
 
   forgotPassword(body){
     var path=this.URL+"/user/reset";
-    return this.http.post(path,body);
+    return this.service.postData(path,body,{});
   }
   userLogin(body){
     var path=this.URL+"/user/login";
-    return this.http.post(path,body);
+    return this.service.postData(path,body,{});
   }
   userLogout(){
     var path=this.URL+"/user/logout";
-    return this.http.post(path,{},this.httpAuthOptions1);
+    return this.service.postData(path,{},this.httpAuthOptions1);
   }
   addProfileImage(body){
     var path=this.URL+'/user/uploadProfileImage';
-    return this.http.post(path,body,this.httpAuthOptions2);
+    return this.service.postData(path,body,this.httpAuthOptions2);
   }
   resetPassword(body,id){
     var path=this.URL+"/user/reset-password";
@@ -45,14 +45,14 @@ export class UserService {
         'Authorization': id
       })
     };
-    return this.http.post(path,body,httpAuthOptions3)
+    return this.service.postData(path,body,httpAuthOptions3);
   }
   getService(){
     var path=this.URL+"/user/service";
-    return this.http.get(path);
+    return this.service.getData(path,{});
   }
   userSignup(body){
     var path=this.URL+"/user/userSignUp";
-    return this.http.post(path,body);
+    return this.service.postData(path,body,{});
   }
 }

@@ -1,11 +1,14 @@
 <p>Edit label</p>
+<!-- ****************************label create start****************************** -->
 <div fxLayout="row" fxLayoutGap="5%">
     <div fxFlex="10%"><mat-icon (click)=clear()>clear</mat-icon></div>
     <div fxFlex=70% data-text="Create new label" class="textarea" contenteditable="true" class="textarea" 
     #labelName></div>
     <div fxFlex="10%"><mat-icon class=doneIcon (click)=done()>done</mat-icon></div>
 </div>
+<!-- ****************************label create end****************************** -->
 
+<!-- ****************************edit label start****************************** -->
 <div *ngFor="let data of labelList" > 
 <div fxLayout=row >
     <div fxFlex=20% class="icon"(click)=delete(data.id)>
@@ -23,3 +26,4 @@
 </div>
 </div>
 <button mat-button class=done (click)=add()>Done</button>
+<!-- ****************************edit label end****************************** -->

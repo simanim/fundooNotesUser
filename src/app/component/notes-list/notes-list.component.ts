@@ -31,8 +31,8 @@ export class NotesListComponent implements OnInit {
 
   @Input() notes;
   @Input() searchItem;
+  @Input() view;
   @Output() anyChanges= new EventEmitter();
-  public view:boolean=true;
   constructor( public dialog: MatDialog, private noteListService : NotesService ) { }
 
   ngOnInit() {
@@ -85,5 +85,16 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     }); 
   }
-
+  removeReminder(cardId){
+    var id=[];
+    id.push(cardId)
+    var body={
+      "noteIdList":id
+    }
+    this.noteListService.removeReminder(body)
+    .subscribe((response) =>{
+      this.anyChanges.emit({})
+    },(error) => {
+    });
+  }
 }

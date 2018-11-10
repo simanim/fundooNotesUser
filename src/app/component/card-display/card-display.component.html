@@ -1,8 +1,11 @@
+<!-- *******************************matcard start****************************** -->
 <mat-card [ngStyle]="{'background-color':cardColor}">
 
   <app-pin class=pin [card]=data.noteData></app-pin>
   <div mat-dialog-title contenteditable="true" #title class="input"[innerHTML]=data.noteData.title></div>
-  <p *ngIf="data.noteData.noteCheckLists.length==0" mat-dialog-content contenteditable="true" #description class="textarea" [innerHTML]=data.noteData.description></p>
+  <p *ngIf="data.noteData.noteCheckLists.length==0" mat-dialog-content contenteditable="true" #description class="input" [innerHTML]=data.noteData.description></p>
+
+  <!-- ****************************checkbox start****************************** -->
   <div *ngIf="data.noteData.noteCheckLists.length!=0">
     <div *ngFor="let list of checkList" >
       <div *ngIf="list.isDeleted==false && list.status=='open'" fxLayout=row>
@@ -35,8 +38,9 @@
       </div>
     </div>
   </div>
+  <!-- ****************************checkbox end****************************** -->
 
-
+  <!-- ****************************label chip list start****************************** -->
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
       <mat-chip class="chip" *ngIf="cardData.isDeleted==false">
@@ -44,7 +48,9 @@
       </mat-chip>
     </span>
   </mat-chip-list>
+  <!-- ****************************label chip list end****************************** -->
 
+  <!-- *******************************maticon start********************************** -->
   <p>
     <span *ngIf=!isDelete class="iconButton"><app-remind-me></app-remind-me></span>
     <span *ngIf=!isDelete class="iconButton"><app-collaborator></app-collaborator></span>
@@ -56,5 +62,7 @@
     <span class="iconButton"><app-more [card]=data.noteData (popupChange)="labelChanges($event)"></app-more></span>
     <button *ngIf=!isDelete mat-button (click)="click()" class=pin>Close</button>
   </p>
+  <!-- *********************************maticon end****************************** -->
 
 </mat-card>
+<!-- *********************************matcard end****************************** -->

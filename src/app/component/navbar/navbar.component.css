@@ -42,6 +42,13 @@ input:focus {
 .example-sidenav {
     background-color: #e8e8e8;
     width:260px;
+    
+}
+@media screen and (max-width:700px){
+    .example-sidenav{
+        border:2px solid red;
+        z-index: 10;
+    }
 }
 .plus {
    margin-left:10%;

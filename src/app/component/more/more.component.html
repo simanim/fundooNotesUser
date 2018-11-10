@@ -1,11 +1,14 @@
 <abbr *ngIf="!isDelete" title="More"><mat-icon [matMenuTriggerFor]="menu">more_vert</mat-icon></abbr>
 
+<!-- ****************************more menu start****************************** -->
 <mat-menu #menu="matMenu">
     <button mat-menu-item class="menu" (click)="deleteNotes()">Delete Note</button>
     <button mat-menu-item class="menu" [matMenuTriggerFor]="nestedMenu" (click)="showLabel()">Add label</button>
     <button mat-menu-item class="menu" (click)="showCheckBox()">Show checkboxes</button>
 </mat-menu>
+<!-- ****************************more menu end****************************** -->
 
+<!-- ****************************label menu start****************************** -->
 <mat-menu #nestedMenu="matMenu">
     <div>Label note</div>
     <div  fxLayout="row">    
@@ -27,9 +30,12 @@
         </div>
     </div>
 </mat-menu>
+<!-- ****************************label menu end****************************** -->
 
 <abbr *ngIf="isDelete" title="More"><mat-icon [matMenuTriggerFor]="menuDelete">more_vert</mat-icon></abbr>
+<!-- ****************************trashed more menu end****************************** -->
 <mat-menu #menuDelete="matMenu">
     <button mat-menu-item class="menu" (click)=deleteForver()>Delete Forever</button>
     <button mat-menu-item class="menu" (click)=deleteNotes()>Restore</button>
 </mat-menu>
+<!-- ****************************trashed more menu end****************************** -->

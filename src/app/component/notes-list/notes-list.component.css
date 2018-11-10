@@ -6,7 +6,7 @@
 .div{
     margin:5px;
     border-radius: 5%;
-    height: min-content;
+    height: min-content; width:100%
 }
 .title{
     word-wrap: break-word;
@@ -47,4 +47,14 @@
 }
 .div:hover .pin {
     visibility: visible;
+}
+.grid{
+    width:190px;
+}
+.grid2{
+    width:150px;
+}
+.list{
+    width:100%;
+    border-radius:2%;
 }

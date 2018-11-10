@@ -12,6 +12,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateLabelComponent } from '../create-label/create-label.component';
+import { ImageCropComponent } from '../image-crop/image-crop.component'
 import { MatDialog } from '@angular/material';
 import { DataService } from '../../core/services/data/data.service'
 import { UserService } from '../../core/services/user/user.service';
@@ -32,13 +33,13 @@ export class NavbarComponent implements OnInit {
   public email = localStorage.getItem("fundooUserEmail");
   public token = localStorage.getItem("fundooUserToken");
   public image= localStorage.getItem("fundooUserImage")
-
+  public width;
   public labelNotesList = [];
   public img;
   public firstLetter = this.firstName[0];
   public labelList=[];
   public selectedFile=null;
-  public moduleView:boolean=true
+  public gridView:boolean=true
   constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, private router : Router, public dialog : MatDialog, private data: DataService ) { }
   
   ngOnInit() {
@@ -46,9 +47,11 @@ export class NavbarComponent implements OnInit {
     this.showLabel()
     this.data.currentMessage.subscribe(message => this.message = message);
     this.img="http://34.213.106.173/" + this.image;
+    this.isLargeScreen();
   }
   view(){
-    this.moduleView=!this.moduleView;
+    this.data.changeView(this.gridView)
+    this.gridView=!this.gridView;
   }
   search(){
     this.router.navigateByUrl('/search');
@@ -111,20 +114,19 @@ export class NavbarComponent implements OnInit {
     },(error) => {
     });
   }
-  profileImage(event){
-    this.selectedFile = event.path[0].files[0];
-    const uploadData = new FormData();
-    
-    uploadData.append('file', this.selectedFile, this.selectedFile.name);
-
-    this.NavbarServiceUser.addProfileImage(uploadData)
-    .subscribe(res => {
-      this.img = "http://34.213.106.173/" + res['status'].imageUrl;
-      localStorage.setItem("fundooUserImage",res['status'].imageUrl);
-    }, error => {
-    })
-
+  profileImage(event):void {
+    const dialogRef = this.dialog.open(ImageCropComponent, {
+      width: '400px',
+      data: event 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    this.img=  "http://34.213.106.173/"+localStorage.getItem("fundooUserImage")
+    });
     
   }
+  isLargeScreen() {
+    this.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  }
+  
 
 }

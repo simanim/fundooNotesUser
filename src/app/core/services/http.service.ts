@@ -5,15 +5,23 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
+constructor(private http: HttpClient) { }
 
-
+getData(path,token){
+ return this.http.get(path,token);
+}
+postData(path,body,token){
+ return this.http.post(path,body,token);
+}
+deleteData(path){
+ return this.http.delete(path);
+}
 }
 
 
 
 
 // URL="http://34.213.106.173/api";
-// constructor(private http: HttpClient) { }
 
 // getData(path){
 //   return this.http.get(this.URL+"/"+path);

@@ -11,6 +11,7 @@
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { DataService } from '../../core/services/data/data.service';
 
 @Component({
   selector: 'app-notes',
@@ -18,13 +19,17 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent implements OnInit {
-
-  constructor( private noteService : NotesService ){}
+  constructor( private noteService : NotesService, private data: DataService ){}
   public token=localStorage.getItem("fundooUserToken");
   public notesArray=[];
+  message : boolean
 
   ngOnInit() {
     this.getNotes();
+    this.data.currentMessage1.subscribe(message => {
+      this.message = message      
+    })
+
   }
 
   /**
@@ -50,6 +55,7 @@ export class NotesComponent implements OnInit {
         this.notesArray.push(response["data"].data[i-1])
         }
       }
+      
     },(error) =>{
     });
   }

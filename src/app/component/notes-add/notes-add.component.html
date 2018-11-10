@@ -1,3 +1,4 @@
+<!-- ****************************notecard end****************************** -->
 <div fxLayoutAlign="center" *ngIf="noteCard" >
   <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="600px" fxFlex.lg="600px" fxFlex.md="500px" 
   fxFlex.sm="500px" fxFlex.xs="95%">
@@ -7,8 +8,9 @@
     <mat-icon class="icon" (click)="list()">view_list</mat-icon>
   </mat-card>
 </div>
+<!-- ****************************notecard end****************************** -->
 
-
+<!-- ****************************add notecard start****************************** -->
 <div fxLayoutAlign="center" *ngIf="!noteCard">
   <mat-card class="card" [ngStyle]="{'background-color':cardColor}" fxFlex.xl="600px" fxFlex.lg="600px" 
   fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="300px">
@@ -19,7 +21,7 @@
     </div>
 
     <div *ngIf=!listNote data-text="Take a Note..." contenteditable="true" class="textarea" #description></div>
-
+    <!-- ****************************checkbox end****************************** -->    
     <div *ngIf=listNote>
       <div *ngFor="let data of listArray" fxLayout=row class=listInput>
         <div fxFlex=5%><mat-checkbox (click)=checked(data)></mat-checkbox></div>
@@ -35,7 +37,9 @@
       </div>
       <mat-divider></mat-divider>
     </div>
+    <!-- ****************************checkbox end****************************** -->    
 
+    <!-- ****************************label start****************************** -->    
     <mat-chip-list>
         <span *ngFor="let cardData of labels" >
           <mat-chip class="chip">
@@ -43,7 +47,9 @@
           </mat-chip>
         </span>
       </mat-chip-list>
+    <!-- ****************************label end****************************** -->    
 
+    <!-- ****************************icon start****************************** -->    
     <div class="iconsList">
       <span class="iconButton"><app-remind-me></app-remind-me></span>
       <span class="iconButton"><app-collaborator></app-collaborator></span>
@@ -53,6 +59,8 @@
       <span class="iconButton"><app-more (onChanges)="addRemoveLabel($event)" (showCheckbox)=showCheckBox($event)></app-more></span>
       <button mat-button class="pin" (click)="close()">close</button>
     </div>
-  </mat-card>
+    <!-- ****************************icon end****************************** -->    
 
+  </mat-card>
 </div>
+<!-- ****************************add notecard end****************************** -->

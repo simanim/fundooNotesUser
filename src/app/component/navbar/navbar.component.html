@@ -1,7 +1,6 @@
-<!-- ******************************navbar******************************** -->
-<!-- <div style=height:100%> -->
+<!-- ******************************navbar start******************************** -->
 <div class="navbar" ngStyle.xs="height:7%"ngStyle.sm="height:5%"
-      ngStyle.md="height:5%" ngStyle.lg="height:10%" ngStyle.xl="height:10%">
+      ngStyle.md="height:5%" ngStyle.lg="height:65px" ngStyle.xl="height:10%" #navbar>
   <mat-toolbar-row>
   <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
   <div fxFlex="5%"></div>
@@ -35,9 +34,9 @@
     </div>
             
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <mat-icon *ngIf=moduleView class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
+      <mat-icon *ngIf=gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" (click)=view()>view_module</mat-icon>
-      <mat-icon *ngIf=!moduleView class="button" fxHide.xs=true fxHide.sm=true ngStyle.md="font-size:25px" 
+      <mat-icon *ngIf=!gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" (click)=view()>view_stream</mat-icon>
     </div>
 
@@ -52,27 +51,28 @@
   </div>
   </mat-toolbar-row>
 </div>
-  
-<!-- ***********************profile start**************************** -->
+<!-- ******************************navbar end******************************** -->
 
+  
+<!-- ****************************profile start****************************** -->
 <mat-card class="account" *ngIf="signoutCard">
   <mat-card-header>
     <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" class="img"
    (click)=image.click()></div>      
     <mat-card-title>{{firstName}} {{lastName}}</mat-card-title>
     <mat-card-subtitle>{{email}}</mat-card-subtitle>
-  </mat-card-header><hr>
+  </mat-card-header>
+  <mat-divider></mat-divider>
   <input type=file class="fileSelect" (change)=profileImage($event) #image>
-  <button  class="signout" (click)="logout()">Sign out</button>
+  <p><button  class="signout" (click)="logout()">Sign out</button></p>
 </mat-card>
-  <!-- ***********************profile end**************************** -->
-
-<!-- *************************menu************************************* -->
+<!-- ****************************profile end*********************************** -->
 
 
+<!-- *****************************menu start************************************* -->
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
-  <mat-drawer #drawer class="example-sidenav"  mode="side" closed >
+  <mat-drawer #drawer class="example-sidenav"  [mode]="width > 720?'side':'over'" closed>
     <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null" routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
     <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
@@ -121,4 +121,4 @@ ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>
-<!-- </div> -->
+<!-- ********************************menu end************************************* -->
