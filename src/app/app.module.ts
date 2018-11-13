@@ -47,7 +47,7 @@ import {  MatFormFieldModule,
           MatToolbarModule,
           MatSidenavModule,
           MatDividerModule,
-          MatDatepickerModule,
+          MatDatepickerModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
         } from '@angular/material';
 import { ImageCropComponent } from './component/image-crop/image-crop.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -106,7 +106,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
             ImageCropperModule,
             MatDividerModule,
             MatDatepickerModule,         
-             ReactiveFormsModule
+            ReactiveFormsModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
 
   ],
 

@@ -39,19 +39,29 @@
     </div>
     <!-- ****************************checkbox end****************************** -->    
 
-    <!-- ****************************label start****************************** -->    
+    <!-- ****************************reminder start****************************** -->    
     <mat-chip-list>
-        <span *ngFor="let cardData of labels" >
+        <span *ngFor="let cardData of reminder" >
           <mat-chip class="chip">
-            {{cardData.label}}<mat-icon class="cancelIcon">cancel</mat-icon>
+            {{cardData| date:"medium"}}<mat-icon class="cancelIcon" (click)=cancelReminder()>cancel</mat-icon>
           </mat-chip>
         </span>
       </mat-chip-list>
-    <!-- ****************************label end****************************** -->    
+    <!-- ****************************reminder end****************************** -->    
+
+    <!-- ****************************label start****************************** -->    
+      <mat-chip-list>
+        <span *ngFor="let cardData of labels" >
+          <mat-chip class="chip">
+            {{cardData.label}}<mat-icon class="cancelIcon" (click)=cancelLabel(cardData)>cancel</mat-icon>
+          </mat-chip>
+        </span>
+      </mat-chip-list>
+    <!-- ****************************label end****************************** -->   
 
     <!-- ****************************icon start****************************** -->    
     <div class="iconsList">
-      <span class="iconButton"><app-remind-me></app-remind-me></span>
+      <span class="iconButton"><app-remind-me (onChanges)=addRemoveReminder($event)></app-remind-me></span>
       <span class="iconButton"><app-collaborator></app-collaborator></span>
       <span class="iconButton"><app-change-color (onChangeColor)="onColorChange($event)"></app-change-color></span>
       <span class="iconButton"><app-add-image></app-add-image></span>

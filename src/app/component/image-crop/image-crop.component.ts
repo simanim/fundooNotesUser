@@ -5,7 +5,7 @@ import { UserService } from '../../core/services/user/user.service';
 @Component({
   selector: 'app-image-crop',
   templateUrl: './image-crop.component.html',
-  styleUrls: ['./image-crop.component.css']
+  styleUrls: ['./image-crop.component.scss']
 })
 export class ImageCropComponent implements OnInit {
 public croppedImage;

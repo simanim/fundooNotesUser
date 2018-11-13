@@ -17,7 +17,7 @@ import { NotesService } from '../../core/services/notes/notes.service'
 @Component({
   selector: 'app-card-display',
   templateUrl: './card-display.component.html',
-  styleUrls: ['./card-display.component.css']
+  styleUrls: ['./card-display.component.scss']
 })
 export class CardDisplayComponent implements OnInit {
   @ViewChild('title') title: ElementRef;
@@ -28,6 +28,7 @@ export class CardDisplayComponent implements OnInit {
   constructor( private UpdateService : NotesService, public dialogRef : MatDialogRef<NotesListComponent>, @Inject(MAT_DIALOG_DATA) public data : DialogData ) {}
   public labels=[];
   public checkList=[];
+  public reminders=[];
   public isDelete=false;
   public cardColor;
   ngOnInit() {
@@ -35,6 +36,7 @@ export class CardDisplayComponent implements OnInit {
     this.isDelete=this.data.noteData["isDeleted"];
     this.cardColor=this.data.noteData["color"];
     this.checkList=this.data.noteData["noteCheckLists"];
+    this.reminders=this.data.noteData["reminder"];
   }
 
   /**
@@ -75,6 +77,27 @@ export class CardDisplayComponent implements OnInit {
       }
     },(error) => {
     }); 
+  }
+
+ /**
+  *
+  * @description remove reminder from the note
+  */
+  removeReminder(cardId){
+    var id=[];
+    id.push(cardId)
+    var body={
+      "noteIdList":id
+    }
+    this.UpdateService.removeReminder(body)
+    .subscribe((response) =>{
+      this.reminders.splice(0, 1);
+    },(error) => {
+    });
+  }
+  reminderChanges(event){
+    this.reminders=[];
+    this.reminders.push(event.body);
   }
 
  /**

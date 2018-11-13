@@ -16,7 +16,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',
-  styleUrls: ['./label.component.css']
+  styleUrls: ['./label.component.scss']
 })
 export class LabelComponent implements OnInit {
 

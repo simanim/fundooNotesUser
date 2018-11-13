@@ -16,7 +16,7 @@ import { DataService } from '../../core/services/data/data.service';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
   constructor( private noteService : NotesService, private data: DataService ){}

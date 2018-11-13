@@ -15,7 +15,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 @Component({
   selector: 'app-notes-add',
   templateUrl: './notes-add.component.html',
-  styleUrls: ['./notes-add.component.css'],
+  styleUrls: ['./notes-add.component.scss'],
   outputs: ['onNewEntry']
 })
 export class NotesAddComponent implements OnInit {
@@ -33,6 +33,7 @@ export class NotesAddComponent implements OnInit {
   public cardColor="#FFFFFF";
   public isAchive:boolean=false;
   public labels=[];
+  public reminder=[];
   public listNote:boolean=false;
   public listArray=[];
   model : any={
@@ -95,8 +96,7 @@ export class NotesAddComponent implements OnInit {
     var title1=this.title.nativeElement.innerHTML;
     if(title1 == ""){
       this.listArray=[];
-    this.listNote=false;
-
+      this.listNote=false;
       return false;
     }
     var labelId=[]
@@ -112,7 +112,8 @@ export class NotesAddComponent implements OnInit {
       "isPined"	: this.isPin,
       "color":this.cardColor,
       "isArchived":this.isAchive,
-      "labelIdList":	JSON.stringify(labelId)
+      "labelIdList":	JSON.stringify(labelId),
+      "reminder":this.reminder
     }
     this.NoteAddService.addNote(this.getFormUrlEncoded(body))
     .subscribe((response) =>{
@@ -127,7 +128,8 @@ export class NotesAddComponent implements OnInit {
         "isPined"	: this.isPin,
         "color":this.cardColor,
         "isArchived":this.isAchive,
-        "labelIdList":	JSON.stringify(labelId)
+        "labelIdList":	JSON.stringify(labelId),
+        "reminder":this.reminder
       }
       this.NoteAddService.addNote(this.getFormUrlEncoded(bodyList))
       .subscribe((response) =>{
@@ -135,8 +137,7 @@ export class NotesAddComponent implements OnInit {
       },(error) => {
       });
       this.listArray=[];
-    this.listNote=false;
-
+      this.listNote=false;
     }
   }
 
@@ -149,6 +150,7 @@ export class NotesAddComponent implements OnInit {
     this.isPin=false;
     this.cardColor="#FFFFFF";
     this.labels=[];
+    this.reminder=[];
   }
 
  /**
@@ -179,6 +181,14 @@ export class NotesAddComponent implements OnInit {
   }
  /**
   * 
+  * @description adding or removing of reminder
+  */
+  addRemoveReminder(event){
+    this.reminder=[];
+    this.reminder.push(event)
+  }
+ /**
+  * 
   * @description pin change on note
   */
   onPinChange(event){
@@ -186,6 +196,16 @@ export class NotesAddComponent implements OnInit {
   }
   showCheckBox(event){
     this.list();
+  }
+  cancelReminder(){
+    this.reminder=[];
+  }
+  cancelLabel(data){
+    for(var i=0;i<this.labels.length;i++){
+      if(this.labels[i]==data){
+        this.labels.splice(i, 1);
+      }
+    }
   }
 
   getFormUrlEncoded(toConvert) {
@@ -196,5 +216,5 @@ export class NotesAddComponent implements OnInit {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     return formBody.join('&');
-   }
+  }
 }

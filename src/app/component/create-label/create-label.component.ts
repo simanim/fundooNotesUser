@@ -18,7 +18,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 @Component({
   selector: 'app-create-label',
   templateUrl: './create-label.component.html',
-  styleUrls: ['./create-label.component.css']
+  styleUrls: ['./create-label.component.scss']
 })
 export class CreateLabelComponent implements OnInit {
   @ViewChild('labelName') labelName: ElementRef;

@@ -15,7 +15,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 @Component({
   selector: 'app-change-color',
   templateUrl: './change-color.component.html',
-  styleUrls: ['./change-color.component.css']
+  styleUrls: ['./change-color.component.scss']
 })
 export class ChangeColorComponent implements OnInit {
   @Input() card;

@@ -9,7 +9,7 @@
           
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%" class="example-sidenav-content">
       <mat-icon (click)="drawer.toggle()"ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"
-      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" class="button">menu</mat-icon>
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" class="button" matTooltip="main menu">menu</mat-icon>
     </div>
 
     <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%">
@@ -22,7 +22,7 @@
     </div>
 
     <div fxFlex.xs="25%" fxFlex.sm="40%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="56%">
-      <mat-icon class="searchbutton">search</mat-icon>
+      <mat-icon class="searchbutton" matTooltip="search">search</mat-icon>
       <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
       placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" 
       fxHide.xs=true>
@@ -30,14 +30,14 @@
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon class="button" (click)="refresh()" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"
-      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px">refresh</mat-icon>
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" matTooltip="refresh">refresh</mat-icon>
     </div>
             
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon *ngIf=gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px" (click)=view()>view_module</mat-icon>
+      ngStyle.lg="font-size:30px" (click)=view() matTooltip="list view">view_stream</mat-icon>
       <mat-icon *ngIf=!gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px" (click)=view()>view_stream</mat-icon>
+      ngStyle.lg="font-size:30px" (click)=view() matTooltip="grid view">view_module</mat-icon>
     </div>
 
     <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">

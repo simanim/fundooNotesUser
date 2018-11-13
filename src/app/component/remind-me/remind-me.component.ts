@@ -11,83 +11,103 @@
  ******************************************************************************/
 import { Component, OnInit, Input, Output ,EventEmitter } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
-import {FormControl} from '@angular/forms';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import * as _moment1 from 'moment';
-import * as _moment from 'moment';
-
-const moment = _moment1 || _moment;
-// import {default as _rollupMoment} from 'moment';
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
 
 @Component({
   selector: 'app-remind-me',
   templateUrl: './remind-me.component.html',
-  styleUrls: ['./remind-me.component.css'],
-  providers:[    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
-  {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-]
+  styleUrls: ['./remind-me.component.scss'],
 })
 export class RemindMeComponent implements OnInit {
-  date = new FormControl(moment());
-
+  model: any={
+   "date":'',
+   'time':''
+  }
   @Input() card
   @Output() onChanges=new EventEmitter()
-  public remind:boolean=false;
+
+  public value;
+  public timePick:boolean=false;
+  // public currentDate;
+  public currentDate=new Date();
   constructor( private remindMeService : NotesService ) { }
 
   ngOnInit() {
+    // this.currentDate=new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+0,this.date.getHours(),
+    // this.date.getMinutes(),this.date.getSeconds())
+    // console.log(this.date);
+    
+  }
+  reminder(){
+    this.value=this.currentDate;
+    if(this.card.reminder.length!=0){
+      var cardReminder=new Date(this.card.reminder[0]);
+      this.value=cardReminder;
+    }
+    this.model.date=this.value;
+    var hr=this.value.getHours();
+    var min=this.value.getMinutes();
+    if(min>=0 && min<9)
+    min="0"+min;
+    var ampm='AM'
+    if(hr>12){
+      hr-=12;
+      ampm='PM'
+    }
+    this.model.time=hr+":"+min+" "+ampm;
   }
   today(){
-    var currentDate=new Date();
-    var id=[];
-    id.push(this.card.id);
-    var body={
-      "reminder":new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate()+0,20,0,0),
-      "noteIdList":id
+    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+0,20,0,0)
+    if(this.card){
+      this.addReminder(date);
     }
-    this.addReminder(body);
+    else{
+    this.onChanges.emit(date)
+    }
   }
   tomorrow(){
-    var currentDate=new Date();
-    var id=[];
-    id.push(this.card.id);
-
-    var body={
-      "reminder":new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate()+1,8,0,0),
-      "noteIdList":id
+    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+1,8,0,0)
+    if(this.card){
+      this.addReminder(date);
     }
-    this.addReminder(body);
+    else{
+      this.onChanges.emit(date)
+    }
   }
   nextWeek(){
-    var currentDate=new Date();
+    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+7,8,0,0)
+    if(this.card){
+      this.addReminder(date);
+    }
+    else{
+      this.onChanges.emit(date)
+    }
+  }
+  addReminder(date){
     var id=[];
     id.push(this.card.id);
-
     var body={
-      "reminder":new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate()+7,8,0,0),
+      "reminder":date,
       "noteIdList":id
     }
-    this.addReminder(body);
+    this.remindMeService.addUpdateReminder(body)
+    .subscribe((response) =>{
+      this.onChanges.emit({"body":date})
+    },(error) =>{
+    });
   }
-  addReminder(body){
-  this.remindMeService.addUpdateReminder(body)
-  .subscribe((response) =>{
-    this.onChanges.emit({})
-  },(error) =>{
-  });
+  addTime(){
+    var arr=this.model.time.split(' ');
+    var arr2=arr[0].split(':')
+    arr2.push(arr[1])
+    var min=Number(arr2[1]);
+    var hr=Number(arr2[0]);
+    if(arr2[2].toUpperCase()=="PM" && hr<12){
+      hr+=12;
+    }
+    var date=new Date(this.model.date.getFullYear(),this.model.date.getMonth(),this.model.date.getDate()+0,hr,min,0)
+    this.addReminder(date);
+    
+
   }
 
 }

@@ -16,7 +16,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 @Component({
   selector: 'app-notes-archive',
   templateUrl: './notes-archive.component.html',
-  styleUrls: ['./notes-archive.component.css']
+  styleUrls: ['./notes-archive.component.scss']
 })
 export class NotesArchiveComponent implements OnInit {
   @Input() card;

@@ -15,7 +15,7 @@ import { UserService } from '../../core/services/user/user.service'
 @Component({
   selector: 'app-forgotpass',
   templateUrl: './forgotpass.component.html',
-  styleUrls: ['./forgotpass.component.css']
+  styleUrls: ['./forgotpass.component.scss']
 })
 export class ForgotpassComponent implements OnInit {
   model : any = {

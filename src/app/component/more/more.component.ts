@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
-  styleUrls: ['./more.component.css'],
+  styleUrls: ['./more.component.scss'],
   outputs: ['onDeleteEntry']
 })
 export class MoreComponent implements OnInit {

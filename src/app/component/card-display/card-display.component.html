@@ -40,6 +40,16 @@
   </div>
   <!-- ****************************checkbox end****************************** -->
 
+  <!-- ****************************reminder chip list start****************************** -->
+  <mat-chip-list>
+    <span *ngFor="let cardData of reminders" >
+      <mat-chip class="chip">
+        {{cardData| date:"medium"}}<mat-icon (click)=removeReminder(data.noteData.id)>cancel</mat-icon>
+      </mat-chip>
+    </span>
+  </mat-chip-list>
+  <!-- ****************************reminder chip list end****************************** -->
+
   <!-- ****************************label chip list start****************************** -->
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
@@ -52,7 +62,7 @@
 
   <!-- *******************************maticon start********************************** -->
   <p>
-    <span *ngIf=!isDelete class="iconButton"><app-remind-me></app-remind-me></span>
+    <span *ngIf=!isDelete class="iconButton"><app-remind-me [card]=data.noteData (onChanges)=reminderChanges($event)></app-remind-me></span>
     <span *ngIf=!isDelete class="iconButton"><app-collaborator></app-collaborator></span>
     <span *ngIf=!isDelete class="iconButton"><app-change-color [card]=data.noteData (onChangeColor)=colorChanges($event)>
       </app-change-color></span>

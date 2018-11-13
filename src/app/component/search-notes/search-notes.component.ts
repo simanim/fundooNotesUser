@@ -5,7 +5,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 @Component({
   selector: 'app-search-notes',
   templateUrl: './search-notes.component.html',
-  styleUrls: ['./search-notes.component.css']
+  styleUrls: ['./search-notes.component.scss']
 })
 export class SearchNotesComponent implements OnInit {
   message : string
