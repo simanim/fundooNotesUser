@@ -38,10 +38,12 @@ export class RemindMeComponent implements OnInit {
   }
   reminder(){
     this.value=this.currentDate;
+    if(this.card){
+
     if(this.card.reminder.length!=0){
       var cardReminder=new Date(this.card.reminder[0]);
       this.value=cardReminder;
-    }
+    }}
     this.model.date=this.value;
     var hr=this.value.getHours();
     var min=this.value.getMinutes();
@@ -54,6 +56,7 @@ export class RemindMeComponent implements OnInit {
     }
     this.model.time=hr+":"+min+" "+ampm;
     this.datechange();
+  
   }
   datechange(){
     if(this.model.date.getFullYear()>=this.currentDate.getFullYear()){
@@ -108,6 +111,7 @@ export class RemindMeComponent implements OnInit {
     }
   }
   addReminder(date){
+    if(this.card){
     var id=[];
     id.push(this.card.id);
     var body={
@@ -118,7 +122,7 @@ export class RemindMeComponent implements OnInit {
     .subscribe((response) =>{
       this.onChanges.emit({"body":date})
     },(error) =>{
-    });
+    });}
   }
   timeValidation(){
     this.button=true;

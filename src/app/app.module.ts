@@ -51,6 +51,7 @@ import {  MatFormFieldModule,
         } from '@angular/material';
 import { ImageCropComponent } from './component/image-crop/image-crop.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ReminderComponent } from './component/reminder/reminder.component';
 
 
 
@@ -81,7 +82,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
                   SearchNotesComponent,
                   PinComponent,
                   SearchNotePipe,
-                  ImageCropComponent
+                  ImageCropComponent,
+                  ReminderComponent
   ],
   
   imports: [

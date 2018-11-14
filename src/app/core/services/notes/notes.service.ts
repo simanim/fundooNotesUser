@@ -130,7 +130,10 @@ export class NotesService {
   removeReminder(body){
     var path=environment.baseUrl+"/notes/removeReminderNotes";
     return this.service.postData(path,body,this.httpAuthOptions1);
-
+  }
+  getRemindersLIst(){
+    var path=environment.baseUrl+"/notes/getReminderNotesList";
+    return this.service.getData(path,this.httpAuthOptions2);
   }
 
 }

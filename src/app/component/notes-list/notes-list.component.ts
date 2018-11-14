@@ -85,6 +85,7 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     }); 
   }
+
   removeReminder(cardId){
     var id=[];
     id.push(cardId)
@@ -97,4 +98,5 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     });
   }
+  
 }
