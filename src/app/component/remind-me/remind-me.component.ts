@@ -11,6 +11,7 @@
  ******************************************************************************/
 import { Component, OnInit, Input, Output ,EventEmitter } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-remind-me',
@@ -27,15 +28,13 @@ export class RemindMeComponent implements OnInit {
 
   public value;
   public timePick:boolean=false;
-  // public currentDate;
   public currentDate=new Date();
+  public button=true;
+  public button1:boolean=true;public button2:boolean=true;public button3:boolean=true;public button4:boolean=true;
+
   constructor( private remindMeService : NotesService ) { }
 
   ngOnInit() {
-    // this.currentDate=new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+0,this.date.getHours(),
-    // this.date.getMinutes(),this.date.getSeconds())
-    // console.log(this.date);
-    
   }
   reminder(){
     this.value=this.currentDate;
@@ -54,6 +53,32 @@ export class RemindMeComponent implements OnInit {
       ampm='PM'
     }
     this.model.time=hr+":"+min+" "+ampm;
+    this.datechange();
+  }
+  datechange(){
+    if(this.model.date.getFullYear()>=this.currentDate.getFullYear()){
+      if(this.model.date.getMonth()>=this.currentDate.getMonth()){
+        if(this.model.date.getDate()>=this.currentDate.getDate()){
+          this.button1=this.button2=this.button3=this.button4=false;
+        }
+      }
+    }
+    if(this.model.date.getFullYear()==this.currentDate.getFullYear() &&
+    this.model.date.getMonth()==this.currentDate.getMonth() && 
+    this.model.date.getDate()==this.currentDate.getDate()){
+      if(this.currentDate.getHours()>=20 && this.currentDate.getMinutes()>=0){
+        this.button1=this.button2=this.button3=this.button4=true;
+      }    
+      if(this.currentDate.getHours()>=18 && this.currentDate.getMinutes()>=0){
+        this.button2=this.button3=this.button4=true;
+      } 
+      if(this.currentDate.getHours()>=13 && this.currentDate.getMinutes()>=0){
+        this.button3=this.button4=true;
+      } 
+      if(this.currentDate.getHours()>=8 && this.currentDate.getMinutes()>=0){
+        this.button4=true;
+      }  
+    }
   }
   today(){
     var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+0,20,0,0)
@@ -95,6 +120,13 @@ export class RemindMeComponent implements OnInit {
     },(error) =>{
     });
   }
+  timeValidation(){
+    this.button=true;
+    var regex=/^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM)$/;
+    if(!regex.test(this.model.time)){
+      this.button=false;
+    }
+  }
   addTime(){
     var arr=this.model.time.split(' ');
     var arr2=arr[0].split(':')
@@ -106,8 +138,6 @@ export class RemindMeComponent implements OnInit {
     }
     var date=new Date(this.model.date.getFullYear(),this.model.date.getMonth(),this.model.date.getDate()+0,hr,min,0)
     this.addReminder(date);
-    
-
   }
 
 }
