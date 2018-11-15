@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { CreateLabelComponent } from '../create-label/create-label.component';
 import { ImageCropComponent } from '../image-crop/image-crop.component'
 import { MatDialog } from '@angular/material';
-import { DataService } from '../../core/services/data/data.service'
+import { DataService } from '../../core/services/data/data.service';
 import { UserService } from '../../core/services/user/user.service';
 import { NotesService } from '../../core/services/notes/notes.service';
 
@@ -31,8 +31,7 @@ export class NavbarComponent implements OnInit {
   public firstName = localStorage.getItem("fundooUserFirstname");
   public lastName = localStorage.getItem("fundooUserLastname");
   public email = localStorage.getItem("fundooUserEmail");
-  public token = localStorage.getItem("fundooUserToken");
-  public image= localStorage.getItem("fundooUserImage")
+  public image= localStorage.getItem("fundooUserImage");
   public width;
   public labelNotesList = [];
   public img;
@@ -40,12 +39,17 @@ export class NavbarComponent implements OnInit {
   public labelList=[];
   public selectedFile=null;
   public gridView:boolean=true
-  constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, private router : Router, public dialog : MatDialog, private data: DataService ) { }
+  constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, 
+    private router : Router, public dialog : MatDialog, private data: DataService ) { }
   
   ngOnInit() {
     this.router.navigateByUrl('/notes');
     this.showLabel()
-    this.data.currentMessage.subscribe(message => this.message = message);
+    this.data.currentMessageSearch.subscribe(message => this.message = message);
+    this.data.currentMessageLabel.subscribe(message =>{ this.message = message;
+      if(this.message!="default")
+      this.router.navigateByUrl('/label/'+this.message);
+      });
     this.img="http://34.213.106.173/" + this.image;
     this.isLargeScreen();
   }
@@ -58,7 +62,7 @@ export class NavbarComponent implements OnInit {
   }
 
   newMessage() {
-    this.data.changeMessage(this.searchValue)
+    this.data.changeMessageSearch(this.searchValue)
   }
 
 

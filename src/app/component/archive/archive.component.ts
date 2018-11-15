@@ -21,7 +21,6 @@ export class ArchiveComponent implements OnInit {
 
   constructor( private archiveService : NotesService ) { }
   public archiveList=[];
-
   ngOnInit() {
     this.getArchiveList();
   }

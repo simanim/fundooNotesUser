@@ -14,7 +14,7 @@ export class SearchNotesComponent implements OnInit {
   public token=localStorage.getItem("fundooUserToken")
   ngOnInit() {
     this.getNotes()
-    this.data.currentMessage.subscribe(message => {
+    this.data.currentMessageSearch.subscribe(message => {
       this.message = message
     })
   }

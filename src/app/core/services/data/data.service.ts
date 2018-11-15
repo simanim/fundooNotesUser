@@ -7,18 +7,28 @@ import { BehaviorSubject } from 'rxjs';
 
 export class DataService {
 
-  private messageSource = new BehaviorSubject('default message');
+  private messageSourceSearch = new BehaviorSubject('default');
+  private messageSourceLabel = new BehaviorSubject('default');
+  private messageSourceReminder = new BehaviorSubject('default');
+
   private viewSource = new BehaviorSubject(false);
 
-  currentMessage = this.messageSource.asObservable();
-  currentMessage1 = this.viewSource.asObservable();
+  currentMessageSearch = this.messageSourceSearch.asObservable();
+  currentMessageLabel = this.messageSourceLabel.asObservable();
+  currentMessageView = this.viewSource.asObservable();
+  currentMessageReminder = this.messageSourceReminder.asObservable();
 
   constructor() { }
 
-  changeMessage(message: string) {
-    this.messageSource.next(message)
+  changeMessageSearch(message: string) {
+    this.messageSourceSearch.next(message)
   }
-
+  changeMessageLabel(message: string) {
+    this.messageSourceLabel.next(message)
+  }
+  changeMessageReminder(message: string) {
+    this.messageSourceReminder.next(message)
+  }
   changeView(message: boolean) {
     this.viewSource.next(message)
   }

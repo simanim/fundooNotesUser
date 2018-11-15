@@ -14,13 +14,13 @@
     <div mat-menu-item class="menu" fxLayout="row" (click)=nextWeek()>
         <div fxFlex=60%>Next week</div><div fxFlex="40%">Mon, 8:00 AM</div>
     </div>
-    <!-- <div mat-menu-item class="menu">Work</div> -->
-    <!-- <div mat-menu-item class="menu">Home</div> -->
-    <div mat-menu-item class="menu" (click)="timePick=true" (click)=$event.stopPropagation()><mat-icon>access_time</mat-icon><span>Pick date & time</span></div>
-    <!-- <div mat-menu-item class="menu"><mat-icon>location_on</mat-icon><span>Pick place</span></div> -->
+    <div mat-menu-item class="menu" (click)="timePick=true" (click)=$event.stopPropagation()>
+        <mat-icon>access_time</mat-icon><span>Pick date & time</span>
+    </div>
 </mat-card>
 <mat-card *ngIf=timePick>
-        <div mat-menu-item><mat-icon (click)="timePick=false;$event.stopPropagation()">keyboard_backspace</mat-icon>Pick date & time</div>
+        <div mat-menu-item><mat-icon (click)="timePick=false;$event.stopPropagation()">keyboard_backspace</mat-icon>
+        Pick date & time</div>
         <mat-divider></mat-divider>
         <div mat-menu-item>
         <mat-form-field>
@@ -32,7 +32,8 @@
         </div>
         <div mat-menu-item>
             <mat-form-field>
-                <input matInput (keyup)=timeValidation() [(ngModel)]=model.time (click)=$event.stopPropagation() [matMenuTriggerFor]="menuTime">
+                <input matInput (keyup)=timeValidation() [(ngModel)]=model.time (click)=$event.stopPropagation() 
+                [matMenuTriggerFor]="menuTime">
             </mat-form-field>
         </div>
         <button mat-button [disabled]=!button (click)=addTime()>save</button>
@@ -41,21 +42,25 @@
 </mat-menu>
 <!-- ****************************reminder menu end****************************** -->        
 <mat-menu #menuTime="matMenu" [overlapTrigger]=false>
-    <div mat-menu-item class="menu" fxLayout="row"
-    (click)="model.time='8:00 AM';$event.stopPropagation()" [disabled]=button4>
-        <div fxFlex=60%>Morning</div><div fxFlex="40%">8:00 AM</div>
-    </div>    
-    <div mat-menu-item class="menu" fxLayout="row"
-    (click)="model.time='1:00 PM';$event.stopPropagation()" [disabled]=button3>
-        <div fxFlex=60%>Afternoon</div><div fxFlex="40%">1:00 PM</div>
-    </div>
-    <div mat-menu-item class="menu" fxLayout="row"
-    (click)="model.time='6:00 PM';$event.stopPropagation()" [disabled]=button2>
-        <div fxFlex=60%>Evening</div><div fxFlex="40%">6:00 PM</div>
-    </div>
-    <div mat-menu-item class="menu" fxLayout="row"
-    (click)="model.time='8:00 PM';$event.stopPropagation()" [disabled]=button1>
-        <div fxFlex=60%>Night</div><div fxFlex="40%">8:00 PM</div>
-    </div>
-    <div mat-menu-item>Custom</div>
+    <button class="button" mat-button [disabled]=button4 (click)="model.time='8:00 AM';$event.stopPropagation()">
+        <div fxLayout="row">
+            <div fxFlex=60%>Morning</div><div fxFlex="40%">8:00 AM</div>
+        </div>
+    </button>
+    <button class="button" mat-button [disabled]=button3 (click)="model.time='1:00 PM';$event.stopPropagation()">
+        <div fxLayout="row">
+            <div fxFlex=60%>Afternoon</div><div fxFlex="40%">1:00 PM</div>
+        </div>
+    </button>
+    <button class="button" mat-button [disabled]=button2 (click)="model.time='6:00 PM';$event.stopPropagation()">
+        <div fxLayout="row">
+            <div fxFlex=60%>Evening</div><div fxFlex="40%">6:00 PM</div>
+        </div>
+    </button>
+    <button class="button" mat-button [disabled]=button1 (click)="model.time='8:00 PM';$event.stopPropagation()">
+        <div fxLayout="row">
+            <div fxFlex=60%>Night</div><div fxFlex="40%">8:00 PM</div>
+        </div>
+    </button>
+    <button mat-button class="button">Custom</button>
 </mat-menu>

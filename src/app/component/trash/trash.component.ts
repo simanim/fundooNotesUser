@@ -22,7 +22,6 @@ export class TrashComponent implements OnInit {
   constructor( private trashService : NotesService ) { }
   public token=localStorage.getItem("fundooUserToken");
   public trashList=[];
-
   ngOnInit() {
     this.getTrashList();
   }

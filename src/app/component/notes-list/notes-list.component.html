@@ -1,5 +1,5 @@
 <div fxLayoutAlign="center" >
-  <div class="main" fxLayoutAlign=center fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="600px" 
+  <div class="main" fxLayoutAlign=left fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="500px" 
   fxFlex.xs="100%">
     <!-- ****************************matcard start****************************** -->        
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" [ngClass.xl]="view ? 'list' : 'grid'" 
@@ -27,8 +27,12 @@
       <!-- ****************************reminder start******************************** -->
 
       <mat-chip-list>
-          <span *ngFor="let cardData of data.reminder" class="chip">
-            <mat-chip class=label>
+          <span *ngFor="let cardData of data.reminder" class="chip" >
+            <mat-chip class=label *ngIf="checkDate(cardData)" (click)=showReminder(data.id)>
+              <mat-icon>access_time</mat-icon><del>{{cardData| date:"medium"}}</del>
+              <mat-icon clas="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
+            </mat-chip>
+            <mat-chip class=label *ngIf="!checkDate(cardData)"(click)=showReminder(data.id)>
               <mat-icon>access_time</mat-icon>{{cardData| date:"medium"}}
               <mat-icon class="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
@@ -38,8 +42,8 @@
 
       <!-- ****************************label start****************************** -->        
       <mat-chip-list>
-        <span *ngFor="let cardData of data.noteLabels" class="chip">
-          <mat-chip class="label"*ngIf="cardData.isDeleted==false">
+        <span *ngFor="let cardData of data.noteLabels" class="chip" >
+          <mat-chip class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
             {{cardData.label}}<mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
             class="cancelIcon">cancel</mat-icon>
           </mat-chip>

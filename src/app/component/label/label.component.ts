@@ -28,7 +28,6 @@ export class LabelComponent implements OnInit {
     this.route.params.subscribe((params: Params) =>{
       this.label=params['label'];
       this.labelNotes();
-
     })
   }
 

@@ -13,6 +13,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CardDisplayComponent } from '../card-display/card-display.component';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { DataService } from '../../core/services/data/data.service'
 
 export interface DialogData {
   noteData:object
@@ -31,11 +32,17 @@ export class NotesListComponent implements OnInit {
 
   @Input() notes;
   @Input() searchItem;
-  @Input() view;
   @Output() anyChanges= new EventEmitter();
-  constructor( public dialog: MatDialog, private noteListService : NotesService ) { }
-
+  constructor( public dialog: MatDialog, private noteListService : NotesService, private data: DataService ) { }
+  public current =new Date();
+  public dateValue;
+  view:boolean
   ngOnInit() {
+    this.data.currentMessageView.subscribe(message => {
+      console.log(message);
+      
+      this.view = message      
+    })
   }
  /**
   * 
@@ -98,5 +105,19 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     });
   }
-  
+  checkDate(value){
+    var saved=new Date(value).getTime();
+    var current=this.current.getTime();
+    if(saved<current)
+    return true;
+    else return false
+  }
+  showLabel(data){
+    this.data.changeMessageLabel(data)
+  }
+  showReminder(data){
+    // console.log(data);
+    
+    this.data.changeMessageReminder(data)
+  }
 }
