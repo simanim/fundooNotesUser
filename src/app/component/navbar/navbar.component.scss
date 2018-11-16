@@ -81,10 +81,7 @@ input:focus {
     background-color: transparent;
     float:right;
 }
-.example-header-image {
-    background-size: cover;
-    font-size: 40px; background-color: rgb(36, 49, 172);width:15%;height:30%;padding-left:5%
-}
+
 .label{
     font-weight: 500;
     color:rgb(73, 73, 73);
@@ -96,5 +93,6 @@ input:focus {
     display:none;
 }
 .img{
-    height:50px;width:50px;border-radius:50%
+    height:50px;width:50px;border-radius:50%;
+    background-color: aqua;
 }

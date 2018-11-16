@@ -1,4 +1,4 @@
-<!-- ****************************notecard end****************************** -->
+<!-- ****************************notecard start****************************** -->
 <div fxLayoutAlign="center" *ngIf="noteCard" >
   <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="600px" fxFlex.lg="600px" fxFlex.md="500px" 
   fxFlex.sm="500px" fxFlex.xs="95%">
@@ -13,7 +13,7 @@
 <!-- ****************************add notecard start****************************** -->
 <div fxLayoutAlign="center" *ngIf="!noteCard">
   <mat-card class="card" [ngStyle]="{'background-color':cardColor}" fxFlex.xl="600px" fxFlex.lg="600px" 
-  fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="300px">
+  fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="95%">
     <div fxLayout="row">
       <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea"
       #title></div>

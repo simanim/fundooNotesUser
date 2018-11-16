@@ -6,134 +6,94 @@ import { environment } from '../../../../environments/environment'
   providedIn: 'root'
 })
 export class NotesService {
-  public token=localStorage.getItem("fundooUserToken");
-  public httpAuthOptions1 = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.token
-    })
-  };
-  public httpAuthOptions2 = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': this.token
-    })
-  };
   constructor( private service: HttpService ) { }
 
   
 /*******************Notes*****************/
   updateNotes(body){
-    var path=environment.baseUrl+"/notes/updateNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
-
+    return this.service.postDataForJSON("/notes/updateNotes",body);
   }
   addNote(body){
-    var path=environment.baseUrl+"/notes/addNotes";
-    return this.service.postData(path,body,this.httpAuthOptions2);
-
+    return this.service.postDataForEncoded("/notes/addNotes",body);
   }
   deleteNote(body){
-    var path=environment.baseUrl+"/notes/trashNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/trashNotes",body);
   }
   permanentDeleteNote(body){
-    var path=environment.baseUrl+"/notes/deleteForeverNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/deleteForeverNotes",body);
   }
   getNoteList(){
-    var path=environment.baseUrl+"/notes/getNotesList";
-    return this.service.getData(path,this.httpAuthOptions2);
+    return this.service.getData2("/notes/getNotesList");
   }
 /***********************************************/
 
 
 /***************archive***********************/
   archiveNote(body){
-    var path=environment.baseUrl+"/notes/archiveNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/archiveNotes",body);
   }
   getArchivedList(){
-    var path=environment.baseUrl+"/notes/getArchiveNotesList";
-    return this.service.getData(path,this.httpAuthOptions2);
+    return this.service.getData2("/notes/getArchiveNotesList");
   }
 /********************************************/
 
 
 /******************Label********************/
   removeLabelFromNotes(cardId,labelId){
-    var path=environment.baseUrl+"/notes/"+cardId+"/addLabelToNotes/"+labelId+"/remove";
-    return this.service.postData(path,{},this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/"+cardId+"/addLabelToNotes/"+labelId+"/remove",{});
   }
   addLabelToNotes(cardId,labelId){
-    var path=environment.baseUrl+"/notes/"+cardId+"/addLabelToNotes/"+labelId+"/add";
-    return this.service.postData(path,{},this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/"+cardId+"/addLabelToNotes/"+labelId+"/add",{});
   }
   showNoteLabels(){
-    var path=environment.baseUrl+"/noteLabels/getNoteLabelList";
-    return this.service.getData(path,this.httpAuthOptions1);
+    return this.service.getData2("/noteLabels/getNoteLabelList");
   }
   deleteLabel(labelId){
-    var path=environment.baseUrl+"/noteLabels/"+labelId+"/deleteNoteLabel";
-    return this.service.deleteData(path);
+    return this.service.deleteData("/noteLabels/"+labelId+"/deleteNoteLabel");
   }
   updateLabel(labelId,body){
-    var path=environment.baseUrl+"/noteLabels/"+labelId+"/updateNoteLabel";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/noteLabels/"+labelId+"/updateNoteLabel",body);
   }
   createLabel(body){
-    var path=environment.baseUrl+"/noteLabels";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/noteLabels",body);
   }
   getNotelistByLabel(label){
-    var path=environment.baseUrl+"/notes/getNotesListByLabel/"+label;
-    return this.service.postData(path,{},this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/getNotesListByLabel/"+label,{});
   }
 /*******************************************/
 
 
 /******************CheckList*****************/
   updateCheckList(noteId,listId,body){
-    var path=environment.baseUrl+"/notes/"+noteId+"/checklist/"+listId+"/update";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/"+noteId+"/checklist/"+listId+"/update",body);
   }
   addCheckList(noteId,body){
-    var path=environment.baseUrl+"/notes/"+noteId+"/checklist/add";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/"+noteId+"/checklist/add",body);
   }
   removeChecklist(noteId,listId){
-    var path=environment.baseUrl+"/notes/"+noteId+"/checklist/"+listId+"/remove";
-    return this.service.postData(path,{},this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/"+noteId+"/checklist/"+listId+"/remove",{});
   }
 /********************************************/
 
   cardColorChange(body){
-    var path=environment.baseUrl+"/notes/changesColorNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/changesColorNotes",body);
   }
-
   pinChange(body){
-    var path=environment.baseUrl+"/notes/pinUnpinNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/pinUnpinNotes",body);
   }
-
   getTrashNotes(){
-    var path=environment.baseUrl+"/notes/getTrashNotesList";
-    return this.service.getData(path,this.httpAuthOptions2);
+    return this.service.getData2("/notes/getTrashNotesList");
   }
 
   addUpdateReminder(body){
-    var path=environment.baseUrl+"/notes/addUpdateReminderNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/addUpdateReminderNotes",body);
   }
 
   removeReminder(body){
-    var path=environment.baseUrl+"/notes/removeReminderNotes";
-    return this.service.postData(path,body,this.httpAuthOptions1);
+    return this.service.postDataForJSON("/notes/removeReminderNotes",body);
   }
   getRemindersLIst(){
-    var path=environment.baseUrl+"/notes/getReminderNotesList";
-    return this.service.getData(path,this.httpAuthOptions2);
+    return this.service.getData2("/notes/getReminderNotesList");
   }
 
 }

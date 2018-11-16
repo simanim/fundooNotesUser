@@ -29,18 +29,21 @@ export class NotesListComponent implements OnInit {
 
   noteData:object;
   public token= localStorage.getItem("fundooUserToken")
+  @Input() pin;
+  @Input() length;
 
   @Input() notes;
+
   @Input() searchItem;
   @Output() anyChanges= new EventEmitter();
   constructor( public dialog: MatDialog, private noteListService : NotesService, private data: DataService ) { }
   public current =new Date();
   public dateValue;
-  view:boolean
+  view:boolean;
+  public aaa=[true,false];
+  
   ngOnInit() {
     this.data.currentMessageView.subscribe(message => {
-      console.log(message);
-      
       this.view = message      
     })
   }
@@ -105,12 +108,39 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     });
   }
+  date;
   checkDate(value){
-    var saved=new Date(value).getTime();
-    var current=this.current.getTime();
-    if(saved<current)
-    return true;
-    else return false
+    this.date=new Date(value).getUTCHours()
+    let saved=new Date(value).getTime();
+    let current=this.current.getTime();
+    if(saved<current){
+      if((new Date(value).getFullYear()==this.current.getFullYear()) && 
+      (new Date(value).getMonth()==this.current.getMonth()) &&
+      (new Date(value).getDate()+1==this.current.getDate())){
+        this.date="yesterday "+new Date(value).getHours()+":"+new Date(value).getMinutes();
+      }
+      else{
+        this.date=value
+        return 4;
+      }
+      return 1;
+    }
+    else {
+      if((new Date(value).getFullYear()==this.current.getFullYear()) && 
+      (new Date(value).getMonth()==this.current.getMonth()) &&
+      (new Date(value).getDate()==this.current.getDate())){
+        this.date="today "+new Date(value).getHours()+":"+new Date(value).getMinutes();
+      }
+      else if((new Date(value).getFullYear()==this.current.getFullYear()) && 
+      (new Date(value).getMonth()==this.current.getMonth()) &&
+      (new Date(value).getDate()==this.current.getDate()+1))
+      this.date="tomorrow "+new Date(value).getHours()+":"+new Date(value).getMinutes();
+        else {
+        this.date=value;
+        return 3;
+        }
+      return 2;
+    }
   }
   showLabel(data){
     this.data.changeMessageLabel(data)
@@ -119,5 +149,10 @@ export class NotesListComponent implements OnInit {
     // console.log(data);
     
     this.data.changeMessageReminder(data)
+  }
+  aaaa(data){
+    console.log(data);
+    return true;
+    
   }
 }

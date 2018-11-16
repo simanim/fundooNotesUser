@@ -1,2 +1,3 @@
 <app-notes-add (onNewEntry)=refresh($event)></app-notes-add>
-<app-notes-list [notes]="notesArray" (anyChanges)="refresh($event)"></app-notes-list>
+<app-notes-list [length]=pinedArray.length [pin]="pined" [notes]="pinedArray" (anyChanges)="refresh($event)"></app-notes-list>
+<app-notes-list [length]=pinedArray.length [notes]="unpinedArray" (anyChanges)="refresh($event)" [pin]="others"></app-notes-list>

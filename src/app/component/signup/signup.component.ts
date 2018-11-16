@@ -69,11 +69,18 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
+    console.log(this.model.firstname);
+    console.log(this.model.lastname);
+    console.log(this.model.email);
+    console.log(this.model.password);
+    console.log(this.model.confpassword);
+    
    /**
     * 
     * @description checking the details are filled or not
     */
-    if(this.model.firstname.length==0 || this.model.firstname.length==0 || this.model.email.length==0 || this.model.password.length==0 || this.model.confpassword.length==0)
+    if(this.model.firstname.length==0 || this.model.lastname.length==0 || this.model.email.length==0 || 
+      this.model.password.length==0 || this.model.confpassword.length==0)
     {
       this.snackBar.open("failed","please fill all the details", {
         duration: 2000,
@@ -84,6 +91,8 @@ export class SignupComponent implements OnInit {
     * 
     * @description card selection
     */
+   console.log(this.service);
+
     if(this.service.length==0){
       this.snackBar.open("card is required","select a card", {
         duration: 2000,
@@ -138,8 +147,12 @@ export class SignupComponent implements OnInit {
       * 
       * @description if the registration is success then it will directly take to login page
       */
+     console.log("success",response);
+     
       this.router.navigateByUrl('/login');
     },(error) => {
+      console.log("error occ",error);
+      
       this.snackBar.open("failed","something bad happened", {
         duration: 2000,
       });

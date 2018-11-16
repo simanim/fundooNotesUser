@@ -76,6 +76,14 @@ export class LoginComponent implements OnInit {
       * 
       * @description if the login is success then it will directly take to dashboard page
       */
+      var obj={
+        "pushToken":localStorage.getItem("fundooUserPushToken")
+      }
+      this.loginService.pushLogin(obj)
+      .subscribe((response)=>{
+      },(error)=>{
+      })
+
       this.router.navigateByUrl('/dashboard');
     },(error) => {
       if(error.status==401){

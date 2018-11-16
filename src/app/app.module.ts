@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FlexLayoutModule} from '@angular/flex-layout';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FirebaseService } from './core/services/firebase/firebase.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -112,9 +112,9 @@ import { ReminderComponent } from './component/reminder/reminder.component';
 
   ],
 
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, FirebaseService],
   
-  bootstrap: [ AppComponent ],
+  bootstrap: [ AppComponent],
 
   entryComponents:[
                     NotesListComponent, 

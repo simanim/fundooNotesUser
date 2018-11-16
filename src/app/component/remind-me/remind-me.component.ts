@@ -141,10 +141,16 @@ export class RemindMeComponent implements OnInit {
     }
   }
   timeValidation(){
+    console.log("innn",this.model.time);
+    
     var regex=/^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/;
     if(!regex.test(this.model.time)){
       this.button=false;
     }
+    else
+    this.button=true;
+
+
   }
   dateValidation(){
     // console.log("innnn");

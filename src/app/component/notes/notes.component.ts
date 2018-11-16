@@ -21,7 +21,8 @@ export class NotesComponent implements OnInit {
   constructor( private noteService : NotesService ){}
   public token=localStorage.getItem("fundooUserToken");
   public notesArray=[];
-
+  pined:String="PINED";
+  others:String="OTHERS";
   ngOnInit() {
     this.getNotes();
   }
@@ -40,14 +41,24 @@ export class NotesComponent implements OnInit {
   * 
   * @description getting the note list
   */
+ public pinedArray=[];
+ public unpinedArray=[];
   getNotes(){
     this.noteService.getNoteList()
     .subscribe((response) =>{
       this.notesArray=[];
+      this.pinedArray=[];
+      this.unpinedArray=[]
       for(var i=response["data"].data.length; i>0 ; i--){
         if((response["data"].data[i-1]["isDeleted"] == false) && (response["data"].data[i-1]["isArchived"] == false)){
         this.notesArray.push(response["data"].data[i-1]);
         }
+      }
+      for(var j=0;j<this.notesArray.length;j++){
+        if(this.notesArray[j]["isPined"]==true){
+          this.pinedArray.push(this.notesArray[j]);}
+        else{
+          this.unpinedArray.push(this.notesArray[j]);}
       }
     },(error) =>{
     });

@@ -1,3 +1,4 @@
+<div fxLayoutAlign="center" class="pinOthers" *ngIf="length!=0">{{pin}}</div>
 <div fxLayoutAlign="center" >
   <div class="main" fxLayoutAlign=left fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="500px" 
   fxFlex.xs="100%">
@@ -18,7 +19,7 @@
           </mat-checkbox>
         </div>
         <div *ngFor="let list of data.noteCheckLists">
-          <mat-checkbox *ngIf="list.status=='close' && list.isDeleted==false"checked=true (click)=check(list)>
+          <mat-checkbox class=delCheck *ngIf="list.status=='close' && list.isDeleted==false"checked=true (click)=check(list)>
           <del>{{list.itemName}}</del></mat-checkbox>
         </div>
       </mat-card-content>
@@ -28,12 +29,18 @@
 
       <mat-chip-list>
           <span *ngFor="let cardData of data.reminder" class="chip" >
-            <mat-chip class=label *ngIf="checkDate(cardData)" (click)=showReminder(data.id)>
-              <mat-icon>access_time</mat-icon><del>{{cardData| date:"medium"}}</del>
+            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " (click)=showReminder(data.id)>
+              <mat-icon>access_time</mat-icon>
+              <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
+              <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
+
               <mat-icon clas="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
-            <mat-chip class=label *ngIf="!checkDate(cardData)"(click)=showReminder(data.id)>
-              <mat-icon>access_time</mat-icon>{{cardData| date:"medium"}}
+            <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
+              <mat-icon>access_time</mat-icon>
+              <span *ngIf="checkDate(cardData)==2">{{date}}</span>
+              <span *ngIf="checkDate(cardData)==3">{{cardData| date:medium}}</span>
+
               <mat-icon class="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
           </span>
