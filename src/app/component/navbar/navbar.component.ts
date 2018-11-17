@@ -39,16 +39,20 @@ export class NavbarComponent implements OnInit {
   public labelList=[];
   public selectedFile=null;
   public gridView:boolean=true
+  public  labelShow:boolean=false;
+  labelValue=''
   constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, 
     private router : Router, public dialog : MatDialog, private data: DataService ) { }
   
+    
   ngOnInit() {
     this.router.navigateByUrl('/notes');
     this.showLabel()
     this.data.currentMessageSearch.subscribe(message => this.message = message);
     this.data.currentMessageLabel.subscribe(message =>{ this.message = message;
-      if(this.message!="default")
+      if(this.message!="default"){
       this.router.navigateByUrl('/label/'+this.message);
+      this.toolbarName(this.message)}
       });
     this.img="http://34.213.106.173/" + this.image;
     this.isLargeScreen();
@@ -131,6 +135,9 @@ export class NavbarComponent implements OnInit {
   isLargeScreen() {
     this.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   }
-  
+  toolbarName(aa){
+    this.labelShow=true
+    this.labelValue=aa
+  }
 
 }

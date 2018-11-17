@@ -3,7 +3,7 @@
     background-color: #fb0;
     width:100%;
     /* position: absolute; */
-    /* height:10%; */
+    // height:fixed; 
 }
 .search {
     padding:3% 4% 2% 9%;
@@ -81,10 +81,18 @@ input:focus {
     background-color: transparent;
     float:right;
 }
-
+.toolbar{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
+    margin-top:5px;
+}
 .label{
     font-weight: 500;
-    color:rgb(73, 73, 73);
+    color:rgb(73, 73, 73); 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
 }
 .labelCreate{
     width:95%;

@@ -1,6 +1,5 @@
 <!-- ******************************navbar start******************************** -->
-<div class="navbar" ngStyle.xs="height:7%"ngStyle.sm="height:5%"
-      ngStyle.md="height:5%" ngStyle.lg="height:65px" ngStyle.xl="height:10%" #navbar>
+<div class="navbar" #navbar>
   <mat-toolbar-row>
   <div fxLayout="column" fxFlex="100%" fxLayoutGap="0.8%">
   <div fxFlex="5%"></div>
@@ -12,13 +11,16 @@
       ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" class="button" matTooltip="main menu">menu</mat-icon>
     </div>
 
-    <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%">
-      <span fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+    <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%"class="toolbar">
+      <span *ngIf=!labelShow fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
       ngStyle.xl="font-size:25px" >Fundoo Note</span>
+      <span *ngIf=labelShow fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+      ngStyle.xl="font-size:25px">{{labelValue}}</span>
     </div>
 
     <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%">
-      <span ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
+      <span *ngIf=!labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
+      <span *ngIf=labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>{{labelValue}}</span>
     </div>
 
     <div fxFlex.xs="25%" fxFlex.sm="40%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="56%">
@@ -73,11 +75,11 @@
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
   <mat-drawer #drawer class="example-sidenav"  [mode]="width > 720?'side':'over'" closed>
-    <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null" routerLinkActive="active" 
+    <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
-    <p class="side_icon"><a routerLink="/reminder" routerLinkActive="active" class="buttonicon">
-      <img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p><hr>
-          
+    <p class="side_icon"><a routerLink="/reminder" (click)="toolbarName('Reminder')" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p>
+    <mat-divider></mat-divider>    
     
       <div fxLayout="row">
         <div fxFlex=10%></div>
@@ -85,8 +87,9 @@ ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
         <div fxFlex=40%><button mat-button class="edit"(click)=createLabel()><small>EDIT</small></button></div>
       </div>
 
-    <a *ngFor="let data of labelList" routerLink="/label/{{data}}" routerLinkActive=active class="buttonicon">
-      <div fxLayout=row>
+    <a *ngFor="let data of labelList" class=buttonicon routerLink="/label/{{data}}" (click)="toolbarName(data)"
+    routerLinkActive=active >
+      <div fxLayout=row class="side_icon">
         <div fxFlex="10%"></div>
         <div fxFlex="20%"><mat-icon class=label>label</mat-icon></div>
         <div fxFlex="60%" class=label >{{data}}</div>
@@ -94,30 +97,16 @@ ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
     </a>
 
     <p><button mat-button class=labelCreate (click)=createLabel()><mat-icon>add</mat-icon> 
-      <span class="plus">Create new label</span></button></p><hr>
+      <span class="plus">Create new label</span></button></p>
+      <mat-divider></mat-divider>
 
-    <p class="side_icon"><a routerLink="/archive" (click)="searchValue=null" routerLinkActive="active" 
+    <p class="side_icon"><a routerLink="/archive" (click)="searchValue=null;toolbarName('Archive')" 
+      routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></p>
-    <p class="side_icon"><a routerLink="/trash" (click)="searchValue=null" routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p><hr>
+    <p class="side_icon"><a routerLink="/trash" (click)="searchValue=null;toolbarName('Trash')" 
+      routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p>
       
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
-      <mat-icon class="material-icons">settings</mat-icon><small class="name">Settings</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
-      <mat-icon class="material-icons">feedback</mat-icon><small class="name">send feedback</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
-      <mat-icon class="material-icons">help</mat-icon><small class="name">help</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
-      <img src="../../../assets/img/appdownload.svg"><small class="name">App downloads</small></a></p>
-    <p class="side_icon"><a routerLink="#" routerLinkActive="active" class="buttonicon">
-      <mat-icon class="material-icons">keyboard</mat-icon><small class="name">Keyboard shortcuts</small></a></p>
-
-    <div>
-      <button mat-button><span>privacy</span></button>
-      <button mat-button><span>terms</span></button>
-    </div>
-    <div><button mat-button><span>Open-source licenses</span></button></div>
-    <p></p>
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>

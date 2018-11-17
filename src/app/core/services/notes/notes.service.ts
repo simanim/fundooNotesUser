@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { HttpService } from '../http/http.service';
-import { environment } from '../../../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
@@ -35,10 +33,10 @@ export class NotesService {
   getArchivedList(){
     return this.service.getData2("/notes/getArchiveNotesList");
   }
-/********************************************/
+/**********************************************/
 
 
-/******************Label********************/
+/*********************Label********************/
   removeLabelFromNotes(cardId,labelId){
     return this.service.postDataForJSON("/notes/"+cardId+"/addLabelToNotes/"+labelId+"/remove",{});
   }

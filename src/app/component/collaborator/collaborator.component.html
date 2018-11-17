@@ -1,1 +1,21 @@
-<abbr title="Collaborator"><mat-icon>person_add</mat-icon></abbr>
+<mat-card>
+<p>Collaborators</p>
+<mat-divider></mat-divider>
+<p>
+    <mat-card-header>
+        <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','height':'40px','width':'40px','border-radius':'50%'}" ></div>
+
+        <mat-card-title>{{firstName}}  {{lastName}} (Owner)</mat-card-title>
+        <mat-card-subtitle>{{email}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header>
+        <div mat-card-avatar class="addPerson"><mat-icon class=icon>person_add</mat-icon></div>
+        <input placeholder="person or email to share with">
+    </mat-card-header>
+</p>
+<p class=pp>
+    <span fxLayoutAlign="end">
+        <button mat-button>cancel</button><button mat-button>save</button>
+    </span>
+</p>
+ </mat-card>

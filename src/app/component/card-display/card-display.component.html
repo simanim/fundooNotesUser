@@ -54,7 +54,7 @@
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
       <mat-chip class="chip" *ngIf="cardData.isDeleted==false">
-        {{cardData.label}}<mat-icon *ngIf=!isDelete (click)=removeLabel(cardData.id,data.noteData.id)>cancel</mat-icon>
+        <span class=label>{{cardData.label}}</span><mat-icon *ngIf=!isDelete (click)=removeLabel(cardData.id,data.noteData.id)>cancel</mat-icon>
       </mat-chip>
     </span>
   </mat-chip-list>
@@ -63,14 +63,14 @@
   <!-- *******************************maticon start********************************** -->
   <p>
     <span *ngIf=!isDelete class="iconButton"><app-remind-me [card]=data.noteData (onChanges)=reminderChanges($event)></app-remind-me></span>
-    <span *ngIf=!isDelete class="iconButton"><app-collaborator></app-collaborator></span>
+    <span *ngIf=!isDelete class="iconButton"><app-add-collaborator></app-add-collaborator></span>
     <span *ngIf=!isDelete class="iconButton"><app-change-color [card]=data.noteData (onChangeColor)=colorChanges($event)>
       </app-change-color></span>
     <span *ngIf=!isDelete class="iconButton"><app-add-image></app-add-image></span>
     <span *ngIf=!isDelete class="iconButton"><app-notes-archive [card]=data.noteData 
       (onArchiveEntry)="archive($event)"></app-notes-archive></span>
     <span class="iconButton"><app-more [card]=data.noteData (popupChange)="labelChanges($event)"></app-more></span>
-    <button *ngIf=!isDelete mat-button (click)="click()" class=pin>Close</button>
+    <button *ngIf=!isDelete mat-button  ngClass.xl=pin ngClass.lg=pin ngClass.md=pin ngClass.sm=pin ngClass.xs=close (click)="click()">Close</button>
   </p>
   <!-- *********************************maticon end****************************** -->
 

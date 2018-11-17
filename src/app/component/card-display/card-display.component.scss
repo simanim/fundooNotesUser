@@ -28,17 +28,34 @@ opacity:0.7;
 
     // background-color: rgbs(119, 119, 119, 0.2);
 }
+.label{
+    max-width:200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
+}
 .input{
     border:none;
     outline: none;
     background-color: transparent;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
+    width:100%
 }
 .input2{
     border:none;
     outline: none;
     background-color: transparent;
     text-decoration: line-through;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
+    width:100%
 }
 .clear{
     cursor: pointer;
+}
+.close{
+    margin-left:60%;
 }

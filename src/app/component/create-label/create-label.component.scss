@@ -1,5 +1,11 @@
 .textarea{
     outline: none;
+    
+}
+.labelName{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
 }
 .textarea:empty:before{
     content: attr(data-text);

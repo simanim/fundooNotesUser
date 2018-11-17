@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { HttpService } from '../http/http.service';
-import { environment } from '../../../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   
-  constructor( private service: HttpService,private http: HttpClient ) { }
+  constructor( private service: HttpService ) { }
 
   forgotPassword(body){
     return this.service.postDataWithoutToken("/user/reset",body);

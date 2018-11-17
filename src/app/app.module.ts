@@ -52,6 +52,7 @@ import {  MatFormFieldModule,
 import { ImageCropComponent } from './component/image-crop/image-crop.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReminderComponent } from './component/reminder/reminder.component';
+import { AddCollaboratorComponent } from './component/add-collaborator/add-collaborator.component';
 
 
 
@@ -83,7 +84,8 @@ import { ReminderComponent } from './component/reminder/reminder.component';
                   PinComponent,
                   SearchNotePipe,
                   ImageCropComponent,
-                  ReminderComponent
+                  ReminderComponent,
+                  AddCollaboratorComponent
   ],
   
   imports: [
@@ -121,7 +123,7 @@ import { ReminderComponent } from './component/reminder/reminder.component';
                     CardDisplayComponent, 
                     CreateLabelComponent,
                     NavbarComponent ,
-                    ImageCropComponent
+                    ImageCropComponent,AddCollaboratorComponent,CollaboratorComponent
   ]
 
 })

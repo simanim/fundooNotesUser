@@ -16,7 +16,7 @@
         <mat-icon class=deleteIcon (click)=delete(data.id) >delete</mat-icon>
     </div>
     <div fxFlex=80% fxLayout=row *ngIf="labelId != data.id" (click)="editIcon(data.id)">
-        <div fxFlex=80%>{{data.label}}</div>
+        <div fxFlex=80% class=labelName>{{data.label}}</div>
         <div fxFlex=10%><mat-icon class="doneIcon" (click)="editIcon(data.id)">edit</mat-icon></div>
     </div>
     <div fxFlex=80% fxLayout=row *ngIf="labelId == data.id">

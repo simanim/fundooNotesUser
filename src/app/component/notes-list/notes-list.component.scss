@@ -35,11 +35,17 @@
 .label{
     background-color: rgba(135, 167, 159, 0.465);
     font-size: 11px;
+    max-width:150px;
 }
 .dellabel{
     background-color: rgba(135, 167, 159, 0.465);
     font-size: 11px;
-    color:rgba(0, 0, 0,0.4)
+    color:rgba(0, 0, 0,0.4);
+}
+.chip{
+    text-overflow: ellipsis;
+    overflow: hidden!important;
+    white-space: nowrap;
 }
 .delCheck{
     color:rgba(0, 0, 0,0.4)
@@ -67,10 +73,15 @@
 .list{
     width:100%;
     border-radius:2%;
+    overflow-x: hidden;
 }
 .pinOthers{
     font-style: oblique;
     font-size: 12px;
-    color:blue;
+    color:black;
     margin-top:5px;
+    width:100%;
+}
+.content{
+    max-width:300px;
 }

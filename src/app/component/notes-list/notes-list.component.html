@@ -1,35 +1,40 @@
-<div fxLayoutAlign="center" class="pinOthers" *ngIf="length!=0">{{pin}}</div>
 <div fxLayoutAlign="center" >
   <div class="main" fxLayoutAlign=left fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="500px" 
   fxFlex.xs="100%">
+<div  class="pinOthers" *ngIf="length!=0">{{pin}}</div>
+
     <!-- ****************************matcard start****************************** -->        
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" [ngClass.xl]="view ? 'list' : 'grid'" 
     [ngClass.lg]="view ? 'list' : 'grid'" [ngClass.md]="view ? 'list' : 'grid'" [ngClass.sm]="view ? 'list' : 'grid2'"
     [ngClass.xs]="list"[ngStyle]="{'background-color':data.color}">
       <app-pin class=pin [card]=data (onChange)="entry($event)"></app-pin>
-      <div (click)="openDialog(data)">
+      <div (click)="openDialog(data)" class="content">
         <mat-card-subtitle class=title [innerHTML]="data.title"></mat-card-subtitle>
-        <mat-card-content class=decscription [innerHTML]="data.description"></mat-card-content>
+        <mat-card-subtitle class=description [innerHTML]="data.description"></mat-card-subtitle>
       </div>
 
       <!-- ****************************checklist start****************************** -->        
-      <mat-card-content>        
-        <div *ngFor="let list of data.noteCheckLists">
-          <mat-checkbox *ngIf="list.status=='open' && list.isDeleted==false" (click)=check(list)>{{list.itemName}}
-          </mat-checkbox>
+            
+        <div *ngFor="let list of data.noteCheckLists" class=content>
+          <div *ngIf="list.status=='open' && list.isDeleted==false">
+            <mat-checkbox  (click)=check(list)></mat-checkbox>
+            <mat-card-subtitle class=description>{{list.itemName}}</mat-card-subtitle>
+          </div>
         </div>
-        <div *ngFor="let list of data.noteCheckLists">
-          <mat-checkbox class=delCheck *ngIf="list.status=='close' && list.isDeleted==false"checked=true (click)=check(list)>
-          <del>{{list.itemName}}</del></mat-checkbox>
+        <div *ngFor="let list of data.noteCheckLists" class=content>
+          <div *ngIf="list.status=='close' && list.isDeleted==false">
+            <mat-checkbox class=delCheck  checked=true (click)=check(list)></mat-checkbox>
+            <mat-card-subtitle class=description><del>{{list.itemName}}</del></mat-card-subtitle>
+          </div>
         </div>
-      </mat-card-content>
       <!-- ****************************checklist end****************************** -->    
 
       <!-- ****************************reminder start******************************** -->
 
       <mat-chip-list>
           <span *ngFor="let cardData of data.reminder" class="chip" >
-            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " (click)=showReminder(data.id)>
+            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " 
+            (click)=showReminder(data.id)>
               <mat-icon>access_time</mat-icon>
               <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
               <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
@@ -49,9 +54,9 @@
 
       <!-- ****************************label start****************************** -->        
       <mat-chip-list>
-        <span *ngFor="let cardData of data.noteLabels" class="chip" >
+        <span *ngFor="let cardData of data.noteLabels" >
           <mat-chip class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
-            {{cardData.label}}<mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
+            <span class="chip">{{cardData.label}}</span><mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
             class="cancelIcon">cancel</mat-icon>
           </mat-chip>
         </span>
@@ -62,8 +67,9 @@
       <!-- ****************************icon start****************************** -->        
       <p>
       <span class="icon">
-        <span *ngIf="!data.isDeleted" class="iconButton"><app-remind-me (onChanges)="entry($event)"[card]=data></app-remind-me></span>
-        <span *ngIf="!data.isDeleted" class="iconButton"><app-collaborator></app-collaborator></span>
+        <span *ngIf="!data.isDeleted" class="iconButton"><app-remind-me (onChanges)="entry($event)"[card]=data>
+        </app-remind-me></span>
+        <span *ngIf="!data.isDeleted" class="iconButton"><app-add-collaborator [card]=data></app-add-collaborator></span>
         <span *ngIf="!data.isDeleted" class="iconButton">
           <app-change-color [card]=data (onChangeColor)="entry($event)"></app-change-color></span>
         <span *ngIf="!data.isDeleted" class="iconButton"><app-add-image></app-add-image></span>
