@@ -36,6 +36,8 @@ export class NotesAddComponent implements OnInit {
   public reminder=[];
   public listNote:boolean=false;
   public listArray=[];
+  public current =new Date();
+  public date;
   model : any={
     "item":""
   }
@@ -183,9 +185,74 @@ export class NotesAddComponent implements OnInit {
   * 
   * @description adding or removing of reminder
   */
-  addRemoveReminder(event){
+  addRemoveReminder(value){
     this.reminder=[];
-    this.reminder.push(event)
+    this.reminder.push(value)
+    this.date=new Date(value).getUTCHours()
+    let saved=new Date(value).getTime();
+    let current=this.current.getTime();
+    let year=new Date(value).getFullYear();
+    let month=new Date(value).getMonth();
+    let date=new Date(value).getDate();
+    let hr;
+    let min;
+    let ampm='AM';
+    if(saved<current){
+      if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date+1==this.current.getDate())){
+        hr=new Date(value).getHours();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="yesterday "+hr+":"+min+" "+ampm;
+      }
+      else{
+        this.date=value
+        return 4;
+      }
+      return 1;
+    }
+    else {
+      if((year==this.current.getFullYear())&&(month==this.current.getMonth()) &&(date==this.current.getDate())){
+        hr=new Date(value).getHours();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="today "+hr+":"+min+" "+ampm;
+      }
+      else if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date==this.current.getDate()+1)){
+        hr=new Date(value).getHours();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="tomorrow "+hr+":"+min+" "+ampm;
+      }
+      else {
+        this.date=value;
+        return 3;
+      }
+      return 2;
+    }
   }
  /**
   * 
@@ -205,6 +272,57 @@ export class NotesAddComponent implements OnInit {
       if(this.labels[i]==data){
         this.labels.splice(i, 1);
       }
+    }
+  }
+  checkDate(value){
+    this.date=new Date(value).getUTCHours()
+    let saved=new Date(value).getTime();
+    let current=this.current.getTime();
+    let year=new Date(value).getFullYear();
+    let month=new Date(value).getMonth();
+    let date=new Date(value).getDate();
+    let hr;
+    let min;
+    let ampm='AM';
+    if(saved<current){
+     return false
+    }
+    else {
+      if((year==this.current.getFullYear())&&(month==this.current.getMonth()) &&(date==this.current.getDate())){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="today "+hr+":"+min+" "+ampm;
+      }
+      else if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date==this.current.getDate()+1)){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="tomorrow "+hr+":"+min+" "+ampm;
+      }
+      else {
+        this.date=value;
+        return 3;
+      }
+      return 2;
     }
   }
 

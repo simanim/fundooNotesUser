@@ -41,10 +41,21 @@
   <!-- ****************************checkbox end****************************** -->
 
   <!-- ****************************reminder chip list start****************************** -->
-  <mat-chip-list>
+  <mat-chip-list >
     <span *ngFor="let cardData of reminders" >
-      <mat-chip class="chip">
-        {{cardData| date:"medium"}}<mat-icon (click)=removeReminder(data.noteData.id)>cancel</mat-icon>
+      <mat-chip class=delchip *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " 
+      (click)=showReminder(data.id) (click)=reminderClick()>
+        <mat-icon>access_time</mat-icon>
+        <del *ngIf="checkDate(cardData)==1">{{date}}</del>
+        <del *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
+        <mat-icon (click)=removeReminder(data.noteData.id)>cancel</mat-icon>
+      </mat-chip>
+      <mat-chip class=chip *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3">
+        <mat-icon>access_time</mat-icon>
+        <span *ngIf="checkDate(cardData)==2">{{date}}</span>
+        <span *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</span>
+
+        <mat-icon (click)=removeReminder(data.noteData.id)>cancel</mat-icon>
       </mat-chip>
     </span>
   </mat-chip-list>

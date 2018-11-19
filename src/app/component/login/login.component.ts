@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   
   ngOnInit() {
     if(this.id != null){
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/home');
     }
   }
  /**
@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
       },(error)=>{
       })
 
-      this.router.navigateByUrl('/dashboard');
+      this.router.navigateByUrl('/home');
     },(error) => {
       if(error.status==401){
         this.snackBar.open("login failed","wrong email or password", {

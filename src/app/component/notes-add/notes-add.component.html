@@ -40,10 +40,15 @@
     <!-- ****************************checkbox end****************************** -->    
 
     <!-- ****************************reminder start****************************** -->    
-    <mat-chip-list>
-        <span *ngFor="let cardData of reminder" >
-          <mat-chip class="chip">
-            {{cardData| date:"medium"}}<mat-icon class="cancelIcon" (click)=cancelReminder()>cancel</mat-icon>
+   
+      <mat-chip-list >
+        <span *ngFor="let cardData of reminder">
+          <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
+            <mat-icon>access_time</mat-icon>
+            <span *ngIf="checkDate(cardData)==2">{{date}}</span>
+            <span *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</span>
+
+            <mat-icon class="cancelIcon" (click)=cancelReminder()>cancel</mat-icon>
           </mat-chip>
         </span>
       </mat-chip-list>

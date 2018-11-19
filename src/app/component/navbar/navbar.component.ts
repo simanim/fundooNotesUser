@@ -40,13 +40,13 @@ export class NavbarComponent implements OnInit {
   public selectedFile=null;
   public gridView:boolean=true
   public  labelShow:boolean=false;
+  public showSearchBar:boolean=false;
   labelValue=''
   constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, 
     private router : Router, public dialog : MatDialog, private data: DataService ) { }
   
     
   ngOnInit() {
-    this.router.navigateByUrl('/notes');
     this.showLabel()
     this.data.currentMessageSearch.subscribe(message => this.message = message);
     this.data.currentMessageLabel.subscribe(message =>{ this.message = message;
@@ -56,6 +56,10 @@ export class NavbarComponent implements OnInit {
       });
     this.img="http://34.213.106.173/" + this.image;
     this.isLargeScreen();
+  }
+  hideSearch(){
+    this.showSearchBar=false;
+    this.data.changeMessageSearch('');
   }
   view(){
     this.data.changeView(this.gridView)
@@ -83,7 +87,8 @@ export class NavbarComponent implements OnInit {
   * @description for refresh of page
   */
   refresh(){
-    this.router.navigateByUrl('/dashboard');
+    this.router.navigateByUrl('/home');
+    this.labelShow=false;
   }
 
   /**

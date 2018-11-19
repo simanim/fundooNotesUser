@@ -1,13 +1,16 @@
 .main{
     display: flex;
     flex-wrap: wrap;
-    margin-top:2%;
+    margin-top:15px;
 }
 .div{
     margin:5px;
     border-radius: 5%;
     height: min-content; 
     width:100%
+}
+.checkBox{
+    word-break: break-all;
 }
 .title{
     word-wrap: break-word;

@@ -59,9 +59,9 @@ export class RemindMeComponent implements OnInit {
     }
     this.model.date=this.value;
     var hr=this.value.getHours();
-    var min=this.value.getMinutes();
+    var min=this.value.getMinutes()+1;
     if(min>=0 && min<9)
-    min="0"+min;
+    min="0"+(min);
     var ampm='AM'
     if(hr>12){
       hr-=12;
@@ -69,6 +69,7 @@ export class RemindMeComponent implements OnInit {
     }
     this.model.time=hr+":"+min+" "+ampm;
     this.datechange();
+    console.log();
     
   }
   datechange(){
@@ -142,7 +143,6 @@ export class RemindMeComponent implements OnInit {
   }
   timeValidation(){
     console.log("innn",this.model.time);
-    
     var regex=/^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/;
     if(!regex.test(this.model.time)){
       this.button=false;
@@ -153,11 +153,13 @@ export class RemindMeComponent implements OnInit {
 
   }
   dateValidation(){
-    // console.log("innnn");
+    console.log("innnn",this.model.date);
     var regex=/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
     if(!regex.test(this.model.date)){
       this.button=false;
     }
+    else
+      this.button=true;
   }
   addTime(){
     var arr=this.model.time.split(' ');

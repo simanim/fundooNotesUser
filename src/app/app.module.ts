@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ForgotpassComponent } from './component/forgotpass/forgotpass.component';
 import { ResetComponent } from './component/reset/reset.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
@@ -61,7 +60,6 @@ import { AddCollaboratorComponent } from './component/add-collaborator/add-colla
                   AppComponent,
                   LoginComponent,
                   SignupComponent,
-                  DashboardComponent,
                   ForgotpassComponent,
                   ResetComponent,
                   NavbarComponent,

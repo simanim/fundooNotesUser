@@ -11,38 +11,43 @@
       ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" class="button" matTooltip="main menu">menu</mat-icon>
     </div>
 
-    <div fxFlex.xs="0%" fxFlex.sm="35%" fxFlex.md="20%" fxFlex.lg="15%" fxFlex.xl="20%"class="toolbar">
-      <span *ngIf=!labelShow fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
-      ngStyle.xl="font-size:25px" >Fundoo Note</span>
-      <span *ngIf=labelShow fxHide.xs=true ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
-      ngStyle.xl="font-size:25px">{{labelValue}}</span>
+    <div fxHide.xs=true fxFlex.sm="25%" fxFlex.md="20%" fxFlex.lg="20%" fxFlex.xl="20%">
+      <div *ngIf=!labelShow ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+      ngStyle.xl="font-size:25px" class="toolbar">Fundoo Note</div>
+      <div *ngIf=labelShow ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+      ngStyle.xl="font-size:25px" class="toolbar">{{labelValue}}</div>
     </div>
 
-    <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%"class="toolbar">
-      <span *ngIf=!labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
-      <span *ngIf=labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>{{labelValue}}</span>
+    <div fxFlex.xs="20%" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>
+      <div *ngIf=!labelShow ngStyle.xs="font-size:20px" class="toolbar">Note</div>
+      <div *ngIf=labelShow ngStyle.xs="font-size:20px" class="toolbar">{{labelValue}}</div>
     </div>
 
-    <div fxFlex.xs="25%" fxFlex.sm="40%" fxFlex.md="50%" fxFlex.lg="50%" fxFlex.xl="56%">
-      <mat-icon class="searchbutton" matTooltip="search">search</mat-icon>
+    <div *ngIf=!showSearchBar fxFlex.xs=40% fxFlex.sm="50%" fxFlex.md="50%" fxFlex.lg="55%" fxFlex.xl="56%">
+      <mat-icon class="searchbutton" matTooltip="search" (click)="showSearchBar=true">search</mat-icon>
       <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
-      placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px" 
+      placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px;margin-top:2px;" 
       fxHide.xs=true>
     </div>
+    <div *ngIf=showSearchBar fxFlex.xs="40%" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>
+      <input type="text" [(ngModel)]="searchValue" class="search2" (click)="search()" (keyup)=newMessage() 
+      placeholder="Search.." (keydown.enter)="hideSearch()">
+    </div>
+    
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon class="button" (click)="refresh()" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"
       ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" matTooltip="refresh">refresh</mat-icon>
     </div>
             
-    <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <mat-icon *ngIf=gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
+    <div fxHide.xs=true fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+      <mat-icon *ngIf=gridView class="button"  ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" (click)=view() matTooltip="list view">view_stream</mat-icon>
-      <mat-icon *ngIf=!gridView class="button" fxHide.xs=true ngStyle.md="font-size:25px" 
+      <mat-icon *ngIf=!gridView class="button" ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" (click)=view() matTooltip="grid view">view_module</mat-icon>
     </div>
 
-    <div fxFlex.xs="15%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
+    <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','height':'40px','width':'40px'}" 
       class=img (click)="account()"></div>
     </div>
@@ -75,7 +80,7 @@
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
   <mat-drawer #drawer class="example-sidenav"  [mode]="width > 720?'side':'over'" closed>
-    <p class="side_icon"><a routerLink="/notes" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
+    <p class="side_icon"><a routerLink="/home" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
     <p class="side_icon"><a routerLink="/reminder" (click)="toolbarName('Reminder')" routerLinkActive="active" 
       class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p>

@@ -98,6 +98,7 @@ export class CardDisplayComponent implements OnInit {
   reminderChanges(event){
     this.reminders=[];
     this.reminders.push(event.body);
+    this.checkDate(event.body);
   }
 
  /**
@@ -201,5 +202,92 @@ export class CardDisplayComponent implements OnInit {
       this.model.item="";
     },(error) => {
     });
+  }
+  date;
+  current=new Date();
+  checkDate(value){
+    this.date=new Date(value).getUTCHours()
+    let saved=new Date(value).getTime();
+    let current=this.current.getTime();
+    let year=new Date(value).getFullYear();
+    let month=new Date(value).getMonth();
+    let date=new Date(value).getDate();
+    let hr;
+    let min;
+    let ampm='AM';
+    if(saved<current){
+      if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date+1==this.current.getDate())){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="yesterday "+hr+":"+min+" "+ampm;
+      }
+      else if((year==this.current.getFullYear())&&(month==this.current.getMonth()) &&(date==this.current.getDate())){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="today "+hr+":"+min+" "+ampm;
+      }
+      else{
+        this.date=value
+        return 4;
+      }
+      return 1;
+    }
+    else {
+      if((year==this.current.getFullYear())&&(month==this.current.getMonth()) &&(date==this.current.getDate())){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="today "+hr+":"+min+" "+ampm;
+      }
+      else if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date==this.current.getDate()+1)){
+        hr=new Date(value).getHours();
+        min=new Date(value).getMinutes();
+        if(new Date(value).getHours()>12){
+          ampm='PM';
+          hr=new Date(value).getHours()-12;
+        }
+        if(hr<10){
+          hr='0'+hr;
+        }
+        if(new Date(value).getMinutes()<10){
+          min='0'+new Date(value).getMinutes();
+        }
+        this.date="tomorrow "+hr+":"+min+" "+ampm;
+      }
+      else {
+        this.date=value;
+        return 3;
+      }
+      return 2;
+    }
   }
 }

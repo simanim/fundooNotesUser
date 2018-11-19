@@ -15,16 +15,16 @@
 
       <!-- ****************************checklist start****************************** -->        
             
-        <div *ngFor="let list of data.noteCheckLists">
-          <div *ngIf="list.status=='open' && list.isDeleted==false">
+        <div *ngFor="let list of data.noteCheckLists" >
+          <div *ngIf="list.status=='open' && list.isDeleted==false"class=checkBox fxLayout='row'>
             <mat-checkbox (click)=check(list)></mat-checkbox>
-            <span class=description>{{list.itemName}}</span>
+            <div>{{list.itemName}}</div>
           </div>
         </div>
         <div *ngFor="let list of data.noteCheckLists">
-          <div *ngIf="list.status=='close' && list.isDeleted==false">
+          <div *ngIf="list.status=='close' && list.isDeleted==false" class=checkBox fxLayout='row'>
             <mat-checkbox class=delCheck  checked=true (click)=check(list)></mat-checkbox>
-            <span class=description><del>{{list.itemName}}</del></span>
+            <span><del>{{list.itemName}}</del></span>
           </div>
         </div>
       <!-- ****************************checklist end****************************** -->    
@@ -32,21 +32,19 @@
       <!-- ****************************reminder start******************************** -->
 
       <mat-chip-list >
-          <span *ngFor="let cardData of data.reminder" class="chip" >
+          <span *ngFor="let cardData of data.reminder" >
             <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " 
-            (click)=showReminder(data.id)>
+            (click)=showReminder(data.id) (click)=reminderClick()>
               <mat-icon>access_time</mat-icon>
               <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
               <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
-
-              <mat-icon clas="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
+              <mat-icon (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
             <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
               <mat-icon>access_time</mat-icon>
               <span *ngIf="checkDate(cardData)==2">{{date}}</span>
-              <span *ngIf="checkDate(cardData)==3">{{cardData| date:medium}}</span>
-
-              <mat-icon class="cancelIcon" (click)=removeReminder(data.id)>cancel</mat-icon>
+              <span *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</span>
+              <mat-icon (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
           </span>
         </mat-chip-list>
