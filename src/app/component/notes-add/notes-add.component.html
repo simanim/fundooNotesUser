@@ -52,8 +52,8 @@
     <!-- ****************************label start****************************** -->    
       <mat-chip-list>
         <span *ngFor="let cardData of labels" >
-          <mat-chip class="chip">
-            {{cardData.label}}<mat-icon class="cancelIcon" (click)=cancelLabel(cardData)>cancel</mat-icon>
+          <mat-chip class="chip"><span class=labelName>
+            {{cardData.label}}</span><mat-icon class="cancelIcon" (click)=cancelLabel(cardData)>cancel</mat-icon>
           </mat-chip>
         </span>
       </mat-chip-list>

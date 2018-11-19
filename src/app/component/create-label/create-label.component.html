@@ -3,7 +3,7 @@
 <div fxLayout="row" fxLayoutGap="5%">
     <div fxFlex="10%"><mat-icon (click)=clear()>clear</mat-icon></div>
     <div fxFlex=70% data-text="Create new label" class="textarea" contenteditable="true" class="textarea" 
-    #labelName></div>
+    #labelName maxlength=25></div>
     <div fxFlex="10%"><mat-icon class=doneIcon (click)=done()>done</mat-icon></div>
 </div>
 <!-- ****************************label create end****************************** -->

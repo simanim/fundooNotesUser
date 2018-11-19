@@ -18,7 +18,7 @@
       ngStyle.xl="font-size:25px">{{labelValue}}</span>
     </div>
 
-    <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%">
+    <div fxFlex.xs="40%" fxFlex.sm="0%" fxFlex.md="0%" fxFlex.lg="0%" fxFlex.xl="0%"class="toolbar">
       <span *ngIf=!labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>Note</span>
       <span *ngIf=labelShow ngStyle.xs="font-size:20px" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>{{labelValue}}</span>
     </div>

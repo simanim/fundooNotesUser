@@ -49,6 +49,12 @@
 }
 .chip{
     background-color: rgbs(119, 119, 119, 0.2);
+    max-width: 150px;
+}
+.labelName{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden!important;
 }
 .clear{
     cursor: pointer;

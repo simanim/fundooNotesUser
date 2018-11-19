@@ -6,32 +6,32 @@
     <!-- ****************************matcard start****************************** -->        
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" [ngClass.xl]="view ? 'list' : 'grid'" 
     [ngClass.lg]="view ? 'list' : 'grid'" [ngClass.md]="view ? 'list' : 'grid'" [ngClass.sm]="view ? 'list' : 'grid2'"
-    [ngClass.xs]="list"[ngStyle]="{'background-color':data.color}">
+    [ngClass.xs]="view ? 'list' : 'list'" [ngStyle]="{'background-color':data.color}">
       <app-pin class=pin [card]=data (onChange)="entry($event)"></app-pin>
-      <div (click)="openDialog(data)" class="content">
-        <mat-card-subtitle class=title [innerHTML]="data.title"></mat-card-subtitle>
-        <mat-card-subtitle class=description [innerHTML]="data.description"></mat-card-subtitle>
+      <div (click)="openDialog(data)">
+        <div class=title [innerHTML]="data.title"></div>
+        <div class=description [innerHTML]="data.description"></div>
       </div>
 
       <!-- ****************************checklist start****************************** -->        
             
-        <div *ngFor="let list of data.noteCheckLists" class=content>
+        <div *ngFor="let list of data.noteCheckLists">
           <div *ngIf="list.status=='open' && list.isDeleted==false">
-            <mat-checkbox  (click)=check(list)></mat-checkbox>
-            <mat-card-subtitle class=description>{{list.itemName}}</mat-card-subtitle>
+            <mat-checkbox (click)=check(list)></mat-checkbox>
+            <span class=description>{{list.itemName}}</span>
           </div>
         </div>
-        <div *ngFor="let list of data.noteCheckLists" class=content>
+        <div *ngFor="let list of data.noteCheckLists">
           <div *ngIf="list.status=='close' && list.isDeleted==false">
             <mat-checkbox class=delCheck  checked=true (click)=check(list)></mat-checkbox>
-            <mat-card-subtitle class=description><del>{{list.itemName}}</del></mat-card-subtitle>
+            <span class=description><del>{{list.itemName}}</del></span>
           </div>
         </div>
       <!-- ****************************checklist end****************************** -->    
 
       <!-- ****************************reminder start******************************** -->
 
-      <mat-chip-list>
+      <mat-chip-list >
           <span *ngFor="let cardData of data.reminder" class="chip" >
             <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " 
             (click)=showReminder(data.id)>
@@ -53,8 +53,8 @@
       <!-- ****************************reminder end******************************** -->
 
       <!-- ****************************label start****************************** -->        
-      <mat-chip-list>
-        <span *ngFor="let cardData of data.noteLabels" >
+      <mat-chip-list >
+        <span *ngFor="let cardData of data.noteLabels" class=noteLabels>
           <mat-chip class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
             <span class="chip">{{cardData.label}}</span><mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
             class="cancelIcon">cancel</mat-icon>
