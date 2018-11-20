@@ -17,6 +17,9 @@ import { MatDialog } from '@angular/material';
 import { DataService } from '../../core/services/data/data.service';
 import { UserService } from '../../core/services/user/user.service';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Label } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -24,26 +27,30 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  searchValue : any
-  message:string;
-
-  public signoutCard:boolean=false;
-  public firstName = localStorage.getItem("fundooUserFirstname");
-  public lastName = localStorage.getItem("fundooUserLastname");
-  public email = localStorage.getItem("fundooUserEmail");
-  public image= localStorage.getItem("fundooUserImage");
-  public width;
-  public labelNotesList = [];
-  public img;
-  public firstLetter = this.firstName[0];
-  public labelList=[];
-  public selectedFile=null;
-  public gridView:boolean=true
-  public  labelShow:boolean=false;
-  public showSearchBar:boolean=false;
-  labelValue=''
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor( private NavbarServiceUser : UserService, private NavbarServiceNotes : NotesService, 
-    private router : Router, public dialog : MatDialog, private data: DataService ) { }
+    private router : Router, private dialog : MatDialog, private data: DataService ) { }
+
+  private label:Label[] = [];
+  private searchValue : any
+  private message:string;
+  private signoutCard:boolean=false;
+  private firstName = localStorage.getItem("fundooUserFirstname");
+  private lastName = localStorage.getItem("fundooUserLastname");
+  private email = localStorage.getItem("fundooUserEmail");
+  private image= localStorage.getItem("fundooUserImage");
+  private width;
+  private labelNotesList = [];
+  private img;
+  // private firstLetter = this.firstName[0];
+  private labelList=[];
+  private selectedFile=null;
+  private gridView:boolean=true
+  private  labelShow:boolean=false;
+  private showSearchBar:boolean=false;
+  private labelValue=''
+  
   
     
   ngOnInit() {
@@ -57,14 +64,17 @@ export class NavbarComponent implements OnInit {
     this.img="http://34.213.106.173/" + this.image;
     this.isLargeScreen();
   }
+
   hideSearch(){
     this.showSearchBar=false;
     this.data.changeMessageSearch('');
   }
+
   view(){
     this.data.changeView(this.gridView)
     this.gridView=!this.gridView;
   }
+
   search(){
     this.router.navigateByUrl('/search');
   }
@@ -72,7 +82,6 @@ export class NavbarComponent implements OnInit {
   newMessage() {
     this.data.changeMessageSearch(this.searchValue)
   }
-
 
   /**
   * 
@@ -97,12 +106,14 @@ export class NavbarComponent implements OnInit {
   */
   logout(){
     this.NavbarServiceUser.userLogout()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       localStorage.removeItem("fundooUserToken");
       localStorage.removeItem("fundooUserId");
       localStorage.removeItem("fundooUserEmail");
       localStorage.removeItem("fundooUserFirstname");
       localStorage.removeItem("fundooUserLastname");
+      localStorage.removeItem("fundooUserImage");
       this.router.navigateByUrl('/login');
     },(error) => {
     });
@@ -112,37 +123,50 @@ export class NavbarComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateLabelComponent, {
       width: '300px'});
 
-    dialogRef.afterClosed().subscribe(result => { 
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => { 
       this.showLabel();
     });
   }  
+
   showLabel(){
   this.NavbarServiceNotes.showNoteLabels()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.label=response["data"].details;
       this.labelList=[];
-      for(var i=0;i<response["data"].details.length;i++){
-        this.labelList.push(response["data"].details[i].label);
+      for(let i=0;i<this.label.length;i++){
+        this.labelList.push(this.label[i].label);
       }
       this.labelList.sort()
     },(error) => {
     });
   }
+
   profileImage(event):void {
     const dialogRef = this.dialog.open(ImageCropComponent, {
       width: '400px',
       data: event 
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
     this.img=  "http://34.213.106.173/"+localStorage.getItem("fundooUserImage")
     });
     
   }
+
   isLargeScreen() {
     this.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   }
+
   toolbarName(aa){
     this.labelShow=true
     this.labelValue=aa
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

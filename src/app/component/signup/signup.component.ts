@@ -14,6 +14,8 @@ import { UserService } from '../../core/services/user/user.service';
 
 import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -22,17 +24,19 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private signupService : UserService,private snackBar: MatSnackBar, private router : Router ){ }
  
-  public service="";
-  model : any = {
+  private service="";
+  private model : any = {
     "firstname":"",
     "lastname":"",
     "email":"",
     "password":"",
     "confpassword":""
   }
-  public card=[];
-  constructor(private signupService : UserService,public snackBar: MatSnackBar, private router : Router ){ }
+  private card=[];
 
   ngOnInit() {
     this.getService();
@@ -44,6 +48,7 @@ export class SignupComponent implements OnInit {
   */
   getService(){
     this.signupService.getService()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) => {
       for(let i=0;i<response["data"].data.length;i++)
       {
@@ -61,7 +66,7 @@ export class SignupComponent implements OnInit {
     else{
       this.service=data.name;
     }
-    for(var j=0;j<this.card.length;j++){
+    for(let j=0;j<this.card.length;j++){
       if(data.name==this.card[j].name)
       continue;
       this.card[j].select=false;
@@ -69,12 +74,6 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
-    console.log(this.model.firstname);
-    console.log(this.model.lastname);
-    console.log(this.model.email);
-    console.log(this.model.password);
-    console.log(this.model.confpassword);
-    
    /**
     * 
     * @description checking the details are filled or not
@@ -91,8 +90,6 @@ export class SignupComponent implements OnInit {
     * 
     * @description card selection
     */
-   console.log(this.service);
-
     if(this.service.length==0){
       this.snackBar.open("card is required","select a card", {
         duration: 2000,
@@ -114,8 +111,8 @@ export class SignupComponent implements OnInit {
     * 
     * @description validation for names and email
     */
-    var regexName = /^[a-z]+(([',. -][ a-z])?[a-z]*)*$/;
-    var regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    let regexName = /^[a-z]+(([',. -][ a-z])?[a-z]*)*$/;
+    let regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     if(regexName.test(this.model.firstname) == false){
       this.snackBar.open("failed","invalid firstname", {
         duration: 2000,
@@ -134,7 +131,7 @@ export class SignupComponent implements OnInit {
       });
       return;
     }
-    var body={
+    let body={
       "firstName" : this.model.firstname,
       "lastName" : this.model.lastname,
       "service": this.service,
@@ -142,21 +139,21 @@ export class SignupComponent implements OnInit {
       "password":this.model.password
     }
     this.signupService.userSignup(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
      /**
       * 
       * @description if the registration is success then it will directly take to login page
       */
-     console.log("success",response);
-     
       this.router.navigateByUrl('/login');
     },(error) => {
-      console.log("error occ",error);
-      
       this.snackBar.open("failed","something bad happened", {
         duration: 2000,
       });
     });
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

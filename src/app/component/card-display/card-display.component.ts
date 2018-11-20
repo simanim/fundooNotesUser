@@ -13,6 +13,8 @@ import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NotesListComponent, DialogData } from '../notes-list/notes-list.component';
 import { NotesService } from '../../core/services/notes/notes.service'
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-card-display',
@@ -20,17 +22,25 @@ import { NotesService } from '../../core/services/notes/notes.service'
   styleUrls: ['./card-display.component.scss']
 })
 export class CardDisplayComponent implements OnInit {
-  @ViewChild('title') title: ElementRef;
-  @ViewChild('description') description: ElementRef ;
-  model : any={
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();                               
+  @ViewChild('title') title : ElementRef;
+  @ViewChild('description') description : ElementRef ;
+  
+  constructor( private UpdateService : NotesService, private dialogRef : MatDialogRef<NotesListComponent>, 
+  @Inject(MAT_DIALOG_DATA) private data : DialogData ) {}
+
+  private model : any={
     "item":""
   }
-  constructor( private UpdateService : NotesService, public dialogRef : MatDialogRef<NotesListComponent>, @Inject(MAT_DIALOG_DATA) public data : DialogData ) {}
-  public labels=[];
-  public checkList=[];
-  public reminders=[];
-  public isDelete=false;
-  public cardColor;
+  private labels=[];
+  private checkList=[];
+  private reminders=[];
+  private isDelete=false;
+  private cardColor;
+  private date;
+  private current=new Date();
+
   ngOnInit() {
     this.labels=this.data.noteData["noteLabels"];
     this.isDelete=this.data.noteData["isDeleted"];
@@ -44,19 +54,20 @@ export class CardDisplayComponent implements OnInit {
   * @description displaying the particular note and updating the note
   */
   click(): void {
-    var titleValue=this.title.nativeElement.innerHTML;
+    let titleValue=this.title.nativeElement.innerHTML;
     if(titleValue == "")
     {
       return;
     }    
     if(this.data.noteData["noteCheckLists"].length==0){
-      var descriptionValue=this.description.nativeElement.innerHTML;
-      var body={
+      let descriptionValue=this.description.nativeElement.innerHTML;
+      let body={
         "noteId":this.data.noteData["id"],
         "title" : titleValue,
         "description" : descriptionValue
       }
       this.UpdateService.updateNotes(body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
       },(error) => {
       });
@@ -70,8 +81,9 @@ export class CardDisplayComponent implements OnInit {
   */
   removeLabel(labelId, cardId){
     this.UpdateService.removeLabelFromNotes(cardId,labelId)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
-      for(var i=0;i<this.labels.length;i++){
+      for(let i=0;i<this.labels.length;i++){
         if(this.labels[i]['id']==labelId)
         this.labels.splice(i, 1);
       }
@@ -84,17 +96,23 @@ export class CardDisplayComponent implements OnInit {
   * @description remove reminder from the note
   */
   removeReminder(cardId){
-    var id=[];
+    let id=[];
     id.push(cardId)
-    var body={
+    let body={
       "noteIdList":id
     }
     this.UpdateService.removeReminder(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.reminders.splice(0, 1);
     },(error) => {
     });
   }
+
+ /**
+  *
+  * @description on reminder change
+  */
   reminderChanges(event){
     this.reminders=[];
     this.reminders.push(event.body);
@@ -116,7 +134,7 @@ export class CardDisplayComponent implements OnInit {
   */
   labelChanges(event){
     this.labels=[];
-    for(var i=0;i<event.length;i++){
+    for(let i=0;i<event.length;i++){
       this.labels.push(event[i])
     }
   }
@@ -141,11 +159,12 @@ export class CardDisplayComponent implements OnInit {
     else{
       list.status="open";
     }
-    var body={
+    let body={
       "itemName":list.itemName,
       "status":list.status
     }
     this.UpdateService.updateCheckList(list.notesId, list.id, body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
     },(error) => {
     });
@@ -157,11 +176,12 @@ export class CardDisplayComponent implements OnInit {
   */
   listitem(list){
     if(list.itemName=='')return false;
-    var body= {
+    let body= {
       "itemName":list.itemName,
       "status":list.status
     }
     this.UpdateService.updateCheckList(list.notesId, list.id, body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
     },(error) => {
     });
@@ -173,8 +193,9 @@ export class CardDisplayComponent implements OnInit {
   */
   removeCheckList(list){
     this.UpdateService.removeChecklist(list.notesId,list.id)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
-      for(var i=0;i<this.checkList.length;i++){
+      for(let i=0;i<this.checkList.length;i++){
         if(this.checkList[i]==list)
         this.checkList.splice(i, 1);
       }
@@ -192,19 +213,23 @@ export class CardDisplayComponent implements OnInit {
   */
   listAdd(){
     if(this.model.item=='')return false;
-    var body={
+    let body={
       "itemName":this.model.item,
       "status":"open"
     }
     this.UpdateService.addCheckList( this.data.noteData["id"], body )
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.checkList.push(response["data"].details)
       this.model.item="";
     },(error) => {
     });
   }
-  date;
-  current=new Date();
+
+ /**
+  *
+  * @description checking the date and printing
+  */
   checkDate(value){
     this.date=new Date(value).getUTCHours()
     let saved=new Date(value).getTime();
@@ -223,12 +248,10 @@ export class CardDisplayComponent implements OnInit {
           ampm='PM';
           hr=new Date(value).getHours()-12;
         }
-        if(hr<10){
+        if(hr<10)
           hr='0'+hr;
-        }
-        if(new Date(value).getMinutes()<10){
+        if(new Date(value).getMinutes()<10)
           min='0'+new Date(value).getMinutes();
-        }
         this.date="yesterday "+hr+":"+min+" "+ampm;
       }
       else if((year==this.current.getFullYear())&&(month==this.current.getMonth()) &&(date==this.current.getDate())){
@@ -238,12 +261,10 @@ export class CardDisplayComponent implements OnInit {
           ampm='PM';
           hr=new Date(value).getHours()-12;
         }
-        if(hr<10){
+        if(hr<10)
           hr='0'+hr;
-        }
-        if(new Date(value).getMinutes()<10){
+        if(new Date(value).getMinutes()<10)
           min='0'+new Date(value).getMinutes();
-        }
         this.date="today "+hr+":"+min+" "+ampm;
       }
       else{
@@ -260,12 +281,10 @@ export class CardDisplayComponent implements OnInit {
           ampm='PM';
           hr=new Date(value).getHours()-12;
         }
-        if(hr<10){
+        if(hr<10)
           hr='0'+hr;
-        }
-        if(new Date(value).getMinutes()<10){
+        if(new Date(value).getMinutes()<10)
           min='0'+new Date(value).getMinutes();
-        }
         this.date="today "+hr+":"+min+" "+ampm;
       }
       else if((year==this.current.getFullYear())&&(month==this.current.getMonth())&&(date==this.current.getDate()+1)){
@@ -275,12 +294,10 @@ export class CardDisplayComponent implements OnInit {
           ampm='PM';
           hr=new Date(value).getHours()-12;
         }
-        if(hr<10){
+        if(hr<10)
           hr='0'+hr;
-        }
-        if(new Date(value).getMinutes()<10){
+        if(new Date(value).getMinutes()<10)
           min='0'+new Date(value).getMinutes();
-        }
         this.date="tomorrow "+hr+":"+min+" "+ampm;
       }
       else {
@@ -290,4 +307,10 @@ export class CardDisplayComponent implements OnInit {
       return 2;
     }
   }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 }

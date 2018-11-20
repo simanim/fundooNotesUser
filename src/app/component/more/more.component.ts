@@ -12,6 +12,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
 import { MatSnackBar } from '@angular/material';
+import { Label } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-more',
@@ -20,33 +23,38 @@ import { MatSnackBar } from '@angular/material';
   outputs: ['onDeleteEntry']
 })
 export class MoreComponent implements OnInit {
-
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
   @Output() onChanges = new EventEmitter(); 
   @Output() popupChange = new EventEmitter(); 
   @Output() showCheckbox = new EventEmitter();
-  public labelList;
-  public token=localStorage.getItem("fundooUserToken");
-  public arr=[];
-  public arr2=[];
-  constructor( private MoreService : NotesService, public snackBar : MatSnackBar) { }
-  public isDelete=false;
-  public string="Note trashed"
+
+  constructor( private MoreService : NotesService, private snackBar : MatSnackBar) { }
+
+  private labelList;
+  private labelArray=[];
+  private Array=[];
+  private isDelete=false;
+  private string="Note trashed";
+  private label:Label[] = [];
+
   ngOnInit() {
     if(this.card){
       this.isDelete=this.card.isDeleted;
       if(this.card.isDeleted==true)this.string="Note Restored"
     }
   }
+
  /**
   * 
   * @description deleting the selecting note
   */
  deleteNotes(){
     if(this.card){
-    var id=[];
+    let id=[];
     id.push(this.card.id);
-    var body={
+    let body={
       "isDeleted":!this.isDelete,
       "noteIdList":id
     }
@@ -59,29 +67,32 @@ export class MoreComponent implements OnInit {
       },(error) =>{
     });}
   }
+
  /**
   * 
   * @description getting label list
   */
   showLabel(){
-    this.arr=[];
-    this.arr2=[];
+    this.labelArray=[];
+    this.Array=[];
     this.MoreService.showNoteLabels()
     .subscribe((response) =>{
+      this.label=response["data"].details;
       this.labelList=[];
-      this.labelList=response["data"].details;
-      for(var i=0;i<this.labelList.length;i++){
+      this.labelList=this.label;
+      for(let i=0;i<this.labelList.length;i++){
         this.labelList[i].isChecked=false;
         if(this.card){
-        for(var j=0;j<this.card.noteLabels.length;j++){
+        for(let j=0;j<this.card.noteLabels.length;j++){
           if(this.labelList[i].label==this.card.noteLabels[j].label){
-            this.arr2.push(this.labelList[i])
+            this.Array.push(this.labelList[i])
             this.labelList[i].isChecked=true;}
         }
       }}
     },(error) => {
     });
   }
+
  /**
   * 
   * @description adding label to note
@@ -91,29 +102,30 @@ export class MoreComponent implements OnInit {
     this.MoreService.addLabelToNotes(this.card.id,label.id)
     .subscribe((response) =>{
       this.onChanges.emit({})
-      for(var i=0;i<this.arr2.length;i++){
-        if(this.arr2[i].id==label.id){
-          this.arr2.splice(i, 1);
-          this.popupChange.emit(this.arr2)
+      for(let i=0;i<this.Array.length;i++){
+        if(this.Array[i].id==label.id){
+          this.Array.splice(i, 1);
+          this.popupChange.emit(this.Array)
           return;
         }
       }
-      this.arr2.push(label);
-      this.popupChange.emit(this.arr2)
+      this.Array.push(label);
+      this.popupChange.emit(this.Array)
     },(error) => {
     });}
     else{
-      for(var i=0;i<this.arr.length;i++){
-        if(this.arr[i].id==label.id){
-          this.arr.splice(i, 1);
-          this.onChanges.emit(this.arr);
+      for(let i=0;i<this.labelArray.length;i++){
+        if(this.labelArray[i].id==label.id){
+          this.labelArray.splice(i, 1);
+          this.onChanges.emit(this.labelArray);
           return;
         }
       }
-      this.arr.push(label);
-      this.onChanges.emit(this.arr);
+      this.labelArray.push(label);
+      this.onChanges.emit(this.labelArray);
     }
   }
+
  /**
   * 
   * @description remove label from list
@@ -122,15 +134,15 @@ export class MoreComponent implements OnInit {
     this.MoreService.removeLabelFromNotes(this.card.id,label.id)
     .subscribe((response) =>{
       this.onChanges.emit({})
-      for(var i=0;i<this.arr2.length;i++){
-        if(this.arr2[i].id==label.id){
-          this.arr2.splice(i, 1);
-          this.popupChange.emit(this.arr2)
+      for(let i=0;i<this.Array.length;i++){
+        if(this.Array[i].id==label.id){
+          this.Array.splice(i, 1);
+          this.popupChange.emit(this.Array)
           return;
         }
       }
-      this.arr2.push(label);
-      this.popupChange.emit(this.arr2)
+      this.Array.push(label);
+      this.popupChange.emit(this.Array)
     },(error) => {
     }); 
   }
@@ -138,20 +150,26 @@ export class MoreComponent implements OnInit {
   showCheckBox(){
     this.showCheckbox.emit({});
   }
+
  /**
   * 
   * @description deleting a note permanently
   */
   deleteForver(){
     if(this.card){
-      var id=[];
+      let id=[];
       id.push(this.card.id);
-      var body={ "noteIdList":id }
+      let body={ "noteIdList":id }
       this.MoreService.permanentDeleteNote(body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
         this.onChanges.emit({})
         },(error) =>{
-      });}
+      });
+    }
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

@@ -13,7 +13,9 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NotesService } from '../../core/services/notes/notes.service';
-
+import { Label } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-label',
@@ -21,14 +23,18 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./create-label.component.scss']
 })
 export class CreateLabelComponent implements OnInit {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild('labelName') labelName: ElementRef;
   @ViewChild('newName') newName: ElementRef;
 
-  constructor( public dialogRef : MatDialogRef<NavbarComponent>, private NoteAddService : NotesService ) { }
-  public token=localStorage.getItem("fundooUserToken");
-  public id=localStorage.getItem("fundooUserId");
-  public labelList;
-  public labelId;
+  constructor( private dialogRef : MatDialogRef<NavbarComponent>, private NoteAddService : NotesService ) { }
+
+  private label:Label[] = [];
+  private id=localStorage.getItem("fundooUserId");
+  private labelList=[];
+  private labelId;
+
   ngOnInit() {
     this.show();
   }
@@ -52,9 +58,11 @@ export class CreateLabelComponent implements OnInit {
   */
   show(){
     this.NoteAddService.showNoteLabels()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.label=response["data"].details
       this.labelList=[];
-      this.labelList=response["data"].details;
+      this.labelList=this.label;
       return;
     },(error) => {
     });
@@ -66,6 +74,7 @@ export class CreateLabelComponent implements OnInit {
   */
   delete(labelId){
     this.NoteAddService.deleteLabel(labelId)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.show();
     },(error) => {
@@ -76,9 +85,10 @@ export class CreateLabelComponent implements OnInit {
   * @description updating a label from list
   */
   update(labelId){ 
-    var label=this.newName.nativeElement.innerHTML
-    var body={ "label":label }
+    let label=this.newName.nativeElement.innerHTML
+    let body={ "label":label }
     this.NoteAddService.updateLabel(labelId,body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.show();
     },(error) => {
@@ -89,22 +99,28 @@ export class CreateLabelComponent implements OnInit {
   * @description adding a label to list
   */
   done(){
-    var label=this.labelName.nativeElement.innerHTML
+    let label=this.labelName.nativeElement.innerHTML
     if(label==""){
       this.dialogRef.close();
       return false;
     }
-    var body= {
+    let body= {
       "label": label,
       "isDeleted": false,
       "userId":this.id
     }
     this.NoteAddService.createLabel(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.show();
       this.labelName.nativeElement.innerHTML=null;
     },(error) => {
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

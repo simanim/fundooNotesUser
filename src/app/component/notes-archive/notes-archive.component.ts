@@ -12,6 +12,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes-archive',
@@ -19,12 +21,15 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./notes-archive.component.scss']
 })
 export class NotesArchiveComponent implements OnInit {
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
   @Output() onArchiveEntry= new EventEmitter()
 
-  public token=localStorage.getItem("fundooUserToken");
-  constructor( private noteArchiveService : NotesService, public snackBar : MatSnackBar ) { }
-  public isArchive:boolean=false;
+  constructor( private noteArchiveService : NotesService, private snackBar : MatSnackBar ) { }
+
+  private isArchive:boolean=false;
+
   ngOnInit() {
     if(this.card){
     if(this.card.isArchived==true){
@@ -38,17 +43,21 @@ export class NotesArchiveComponent implements OnInit {
   */
   archive(){
     if(this.card){
-      var id=[];
+      let id=[];
       id.push(this.card.id);
-      var body={
+      let string;
+      let body={
         "isArchived":!this.card.isArchived,
         "noteIdList":id
       }
       this.noteArchiveService.archiveNote(body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
         this.onArchiveEntry.emit({})
-        if(this.card.isArchived==false) var string="Note Archived"
-        else var string="Note Unarchived"
+        if(this.card.isArchived==false)  
+          string="Note Archived";
+        else  
+          string="Note Unarchived";
         this.snackBar.open( string ,"undo", {
           duration: 2000,
         });
@@ -59,4 +68,9 @@ export class NotesArchiveComponent implements OnInit {
       this.onArchiveEntry.emit({})
     }
   }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+  
 }

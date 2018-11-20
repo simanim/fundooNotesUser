@@ -9,29 +9,35 @@
  *  @since          : 19-10-2018
  *
  ******************************************************************************/
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../core/services/user/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  model : any = {
+export class LoginComponent implements OnInit,OnDestroy {
+  destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor( private loginService : UserService, private snackBar : MatSnackBar, private router : Router ) { }
+
+  public model : any = {
     "email":"",
     "password":""
   }
-  constructor( private loginService : UserService, public snackBar : MatSnackBar, private router : Router ) { }
-  public id= localStorage.getItem("fundooUserToken");
+  private id= localStorage.getItem("fundooUserToken");
   
   ngOnInit() {
     if(this.id != null){
       this.router.navigateByUrl('/home');
     }
   }
+
  /**
   * 
   * @description user login
@@ -53,14 +59,14 @@ export class LoginComponent implements OnInit {
     * 
     * @description email validation
     */
-    var regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    let regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
     if(regexEmail.test(this.model.email) == false){
       this.snackBar.open("failed","invalid email", {
         duration: 2000,
       });
       return;
     }
-    var body={
+    let body={
       "email": this.model.email,
       "password":this.model.password
     }
@@ -76,10 +82,11 @@ export class LoginComponent implements OnInit {
       * 
       * @description if the login is success then it will directly take to dashboard page
       */
-      var obj={
+      let obj={
         "pushToken":localStorage.getItem("fundooUserPushToken")
       }
       this.loginService.pushLogin(obj)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response)=>{
       },(error)=>{
       })
@@ -92,5 +99,10 @@ export class LoginComponent implements OnInit {
         });
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

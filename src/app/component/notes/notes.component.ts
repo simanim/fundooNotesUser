@@ -12,19 +12,23 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
 import { Note } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss']
 })
 export class NotesComponent implements OnInit {
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor( private noteService : NotesService ){}
-  notes:Note[]=[];
+
+  private notes:Note[]=[];
   private pinedArray=[];
   private unpinedArray=[];
-  private notesArray=[];
-  pined:String="PINED";
-  others:String="OTHERS";
+
   ngOnInit() {
     this.getNotes();
   }
@@ -46,25 +50,27 @@ export class NotesComponent implements OnInit {
  
   getNotes(){
     this.noteService.getNoteList()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.notes=response["data"].data;
-      this.notesArray=[];
       this.pinedArray=[];
       this.unpinedArray=[]
-      for(var i=this.notes.length; i>0 ; i--){
+      for(let i=this.notes.length; i>0 ; i--){
         if((this.notes[i-1]["isDeleted"] == false) && (this.notes[i-1]["isArchived"] == false)){
-        this.notesArray.push(this.notes[i-1]);
+          if(this.notes[i-1]["isPined"]==true){
+            this.pinedArray.push(this.notes[i-1]);
+          }
+          else{
+            this.unpinedArray.push(this.notes[i-1]);
+          }
         }
       }
-      for(var j=0;j<this.notesArray.length;j++){
-        if(this.notesArray[j]["isPined"]==true){
-          this.pinedArray.push(this.notesArray[j]);}
-        else{
-          this.unpinedArray.push(this.notesArray[j]);}
-      }
-      console.log(this.unpinedArray);
-      
     },(error) =>{
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

@@ -90,7 +90,7 @@ input:focus {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden!important;
-    margin-top:5px;
+    margin-top:3%;
     max-width:150px;
 
 }
@@ -110,4 +110,6 @@ input:focus {
 .img{
     height:50px;width:50px;border-radius:50%;
     background-color: aqua;
+    height: 40px;
+    width:40px;
 }

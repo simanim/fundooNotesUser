@@ -11,20 +11,27 @@
 ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { UserService } from '../../core/services/user/user.service'
+import { UserService } from '../../core/services/user/user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 @Component({
   selector: 'app-forgotpass',
   templateUrl: './forgotpass.component.html',
   styleUrls: ['./forgotpass.component.scss']
 })
 export class ForgotpassComponent implements OnInit {
-  model : any = {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private resetService : UserService, private snackBar: MatSnackBar) { }
+
+  private model : any = {
     "email":""
   }
-  constructor(private resetService : UserService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
+
  /**
   * 
   * @description reset of password
@@ -41,10 +48,11 @@ export class ForgotpassComponent implements OnInit {
       });
       return;
     }
-    var body={
+    let body={
       "email": this.model.email
     }
     this.resetService.forgotPassword(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.snackBar.open("check your email","Set password link sent to you registered email", {
       duration: 2000,
@@ -57,5 +65,9 @@ export class ForgotpassComponent implements OnInit {
         });
       }
     });
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

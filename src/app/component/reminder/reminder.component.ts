@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Note } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-reminder',
@@ -7,20 +10,27 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./reminder.component.scss']
 })
 export class ReminderComponent implements OnInit {
-
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor( private reminderService : NotesService ) { }
-  public reminderArray=[];
-  public arr=[];
+
+  private notes:Note[]=[];
+  private reminderArray=[];
+  private arr=[];
+
   ngOnInit() {
     this.reminders()
   }
   reminders(){
     this.reminderService.getRemindersLIst()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.notes=[];
+      this.notes=response["data"].data;
       this.reminderArray=[];
       this.arr=[]
-      for(var i=response["data"].data.length;i>0;i--){
-        this.reminderArray.push(response["data"].data[i-1])
+      for(let i=this.notes.length;i>0;i--){
+        this.reminderArray.push(this.notes[i-1])
       }
       this.reminderArray.sort(function(a,b)
       {
@@ -36,5 +46,8 @@ export class ReminderComponent implements OnInit {
       this.reminders();
     }
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

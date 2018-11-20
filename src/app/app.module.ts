@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FirebaseService } from './core/services/firebase/firebase.service';
 import { AppRoutingModule } from './app-routing.module';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
+import { InterceptService} from './core/services/intercept/intercept.service';
+import { FirebaseService } from './core/services/firebase/firebase.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -29,6 +32,9 @@ import { CreateLabelComponent } from './component/create-label/create-label.comp
 import { LabelComponent } from './component/label/label.component';
 import { SearchNotesComponent } from './component/search-notes/search-notes.component';
 import { PinComponent } from './component/pin/pin.component';
+import { ImageCropComponent } from './component/image-crop/image-crop.component';
+import { ReminderComponent } from './component/reminder/reminder.component';
+import { AddCollaboratorComponent } from './component/add-collaborator/add-collaborator.component';
 
 import { SearchPipe } from './core/pipe/search.pipe';
 import { SearchNotePipe } from './core/pipe/search-note.pipe';
@@ -48,10 +54,6 @@ import {  MatFormFieldModule,
           MatDividerModule,
           MatDatepickerModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
         } from '@angular/material';
-import { ImageCropComponent } from './component/image-crop/image-crop.component';
-import { ImageCropperModule } from 'ngx-image-cropper';
-import { ReminderComponent } from './component/reminder/reminder.component';
-import { AddCollaboratorComponent } from './component/add-collaborator/add-collaborator.component';
 
 
 
@@ -112,7 +114,12 @@ import { AddCollaboratorComponent } from './component/add-collaborator/add-colla
 
   ],
 
-  providers: [MatDatepickerModule, FirebaseService],
+  providers: [MatDatepickerModule, FirebaseService, InterceptService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptService,
+      multi: true
+    }],
   
   bootstrap: [ AppComponent],
 

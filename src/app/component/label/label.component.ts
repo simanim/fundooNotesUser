@@ -12,6 +12,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Label } from '../../core/model/model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-label',
@@ -20,13 +23,16 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class LabelComponent implements OnInit {
 
-  constructor(private labelService : NotesService, public route : ActivatedRoute) { }
-  public labelNotesList=[];
-  public token = localStorage.getItem("fundooUserToken");
-  public label='';
+  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor( private labelService : NotesService, private route : ActivatedRoute ) { }
+
+  private label:Label[] = [];
+  private labelNotesList=[];
+  private labelName='';
+
   ngOnInit() {
     this.route.params.subscribe((params: Params) =>{
-      this.label=params['label'];
+      this.labelName=params['label'];
       this.labelNotes();
     })
   }
@@ -42,14 +48,19 @@ export class LabelComponent implements OnInit {
   * @description getting the notes according to label
   */
   labelNotes(){
-    this.labelService.getNotelistByLabel(this.label)
+    this.labelService.getNotelistByLabel(this.labelName)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.label=response["data"].data;
       this.labelNotesList=[];
-      for(var i=response["data"].data.length;i>0;i--){
-        this.labelNotesList.push(response["data"].data[i-1])
+      for(let i=this.label.length;i>0;i--){
+        this.labelNotesList.push(this.label[i-1])
       }
     },(error) => {
     });
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

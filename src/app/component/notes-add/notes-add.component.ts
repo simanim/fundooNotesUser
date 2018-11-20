@@ -11,6 +11,8 @@
  ******************************************************************************/
 import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes-add',
@@ -19,29 +21,29 @@ import { NotesService } from '../../core/services/notes/notes.service';
   outputs: ['onNewEntry']
 })
 export class NotesAddComponent implements OnInit {
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @ViewChild('title') title: ElementRef;
   @ViewChild('description') description: ElementRef ;
   @ViewChild('listItem') listItem: ElementRef ;
-
   @Output() onNewEntry= new EventEmitter()
 
-  public token=localStorage.getItem("fundooUserToken");
-  public id=localStorage.getItem("fundooUserId");
+  constructor( private NoteAddService : NotesService ){}
 
-  public noteCard:boolean=true;
-  public isPin:boolean=false;
-  public cardColor="#FFFFFF";
-  public isAchive:boolean=false;
-  public labels=[];
-  public reminder=[];
-  public listNote:boolean=false;
-  public listArray=[];
-  public current =new Date();
-  public date;
-  model : any={
+  private noteCard:boolean=true;
+  private isPin:boolean=false;
+  private cardColor="#FFFFFF";
+  private isAchive:boolean=false;
+  private labels=[];
+  private reminder=[];
+  private listNote:boolean=false;
+  private listArray=[];
+  private current =new Date();
+  private date;
+  private model : any={
     "item":""
   }
-  constructor( private NoteAddService : NotesService ){}
+
   ngOnInit() {
   }
 
@@ -65,7 +67,7 @@ export class NotesAddComponent implements OnInit {
     this.model.item="";
   }
   checked(value){
-    for(var i=0;i<this.listArray.length;i++){
+    for(let i=0;i<this.listArray.length;i++){
       if(value==this.listArray[i]){
         if(value.status=="open"){
           value.status="close"
@@ -82,7 +84,7 @@ export class NotesAddComponent implements OnInit {
   * @description remove a checklist while adding
   */
   removeList(value){
-    for(var i=0;i<this.listArray.length;i++){
+    for(let i=0;i<this.listArray.length;i++){
       if(value==this.listArray[i]){
         this.listArray.splice(i, 1);
       }
@@ -95,20 +97,20 @@ export class NotesAddComponent implements OnInit {
   */
  close(){
     this.noteCard=!(this.noteCard);
-    var title1=this.title.nativeElement.innerHTML;
+    let title1=this.title.nativeElement.innerHTML;
     if(title1 == ""){
       this.listArray=[];
       this.listNote=false;
       return false;
     }
-    var labelId=[]
-    for(var i=0;i<this.labels.length;i++){
+    let labelId=[]
+    for(let i=0;i<this.labels.length;i++){
       labelId.push(this.labels[i].id)
     }
     if(this.listNote==false){
 
-    var description1=this.description.nativeElement.innerHTML;
-    var body={
+    let description1=this.description.nativeElement.innerHTML;
+    let body={
       "title" : title1,
       "description" : description1,
       "isPined"	: this.isPin,
@@ -118,13 +120,14 @@ export class NotesAddComponent implements OnInit {
       "reminder":this.reminder
     }
     this.NoteAddService.addNote(this.getFormUrlEncoded(body))
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.onNewEntry.emit({})
     },(error) => {
     });}
     else{
-      var checkList1=this.listArray;
-      var bodyList={
+      let checkList1=this.listArray;
+      let bodyList={
         "title" : title1,
         "checklist" : JSON.stringify(checkList1),
         "isPined"	: this.isPin,
@@ -134,6 +137,7 @@ export class NotesAddComponent implements OnInit {
         "reminder":this.reminder
       }
       this.NoteAddService.addNote(this.getFormUrlEncoded(bodyList))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
         this.onNewEntry.emit({})
       },(error) => {
@@ -268,7 +272,7 @@ export class NotesAddComponent implements OnInit {
     this.reminder=[];
   }
   cancelLabel(data){
-    for(var i=0;i<this.labels.length;i++){
+    for(let i=0;i<this.labels.length;i++){
       if(this.labels[i]==data){
         this.labels.splice(i, 1);
       }
@@ -334,5 +338,10 @@ export class NotesAddComponent implements OnInit {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     return formBody.join('&');
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

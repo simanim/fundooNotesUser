@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pin',
@@ -8,11 +10,13 @@ import { NotesService } from '../../core/services/notes/notes.service';
 })
 export class PinComponent implements OnInit {
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
   @Output() onChange = new EventEmitter;
-  public token=localStorage.getItem("fundooUserToken");
+
   constructor( private pinService : NotesService ) { }
-  public isPin:boolean=false;
+  
+  private isPin:boolean=false;
 
   ngOnInit() {
     if(this.card)
@@ -21,18 +25,23 @@ export class PinComponent implements OnInit {
   pin(){
     this.isPin=!this.isPin;
     if(this.card){
-      var id=[];
+      let id=[];
       id.push(this.card.id);
-      var body={
+      let body={
         "isPined":this.isPin,
         "noteIdList":id
       }
       this.pinService.pinChange(body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
         this.onChange.emit({})
       });
     }
     else
     this.onChange.emit(this.isPin);
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

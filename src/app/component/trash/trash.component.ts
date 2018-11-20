@@ -11,6 +11,9 @@
  ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Note } from '../../core/model/model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-trash',
@@ -19,9 +22,12 @@ import { NotesService } from '../../core/services/notes/notes.service';
 })
 export class TrashComponent implements OnInit {
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor( private trashService : NotesService ) { }
-  public token=localStorage.getItem("fundooUserToken");
-  public trashList=[];
+
+  private notes:Note[]=[];
+  private trashList=[];
+  
   ngOnInit() {
     this.getTrashList();
   }
@@ -38,14 +44,19 @@ export class TrashComponent implements OnInit {
   */
   getTrashList(){
     this.trashService.getTrashNotes()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.notes=response["data"].data;
       this.trashList=[];
-      for(var i=response["data"].data.length;i>0;i--){
-        this.trashList.push(response["data"].data[i-1])
+      for(let i=this.notes.length;i>0;i--){
+        this.trashList.push(this.notes[i-1])
       }
     },(error) =>{
     });
   }
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

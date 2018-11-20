@@ -13,18 +13,12 @@ constructor(private http: HttpClient) { }
  *@description post methods
  */
   postData(path,body){
-    let httpAuthOptions = {
-      headers: new HttpHeaders({
-        'Authorization': localStorage.getItem("fundooUserToken")
-      })
-    };
-    return this.http.post(environment.baseUrl+path,body,httpAuthOptions);
+    return this.http.post(environment.baseUrl+path,body);
   }
   postDataForJSON(path,body){
     let httpAuthOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem("fundooUserToken")
+        'Content-Type': 'application/json'
       })
     };
     return this.http.post(environment.baseUrl+path,body,httpAuthOptions);
@@ -32,8 +26,7 @@ constructor(private http: HttpClient) { }
   postDataForEncoded(path,body){
     let httpAuthOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': localStorage.getItem("fundooUserToken")
+        'Content-Type': 'application/x-www-form-urlencoded'
       })
     };
     return this.http.post(environment.baseUrl+path,body,httpAuthOptions);
@@ -60,8 +53,7 @@ constructor(private http: HttpClient) { }
   getData2(path){
     let httpAuthOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem("fundooUserToken")
+        'Content-Type': 'application/json'
       })
     };
     return this.http.get(environment.baseUrl+path,httpAuthOptions);

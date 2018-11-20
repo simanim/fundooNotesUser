@@ -11,6 +11,8 @@
 ******************************************************************************/
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-change-color',
@@ -18,25 +20,30 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./change-color.component.scss']
 })
 export class ChangeColorComponent implements OnInit {
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
-  @Output() onChangeColor= new EventEmitter()
+  @Output() onChangeColor = new EventEmitter()
+
   constructor(private changeColorService : NotesService) { }
 
   ngOnInit() {
   }
+  
   /**
   * 
   * @description changing the color of particular note
   */
   colorChange(color){
     if(this.card){
-      var id=[];
+      let id=[];
       id.push(this.card.id);
-      var body={
+      let body={
         "color":color,
         "noteIdList":id
       }
       this.changeColorService.cardColorChange(body)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
       this.onChangeColor.emit(color)
       },(error) =>{
@@ -45,6 +52,11 @@ export class ChangeColorComponent implements OnInit {
     else{
       this.onChangeColor.emit({color})
     }
+  }
+  
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

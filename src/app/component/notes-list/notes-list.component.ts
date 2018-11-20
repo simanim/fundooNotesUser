@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material';
 import { CardDisplayComponent } from '../card-display/card-display.component';
 import { NotesService } from '../../core/services/notes/notes.service';
 import { DataService } from '../../core/services/data/data.service'
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export interface DialogData {
   noteData:object
@@ -26,24 +28,25 @@ export interface DialogData {
   outputs: ['anyChanges']
 })
 export class NotesListComponent implements OnInit {
-
-  noteData:object;
-  public token= localStorage.getItem("fundooUserToken")
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() pin;
   @Input() length;
-
   @Input() notes;
-
   @Input() searchItem;
   @Output() anyChanges= new EventEmitter();
-  constructor( public dialog: MatDialog, private noteListService : NotesService, private data: DataService ) { }
-  public current =new Date();
-  public dateValue;
-  view:boolean;
-  public aaa=[true,false];
+
+  constructor( private dialog: MatDialog, private noteListService : NotesService, private data: DataService ) { }
+
+  private noteData:object;
+  private current =new Date();
+  private dateValue;
+  private view:boolean;
   
   ngOnInit() {
-    this.data.currentMessageView.subscribe(message => {
+    this.data.currentMessageView
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(message => {
       this.view = message      
     })
   }
@@ -64,11 +67,12 @@ export class NotesListComponent implements OnInit {
     else{
       list.status="open";
     }
-    var body={
+    let body={
       "itemName":list.itemName,
       "status":list.status
     }
     this.noteListService.updateCheckList(list.notesId,list.id,body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
     },(error) => {
     });
@@ -83,13 +87,16 @@ export class NotesListComponent implements OnInit {
       width: '600px',
       data: { noteData : noteData1 }
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       this.anyChanges.emit({});
     });
   }
 
   removeLabel(labelId, cardId){
     this.noteListService.removeLabelFromNotes(cardId,labelId)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.anyChanges.emit({})
     },(error) => {
@@ -97,12 +104,13 @@ export class NotesListComponent implements OnInit {
   }
 
   removeReminder(cardId){
-    var id=[];
+    let id=[];
     id.push(cardId)
-    var body={
+    let body={
       "noteIdList":id
     }
     this.noteListService.removeReminder(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.anyChanges.emit({})
     },(error) => {
@@ -199,5 +207,9 @@ export class NotesListComponent implements OnInit {
   }
   showReminder(data){
     this.data.changeMessageReminder(data)
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

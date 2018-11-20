@@ -11,6 +11,9 @@
 ******************************************************************************/
 import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
+import { Note } from '../../core/model/model';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-archive',
@@ -18,31 +21,44 @@ import { NotesService } from '../../core/services/notes/notes.service';
   styleUrls: ['./archive.component.scss']
 })
 export class ArchiveComponent implements OnInit {
-
+  
+  destroy$: Subject<boolean> = new Subject<boolean>();
   constructor( private archiveService : NotesService ) { }
-  public archiveList=[];
+
+  private archiveList = [];
+  private notes:Note[] = [];
+
   ngOnInit() {
     this.getArchiveList();
   }
+
   refresh(event){
     if(event){
       this.getArchiveList();
     }
   }
+
  /** 
   * 
   * @description getting the archieved note list
   */
   getArchiveList(){
     this.archiveService.getArchivedList()
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
+      this.notes=response["data"].data;
       this.archiveList=[];
-      for(var i=response["data"].data.length;i>0;i--){
-        if(response["data"].data[i-1]["isDeleted"] == false)
-        this.archiveList.push(response["data"].data[i-1])
+      for(let i=this.notes.length;i>0;i--){
+        if(this.notes[i-1]["isDeleted"] == false)
+        this.archiveList.push(this.notes[i-1])
       }
     },(error) =>{
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

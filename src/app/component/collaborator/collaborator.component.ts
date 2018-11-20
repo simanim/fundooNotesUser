@@ -20,11 +20,13 @@ import { AddCollaboratorComponent, DialogData } from '../add-collaborator/add-co
 })
 export class CollaboratorComponent implements OnInit {
 
-  constructor( public dialogRef : MatDialogRef<AddCollaboratorComponent>, @Inject(MAT_DIALOG_DATA) public data : DialogData ) { }
-  public img="http://34.213.106.173/" + localStorage.getItem("fundooUserImage");
-  public firstName=localStorage.getItem("fundooUserFirstname");
-  public lastName=localStorage.getItem("fundooUserLastname");
-  public email=localStorage.getItem("fundooUserEmail");
+  constructor( private dialogRef : MatDialogRef<AddCollaboratorComponent>, 
+  @Inject(MAT_DIALOG_DATA) private data : DialogData ) { }
+  
+  private img="http://34.213.106.173/" + localStorage.getItem("fundooUserImage");
+  private firstName=localStorage.getItem("fundooUserFirstname");
+  private lastName=localStorage.getItem("fundooUserLastname");
+  private email=localStorage.getItem("fundooUserEmail");
 
   ngOnInit() {
   }

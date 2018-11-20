@@ -11,10 +11,12 @@
  ******************************************************************************/
 import { Component, OnInit, Input, Output ,EventEmitter, ViewChild } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
-import { LoggerService } from '../../core/services/logger/logger.service';
+// import { LoggerService } from '../../core/services/logger/logger.service';
 import { DataService } from '../../core/services/data/data.service';
 import { MatMenuTrigger } from '@angular/material';
 import { trigger } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-remind-me',
@@ -22,21 +24,28 @@ import { trigger } from '@angular/animations';
   styleUrls: ['./remind-me.component.scss'],
 })
 export class RemindMeComponent implements OnInit {
-  model: any={
-   "date":'',
-   'time':''
-  }
+  
+  destroy$: Subject<boolean> = new Subject<boolean>(); 
   @Input() card
   @Output() onChanges=new EventEmitter()
-  @ViewChild(MatMenuTrigger) trigger:MatMenuTrigger
-  message:String
-  public value;
-  public timePick:boolean=false;
-  public currentDate=new Date();
-  public button=true;
-  public button1:boolean=true;public button2:boolean=true;public button3:boolean=true;public button4:boolean=true;
+  @ViewChild(MatMenuTrigger) trigger:MatMenuTrigger;
 
   constructor( private remindMeService : NotesService, private data: DataService ) { }
+
+  private model: any={
+    "date":'',
+    'time':''
+   }
+  private message:String
+  private  value;
+  private timePick:boolean=false;
+  private currentDate=new Date();
+  private button=true;
+  private button1:boolean=true;
+  private button2:boolean=true;
+  private button3:boolean=true;
+  private button4:boolean=true;
+
 
   ngOnInit() {
     this.data.currentMessageReminder.subscribe(message => {
@@ -52,25 +61,23 @@ export class RemindMeComponent implements OnInit {
     this.value=this.currentDate;
     if(this.card){
       if(this.card.reminder.length!=0){
-        var cardReminder=new Date(this.card.reminder[0]);
+        let cardReminder=new Date(this.card.reminder[0]);
         this.value=cardReminder;
         this.timePick=true;
       }
     }
     this.model.date=this.value;
-    var hr=this.value.getHours();
-    var min=this.value.getMinutes()+1;
+    let hr=this.value.getHours();
+    let min=this.value.getMinutes()+1;
     if(min>=0 && min<9)
     min="0"+(min);
-    var ampm='AM'
+    let ampm='AM'
     if(hr>12){
       hr-=12;
       ampm='PM'
     }
     this.model.time=hr+":"+min+" "+ampm;
     this.datechange();
-    console.log();
-    
   }
   datechange(){
     if(this.model.date.getFullYear()>=this.currentDate.getFullYear()){
@@ -98,7 +105,7 @@ export class RemindMeComponent implements OnInit {
     }
   }
   today(){
-    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+0,20,0,0)
+    let date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+0,20,0,0)
     if(this.card){
       this.addReminder(date);
     }
@@ -107,7 +114,7 @@ export class RemindMeComponent implements OnInit {
     }
   }
   tomorrow(){
-    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+1,8,0,0)
+    let date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+1,8,0,0)
     if(this.card){
       this.addReminder(date);
     }
@@ -116,7 +123,7 @@ export class RemindMeComponent implements OnInit {
     }
   }
   nextWeek(){
-    var date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+7,8,0,0)
+    let date=new Date(this.currentDate.getFullYear(),this.currentDate.getMonth(),this.currentDate.getDate()+7,8,0,0)
     if(this.card){
       this.addReminder(date);
     }
@@ -126,13 +133,14 @@ export class RemindMeComponent implements OnInit {
   }
   addReminder(date){
     if(this.card){
-    var id=[];
+    let id=[];
     id.push(this.card.id);
-    var body={
+    let body={
       "reminder":date,
       "noteIdList":id
     }
     this.remindMeService.addUpdateReminder(body)
+    .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
     this.onChanges.emit({"body":date})
     },(error) =>{
@@ -142,8 +150,7 @@ export class RemindMeComponent implements OnInit {
     }
   }
   timeValidation(){
-    console.log("innn",this.model.time);
-    var regex=/^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/;
+    let regex=/^(2[0-3]|1?[0-9]|0?[1-9]):[0-5][0-9] (AM|PM|pm|am|Pm|pM|Am|aM)$/;
     if(!regex.test(this.model.time)){
       this.button=false;
     }
@@ -153,27 +160,29 @@ export class RemindMeComponent implements OnInit {
 
   }
   dateValidation(){
-    console.log("innnn",this.model.date);
-    var regex=/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+    let regex=/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
     if(!regex.test(this.model.date)){
       this.button=false;
     }
     else
       this.button=true;
   }
+  
   addTime(){
-    var arr=this.model.time.split(' ');
-    var arr2=arr[0].split(':')
+    let arr=this.model.time.split(' ');
+    let arr2=arr[0].split(':')
     arr2.push(arr[1])
-    var min=Number(arr2[1]);
-    var hr=Number(arr2[0]);
+    let min=Number(arr2[1]);
+    let hr=Number(arr2[0]);
     if(arr2[2].toUpperCase()=="PM" && hr<12){
       hr+=12;
     }
-    var date=new Date(this.model.date.getFullYear(),this.model.date.getMonth(),this.model.date.getDate()+0,hr,min,0)
-    // console.log(date);
-    
+    let date=new Date(this.model.date.getFullYear(),this.model.date.getMonth(),this.model.date.getDate()+0,hr,min,0)
     this.addReminder(date);
+  }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }
