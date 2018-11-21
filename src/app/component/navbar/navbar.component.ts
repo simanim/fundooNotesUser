@@ -20,6 +20,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 import { Label } from '../../core/model/model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -43,7 +44,6 @@ export class NavbarComponent implements OnInit {
   private width;
   private labelNotesList = [];
   private img;
-  // private firstLetter = this.firstName[0];
   private labelList=[];
   private selectedFile=null;
   private gridView:boolean=true
@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit {
       this.router.navigateByUrl('/label/'+this.message);
       this.toolbarName(this.message)}
       });
-    this.img="http://34.213.106.173/" + this.image;
+    this.img=environment.Url + this.image;
     this.isLargeScreen();
   }
 
@@ -121,7 +121,8 @@ export class NavbarComponent implements OnInit {
 
   createLabel(): void {
     const dialogRef = this.dialog.open(CreateLabelComponent, {
-      width: '300px'});
+      width: '300px'
+    });
 
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
@@ -152,7 +153,7 @@ export class NavbarComponent implements OnInit {
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
-    this.img=  "http://34.213.106.173/"+localStorage.getItem("fundooUserImage")
+    this.img=  environment.Url+localStorage.getItem("fundooUserImage")
     });
     
   }

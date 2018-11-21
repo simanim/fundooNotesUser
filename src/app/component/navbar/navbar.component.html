@@ -12,7 +12,7 @@
     </div>
 
     <div fxHide.xs=true fxFlex.sm="25%" fxFlex.md="20%" fxFlex.lg="20%" fxFlex.xl="20%">
-      <div *ngIf=!labelShow ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
+      <div *ngIf=!labelShow ngStyle.sm="font-size:19px" ngStyle.md="font-size:20px" ngStyle.lg="font-size:23px" 
       ngStyle.xl="font-size:40px;max-width:300px" class="toolbar">Fundoo Note</div>
       <div *ngIf=labelShow ngStyle.sm="font-size:15px" ngStyle.md="font-size:15px" ngStyle.lg="font-size:25px" 
       ngStyle.xl="font-size:25px" class="toolbar">{{labelValue}}</div>
@@ -71,7 +71,7 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <input type=file class="fileSelect" (change)=profileImage($event) #image>
-  <p><button  class="signout" (click)="logout()">Sign out</button></p>
+  <div><button  class="signout" (click)="logout()">Sign out</button></div>
 </mat-card>
 <!-- ****************************profile end*********************************** -->
 
@@ -80,37 +80,37 @@
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
   <mat-drawer #drawer class="example-sidenav"  [mode]="width > 720?'side':'over'" closed>
-    <p class="side_icon"><a routerLink="/home" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></p>
-    <p class="side_icon"><a routerLink="/reminder" (click)="toolbarName('Reminder')" routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></p>
+    <div class="side_icon"><a routerLink="/home" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></div>
+    <div class="side_icon"><a routerLink="/reminder" (click)="toolbarName('Reminder')" routerLinkActive="active" 
+      class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></div>
     <mat-divider></mat-divider>    
     
-      <div fxLayout="row">
+      <div fxLayout="row"  class="edit">
         <div fxFlex=10%></div>
-        <div fxFlex=40%><small>Labels</small></div>
-        <div fxFlex=40%><button mat-button class="edit"(click)=createLabel()><small>EDIT</small></button></div>
+        <div fxFlex=40% class="edit"><small>Labels</small></div>
+        <div fxFlex=40%><button mat-button (click)=createLabel()><small>EDIT</small></button></div>
       </div>
 
     <a *ngFor="let data of labelList" class=buttonicon routerLink="/label/{{data}}" (click)="toolbarName(data)"
     routerLinkActive=active >
-      <div fxLayout=row class="side_icon">
+      <div fxLayout=row class="side_label">
         <div fxFlex="10%"></div>
         <div fxFlex="20%"><mat-icon class=label>label</mat-icon></div>
         <div fxFlex="60%" class=label >{{data}}</div>
       </div>
     </a>
 
-    <p><button mat-button class=labelCreate (click)=createLabel()><mat-icon>add</mat-icon> 
-      <span class="plus">Create new label</span></button></p>
+    <div><button mat-button class=side_icon (click)=createLabel()><mat-icon>add</mat-icon> 
+      <span class="plus">Create new label</span></button></div>
       <mat-divider></mat-divider>
 
-    <p class="side_icon"><a routerLink="/archive" (click)="searchValue=null;toolbarName('Archive')" 
+    <div class="side_icon"><a routerLink="/archive" (click)="searchValue=null;toolbarName('Archive')" 
       routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></p>
-    <p class="side_icon"><a routerLink="/trash" (click)="searchValue=null;toolbarName('Trash')" 
+      class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></div>
+    <div class="side_icon"><a routerLink="/trash" (click)="searchValue=null;toolbarName('Trash')" 
       routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></p>
+      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></div>
       
   </mat-drawer>
   <router-outlet></router-outlet>

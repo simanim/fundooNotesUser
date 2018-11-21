@@ -34,7 +34,6 @@ export class ResetComponent implements OnInit {
   private id = this.route.snapshot.params.id;
 
   ngOnInit() {
-    localStorage.setItem("fundooUserToken",this.id);
   }
 
   /**
@@ -46,6 +45,7 @@ export class ResetComponent implements OnInit {
     * 
     * @description checking the passwords are matching or not
     */
+    localStorage.setItem("fundooUserToken",this.id);
     if(this.model.password != this.model.confpassword){
       this.snackBar.open("failed","passwords are not matching", {
         duration: 2000,
@@ -57,19 +57,18 @@ export class ResetComponent implements OnInit {
     this.resetService.resetPassword(this.getFormUrlEncoded(body))
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
-    localStorage.removeItem("fundooUserToken");
-
      /**
       * 
       * @description if the reset password is success then it will directly take to login page
       */
       this.router.navigateByUrl('/login');
     },(error) => {
-      localStorage.removeItem("fundooUserToken");
       this.snackBar.open("failed","failed", {
         duration: 2000,
       });
     });
+    localStorage.removeItem("fundooUserToken");
+
   }
   getFormUrlEncoded(toConvert) {
     const formBody = [];

@@ -25,9 +25,10 @@ import { takeUntil } from 'rxjs/operators';
 export class CreateLabelComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  @ViewChild('labelName') labelName: ElementRef;
-  @ViewChild('newName') newName: ElementRef;
-
+  public model : any = {
+    "labelName":"",
+    "newName":""
+  }
   constructor( private dialogRef : MatDialogRef<NavbarComponent>, private NoteAddService : NotesService ) { }
 
   private label:Label[] = [];
@@ -38,9 +39,10 @@ export class CreateLabelComponent implements OnInit {
   ngOnInit() {
     this.show();
   }
-  editIcon(id){
+  editIcon(id,labelNew){
     this.labelId=[];
     this.labelId=id;
+    this.model.newName=labelNew;
   }
 
   add(){
@@ -49,7 +51,7 @@ export class CreateLabelComponent implements OnInit {
   }
   
   clear(){
-    this.labelName.nativeElement.innerHTML=null;
+    this.model.labelName=null;
   }
 
  /**
@@ -85,7 +87,7 @@ export class CreateLabelComponent implements OnInit {
   * @description updating a label from list
   */
   update(labelId){ 
-    let label=this.newName.nativeElement.innerHTML
+    let label=this.model.newName;
     let body={ "label":label }
     this.NoteAddService.updateLabel(labelId,body)
     .pipe(takeUntil(this.destroy$))
@@ -99,7 +101,7 @@ export class CreateLabelComponent implements OnInit {
   * @description adding a label to list
   */
   done(){
-    let label=this.labelName.nativeElement.innerHTML
+    let label=this.model.labelName;
     if(label==""){
       this.dialogRef.close();
       return false;
@@ -113,7 +115,7 @@ export class CreateLabelComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
       this.show();
-      this.labelName.nativeElement.innerHTML=null;
+      this.model.labelName=null;
     },(error) => {
     });
   }

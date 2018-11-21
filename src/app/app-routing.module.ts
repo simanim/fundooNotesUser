@@ -13,6 +13,7 @@ import { LabelComponent } from "./component/label/label.component";
 import { SearchNotesComponent } from './component/search-notes/search-notes.component';
 import { ReminderComponent } from './component/reminder/reminder.component'
 const routes: Routes = [
+  { path: '', redirectTo:"login", pathMatch: "full"},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgotpass', component: ForgotpassComponent },
@@ -24,8 +25,7 @@ const routes: Routes = [
     { path: 'label/:label', component: LabelComponent },
     { path: 'search', component: SearchNotesComponent},
     { path: 'reminder', component: ReminderComponent}
-  ]},
-  { path: '', redirectTo:"login", pathMatch: "full"},
+  ]}
 ];
 
 @NgModule({

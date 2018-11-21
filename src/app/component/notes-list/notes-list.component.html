@@ -24,16 +24,16 @@
         <div *ngFor="let list of data.noteCheckLists">
           <div *ngIf="list.status=='close' && list.isDeleted==false" class=checkBox fxLayout='row'>
             <mat-checkbox class=delCheck  checked=true (click)=check(list)></mat-checkbox>
-            <span><del>{{list.itemName}}</del></span>
+            <del>{{list.itemName}}</del>
           </div>
         </div>
       <!-- ****************************checklist end****************************** -->    
 
       <!-- ****************************reminder start******************************** -->
 
-      <mat-chip-list >
-          <span *ngFor="let cardData of data.reminder" >
-            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4 " 
+      <mat-chip-list>
+          <div *ngFor="let cardData of data.reminder" >
+            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
             (click)=showReminder(data.id) (click)=reminderClick()>
               <mat-icon>access_time</mat-icon>
               <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
@@ -42,17 +42,17 @@
             </mat-chip>
             <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
               <mat-icon>access_time</mat-icon>
-              <span *ngIf="checkDate(cardData)==2">{{date}}</span>
-              <span *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</span>
+              <div *ngIf="checkDate(cardData)==2">{{date}}</div>
+              <div *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</div>
               <mat-icon (click)=removeReminder(data.id)>cancel</mat-icon>
             </mat-chip>
-          </span>
+          </div>
         </mat-chip-list>
       <!-- ****************************reminder end******************************** -->
 
       <!-- ****************************label start****************************** -->        
       <mat-chip-list >
-        <span *ngFor="let cardData of data.noteLabels" class=noteLabels>
+        <span *ngFor="let cardData of data.noteLabels">
           <mat-chip class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
             <span class="chip">{{cardData.label}}</span><mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
             class="cancelIcon">cancel</mat-icon>
@@ -63,18 +63,14 @@
       <!-- ****************************label end****************************** -->        
 
       <!-- ****************************icon start****************************** -->        
-      <p>
-      <span class="icon">
-        <span *ngIf="!data.isDeleted" class="iconButton"><app-remind-me (onChanges)="entry($event)"[card]=data>
-        </app-remind-me></span>
-        <span *ngIf="!data.isDeleted" class="iconButton"><app-add-collaborator [card]=data></app-add-collaborator></span>
-        <span *ngIf="!data.isDeleted" class="iconButton">
-          <app-change-color [card]=data (onChangeColor)="entry($event)"></app-change-color></span>
-        <span *ngIf="!data.isDeleted" class="iconButton"><app-add-image></app-add-image></span>
-        <span *ngIf="!data.isDeleted" class="iconButton">
-          <app-notes-archive [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive></span>
-        <span class="iconButton"><app-more [card]=data (onChanges)="entry($event)"></app-more></span>
-      </span></p>
+      <div class="icon">
+        <app-remind-me *ngIf="!data.isDeleted" class="iconButton"(onChanges)="entry($event)"[card]=data></app-remind-me>
+        <app-add-collaborator *ngIf="!data.isDeleted"class="iconButton" [card]=data></app-add-collaborator>
+        <app-change-color *ngIf="!data.isDeleted"class="iconButton" [card]=data (onChangeColor)="entry($event)"></app-change-color>
+        <app-add-image *ngIf="!data.isDeleted"class="iconButton"></app-add-image>
+        <app-notes-archive *ngIf="!data.isDeleted"class="iconButton" [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive>
+        <app-more *ngIf="!data.isDeleted"class="iconButton" [card]=data (onChanges)="entry($event)"></app-more>
+        </div>
       <!-- ****************************icon start****************************** -->        
 
     </mat-card>

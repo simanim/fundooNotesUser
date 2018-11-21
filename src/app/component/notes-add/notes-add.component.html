@@ -1,9 +1,9 @@
 <!-- ****************************notecard start****************************** -->
 <div fxLayoutAlign="center" *ngIf="noteCard" >
-  <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="60%" fxFlex.lg="600px" fxFlex.md="500px" 
+  <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="700px" fxFlex.lg="600px" fxFlex.md="500px" 
   fxFlex.sm="500px" fxFlex.xs="95%">
     <span>Take a note...</span>
-    <mat-icon class="icon">edit</mat-icon>
+    <!-- <mat-icon class="icon">edit</mat-icon> -->
     <mat-icon class="icon">panorama</mat-icon>
     <mat-icon class="icon" (click)="list()">view_list</mat-icon>
   </mat-card>
@@ -42,15 +42,15 @@
     <!-- ****************************reminder start****************************** -->    
    
       <mat-chip-list >
-        <span *ngFor="let cardData of reminder">
+        <div *ngFor="let cardData of reminder">
           <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
             <mat-icon>access_time</mat-icon>
-            <span *ngIf="checkDate(cardData)==2">{{date}}</span>
-            <span *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</span>
+            <div *ngIf="checkDate(cardData)==2">{{date}}</div>
+            <div *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</div>
 
             <mat-icon class="cancelIcon" (click)=cancelReminder()>cancel</mat-icon>
           </mat-chip>
-        </span>
+        </div>
       </mat-chip-list>
     <!-- ****************************reminder end****************************** -->    
 
@@ -66,12 +66,12 @@
 
     <!-- ****************************icon start****************************** -->    
     <div class="iconsList">
-      <span class="iconButton"><app-remind-me (onChanges)=addRemoveReminder($event)></app-remind-me></span>
-      <span class="iconButton"><app-add-collaborator></app-add-collaborator></span>
-      <span class="iconButton"><app-change-color (onChangeColor)="onColorChange($event)"></app-change-color></span>
-      <span class="iconButton"><app-add-image></app-add-image></span>
-      <span class="iconButton"><app-notes-archive (onArchiveEntry)="onArchive($event)"></app-notes-archive></span>
-      <span class="iconButton"><app-more (onChanges)="addRemoveLabel($event)" (showCheckbox)=showCheckBox($event)></app-more></span>
+      <app-remind-me class="iconButton" (onChanges)=addRemoveReminder($event)></app-remind-me>
+      <app-add-collaborator class="iconButton"></app-add-collaborator>
+      <app-change-color class="iconButton" (onChangeColor)="onColorChange($event)"></app-change-color>
+      <app-add-image class="iconButton"></app-add-image>
+      <app-notes-archive class="iconButton" (onArchiveEntry)="onArchive($event)"></app-notes-archive>
+      <app-more class="iconButton" (onChanges)="addRemoveLabel($event)" (showCheckbox)=showCheckBox($event)></app-more>
       <button mat-button class="pin" (click)="close()">close</button>
     </div>
     <!-- ****************************icon end****************************** -->    

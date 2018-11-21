@@ -8,10 +8,12 @@
       <!-- ****************************matcard start****************************** -->
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div fxLayoutAlign="center" class="header">
-            <img src="../../assets/img/fundoo.png" height=50% width=50%></div>
-          <mat-card-title fxLayoutAlign="center" class="header">Find your email</mat-card-title>
-          <mat-card-actions fxLayoutAlign="center">Enter your recovery email</mat-card-actions>
+          <div fxLayoutAlign="center" class=header>
+              <span class=blue>F</span><span class=red>U</span><span class=yellow>N</span>
+              <span class=blue>D</span><span class=green>O</span><span class=red>O</span>
+          </div>
+          <mat-card-title fxLayoutAlign=center><h4>Find your email</h4></mat-card-title>
+          <mat-card-actions fxLayoutAlign=center>Enter your recovery email</mat-card-actions>
             
           <mat-form-field class=email>
             <input matInput placeholder="email" [(ngModel)]="model.email" name="email" 
@@ -22,7 +24,7 @@
           </mat-error>
 
           <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
-          <p><a class="a" href="/login">back</a></p>
+          <div><a class="a" href="/login">back</a></div>
         </form>
       </mat-card>
       <!-- ****************************matcard end****************************** -->

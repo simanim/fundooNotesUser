@@ -1,5 +1,7 @@
 .textarea{
     outline: none;
+    border:none;
+    width:80%;
 }
 .labelName{
     white-space: nowrap;
@@ -31,4 +33,8 @@
 .done{
     float:right;
     cursor: pointer;
+}
+.edit_label{
+    margin-bottom:3px;
+    margin-left:5px;
 }
