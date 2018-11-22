@@ -1,3 +1,6 @@
+ @import '../../../scss/mixins';
+ @import '../../../scss/variables';
+
 div{
     margin: 2px;
     padding: 7px;
@@ -7,4 +10,40 @@ span{
     border: none;
     border-radius: 50%;
     margin: 3px;
+}
+.blue{
+    @include back-ground-color($test-color-blue)  
+}
+.red{
+    @include back-ground-color($test-color-red)  
+}
+.green_color{
+    @include back-ground-color($test-color-green_color)  
+}
+.pink{
+    @include back-ground-color($test-color-pink)  
+}
+.aqua{
+    @include back-ground-color($test-color-aqua)  
+}
+.purple{
+    @include back-ground-color($test-color-purple)  
+}
+.orange{
+    @include back-ground-color($test-color-orange)  
+}
+.gray{
+    @include back-ground-color($test-color-gray)  
+}
+.yellow_color{
+    @include back-ground-color($test-color-yellow_color)  
+}
+.teal{
+    @include back-ground-color($test-color-teal)  
+}
+.salmon{
+    @include back-ground-color($test-color-salmon)
+}
+.border{
+    border:1px solid gray;
 }

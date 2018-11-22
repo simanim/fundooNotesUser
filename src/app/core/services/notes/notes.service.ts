@@ -94,5 +94,9 @@ export class NotesService {
   getRemindersLIst(){
     return this.service.getData2("/notes/getReminderNotesList");
   }
+  addColaborator(body,id){
+    return this.service.postDataForJSON("/notes/"+id+"/AddcollaboratorsNotes",body);
+
+  }
 
 }

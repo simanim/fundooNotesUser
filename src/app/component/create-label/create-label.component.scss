@@ -1,12 +1,12 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
 .textarea{
     outline: none;
     border:none;
-    width:80%;
+    width:100%;
 }
 .labelName{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden!important;
+    @include overflowText;  
 }
 .textarea:empty:before{
     content: attr(data-text);

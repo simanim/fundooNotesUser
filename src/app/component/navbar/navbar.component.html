@@ -48,7 +48,7 @@
     </div>
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" 
+      <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','width':'40px','height':'40px'}" 
       class=img (click)="account()" ngStyle.xl="width:60px;height:60px"></div>
     </div>
 
@@ -64,12 +64,13 @@
 <!-- ****************************profile start****************************** -->
 <mat-card class="account" *ngIf="signoutCard">
   <mat-card-header>
-    <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}" class="img"
+    <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover',
+    'width':'60px','height':'60px','margin-bottom':'10px'}" class="img"
    (click)=image.click()></div>      
     <mat-card-title>{{firstName}} {{lastName}}</mat-card-title>
     <mat-card-subtitle>{{email}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-divider></mat-divider>
+  <mat-divider ></mat-divider>
   <input type=file class="fileSelect" (change)=profileImage($event) #image>
   <div><button  class="signout" (click)="logout()">Sign out</button></div>
 </mat-card>

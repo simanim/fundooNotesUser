@@ -8,9 +8,9 @@
       <!-- ****************************matcard start****************************** -->        
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div fxLayoutAlign="center" class=header>
-              <span class=blue>F</span><span class=red>U</span><span class=yellow>N</span>
-              <span class=blue>D</span><span class=green>O</span><span class=red>O</span>
+          <div fxLayoutAlign="center" class=userPage_header>
+            <span class=blue>F</span><span class=red>u</span><span class=yellow>n</span>
+            <span class=blue>d</span><span class=green>o</span><span class=red>o</span>
           </div>
           <mat-card-title><h5>Create your Fundoo Account</h5></mat-card-title>
 
@@ -73,8 +73,8 @@
             </mat-card>
           </div>
 
-          <div class=page><a class="a" href="/login">Sign in instead</a></div>
-          <div fxLayoutAlign="end"><button mat-flat-button type="submit" routerLink="."
+          <div class=margin_top5><a href="/login">Sign in instead</a></div>
+          <div fxLayoutAlign="end"><button mat-button class=mat_button type="submit" routerLink="."
             (click)="signup()">Sign Up</button></div>
 
         </form>

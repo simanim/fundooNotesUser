@@ -1,4 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
 
+// html, body { height: 100%; }
+// body { margin: 0; font-family: 'Roboto', sans-serif; }
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import './scss/variables';
+@import './scss/mixins';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+.error {
+    @include error-snap($test-color-red);
+}
+.margin_top5{
+    @include margin-top(5px);
+}
+
+a {
+    @include color-test($test-color-blue);
+    text-decoration-line: none;
+}
+.blue{
+    @include color-test($test-color-blue)  
+}
+.red{
+    @include color-test($test-color-red)  
+}
+.yellow{
+    @include color-test($test-color-yellow)
+}
+.green{
+    @include color-test($test-color-green)  
+}
+.mat_button{
+    @include back-ground-color(rgb(62, 62, 238));
+}
+  .userPage_header{
+    font-size: 25px;
+    font-family: fantasy;
+    font-weight: bold;
+  }
+  .full_width{
+    width: 100%;
+  }
+
+// .chip{
+//     @include back-ground-color(rgba(135, 167, 159, 0.465))
+// }
+// .delchip{
+//     @include back-ground-color(rgba(135, 167, 159, 0.465));    
+//     opacity: 0.8;
+// }

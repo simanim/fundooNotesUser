@@ -1,3 +1,5 @@
+@import '../../../scss/mixins';
+
 ::ng-deep.mat-dialog-container {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     display: block;
@@ -24,12 +26,22 @@ input{
 ::ng-deep.icon[_ngcontent-c24] {
     padding: 18%;
 }
-p{
-    padding-top:10px;
-}
 .pp{
-    background-color: rgb(233, 233, 233);
+    @include margin-top(10px);
+    @include back-ground-color(rgb(233, 233, 233) ); 
 }
 .icon{
     padding:6px;
+}
+.margin{
+    @include margin-top(15px);
+
+}
+.name{
+    // width: 100%;
+    padding:5px;
+    margin-top:2px;
+    border:none;
+    background-color: transparent;
+    text-align: left;
 }

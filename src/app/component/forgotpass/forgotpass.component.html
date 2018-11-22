@@ -8,14 +8,14 @@
       <!-- ****************************matcard start****************************** -->
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div fxLayoutAlign="center" class=header>
-              <span class=blue>F</span><span class=red>U</span><span class=yellow>N</span>
-              <span class=blue>D</span><span class=green>O</span><span class=red>O</span>
+          <div fxLayoutAlign="center" class=userPage_header>
+            <span class=blue>F</span><span class=red>u</span><span class=yellow>n</span>
+            <span class=blue>d</span><span class=green>o</span><span class=red>o</span>
           </div>
           <mat-card-title fxLayoutAlign=center><h4>Find your email</h4></mat-card-title>
           <mat-card-actions fxLayoutAlign=center>Enter your recovery email</mat-card-actions>
             
-          <mat-form-field class=email>
+          <mat-form-field class=full_width>
             <input matInput placeholder="email" [(ngModel)]="model.email" name="email" 
               [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" #email="ngModel" required >
           </mat-form-field>
@@ -23,8 +23,9 @@
             <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
           </mat-error>
 
-          <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
+          <div  fxLayoutAlign="end"><button mat-button class=mat_button type="submit" (click)="reset()">Next</button></div>
           <div><a class="a" href="/login">back</a></div>
+
         </form>
       </mat-card>
       <!-- ****************************matcard end****************************** -->

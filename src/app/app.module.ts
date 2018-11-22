@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { ErrorsHandler } from './core/services/error_handler/errors-handler';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
@@ -119,7 +120,12 @@ import {  MatFormFieldModule,
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptService,
       multi: true
-    }],
+    },
+    {
+      provide: ErrorHandler,
+      useClass: ErrorsHandler,
+    }
+  ],
   
   bootstrap: [ AppComponent],
 

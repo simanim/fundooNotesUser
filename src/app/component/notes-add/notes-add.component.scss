@@ -1,5 +1,7 @@
+@import '../../../scss/mixins';
+
 .card{
-    margin-top:15px;
+    @include margin-top(15px);
     border-radius:7px;
 }
 .icon{
@@ -34,12 +36,10 @@
     font-size: 14px;
     width:60%;
     height:10%;
-    margin-top:2%;
+    @include margin-top(2px);
 }
 .input{
-    border: none;
-    outline: none;
-    background-color: transparent
+    @include inputText;      
 }
 .pin{
     float:right; 
@@ -49,13 +49,11 @@
     background-color: transparent;
 }
 .chip{
-    background-color: rgbs(119, 119, 119, 0.2);
+    @include back-ground-color(rgbs(119, 119, 119, 0.2));
     max-width: 150px;
 }
 .labelName{
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden!important;
+    @include overflowText;  
 }
 .clear{
     cursor: pointer;

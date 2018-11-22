@@ -31,7 +31,7 @@
 
       <!-- ****************************reminder start******************************** -->
 
-      <mat-chip-list>
+      <mat-chip-list style="padding-top:10px">
           <div *ngFor="let cardData of data.reminder" >
             <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
             (click)=showReminder(data.id) (click)=reminderClick()>
@@ -51,9 +51,9 @@
       <!-- ****************************reminder end******************************** -->
 
       <!-- ****************************label start****************************** -->        
-      <mat-chip-list >
+      <mat-chip-list  >
         <span *ngFor="let cardData of data.noteLabels">
-          <mat-chip class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
+          <mat-chip  class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
             <span class="chip">{{cardData.label}}</span><mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
             class="cancelIcon">cancel</mat-icon>
           </mat-chip>

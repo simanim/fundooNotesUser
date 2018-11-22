@@ -1,7 +1,8 @@
+@import '../../../scss/mixins';
 .main{
     display: flex;
     flex-wrap: wrap;
-    margin-top:15px;
+    @include margin-top(15px);
 }
 .div{
     margin:5px;
@@ -11,6 +12,7 @@
 }
 .checkBox{
     word-break: break-all;
+    margin-bottom: 10px;
 }
 .title{
     word-wrap: break-word;
@@ -18,15 +20,17 @@
     font-size: 20px;
     max-width:90%;
     opacity: 0.6;
+    margin-bottom: 10px;
 }
 .description{
     opacity: 0.6;
     font-size: 15px;
     word-wrap: break-word;
+    margin-bottom: 10px;
 }
 .icon{
     visibility:hidden;
-    margin-top:15px;
+    @include margin-top(15px);
 }
 .iconButton{
     opacity:0.7;
@@ -40,27 +44,26 @@
     visibility: visible;
 }
 .label{
-    background-color: rgba(135, 167, 159, 0.465);
+    @include back-ground-color(rgba(135, 167, 159, 0.465));
     font-size: 11px;
     max-width:150px;
 }
 .dellabel{
-    background-color: rgba(135, 167, 159, 0.465);
+    @include back-ground-color(rgba(135, 167, 159, 0.465));    
     font-size: 11px;
     color:rgba(0, 0, 0,0.4);
 }
 .chip{
-    text-overflow: ellipsis;
-    overflow: hidden!important;
-    white-space: nowrap;
+    @include overflowText;
+    background-color: transparent;
 }
 .delCheck{
     color:rgba(0, 0, 0,0.4)
 }
-.chip .cancelIcon{
+.label .cancelIcon{
     visibility: hidden;
 }
-.chip:hover .cancelIcon{
+.label:hover .cancelIcon{
     visibility: visible;
 }
 .pin{
@@ -85,9 +88,9 @@
 .pinOthers{
     font-size: 12px;
     color:black;
-    margin-top:5px;
     width:100%;
+    @include margin-top(5px);
 }
 .rem{
-    margin-top:15px;
+    @include margin-top(15px);
 }

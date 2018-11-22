@@ -2,7 +2,7 @@
 <!-- ****************************label create start****************************** -->
 <div fxLayout="row" fxLayoutGap="5%">
     <div fxFlex="10%"><mat-icon class=doneIcon (click)=clear()>clear</mat-icon></div>
-    <div fxFlex=65%><input placeholder="Create new label" class="textarea" [(ngModel)]="model.labelName" 
+    <div fxFlex=80%><input placeholder="Create new label" class="textarea" [(ngModel)]="model.labelName" maxlength=40
         #labelName="ngModel"></div>
     <div fxFlex="10%"><mat-icon class=doneIcon (click)=done()>done</mat-icon></div>
 </div>
@@ -16,11 +16,11 @@
         <mat-icon class=deleteIcon (click)=delete(data.id) >delete</mat-icon>
     </div>
     <div fxFlex=80% fxLayout=row *ngIf="labelId != data.id" (click)="editIcon(data.id,data.label)">
-        <div fxFlex=80% class=labelName [innerHTML]="data.label"></div>
+        <div fxFlex=90% class=labelName [innerHTML]="data.label"></div>
         <div fxFlex=10%><mat-icon class="doneIcon" (click)="editIcon(data.id,data.label)">edit</mat-icon></div>
     </div>
     <div fxFlex=80% fxLayout=row *ngIf="labelId == data.id">
-        <div fxFlex=80%><input class="textarea" [(ngModel)]="model.newName" #newName="ngModel"></div>
+        <div fxFlex=90%><input class="textarea" [(ngModel)]="model.newName" #newName="ngModel" maxlength=40></div>
         <div fxFlex=10%><mat-icon class="doneIcon" (click)=update(data.id)>done</mat-icon></div>
     </div> 
 </div>

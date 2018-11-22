@@ -7,15 +7,14 @@
       <!-- ****************************matcard start****************************** -->
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <!-- <div fxLayoutAlign="center" class=header><img src="../../assets/img/fundoo.png" height=50% width=50%></div> -->
-          <div fxLayoutAlign="center" class=header>
-            <span class=blue>F</span><span class=red>U</span><span class=yellow>N</span>
-            <span class=blue>D</span><span class=green>O</span><span class=red>O</span>
+          <div fxLayoutAlign="center" class=userPage_header>
+            <span class=blue>F</span><span class=red>u</span><span class=yellow>n</span>
+            <span class=blue>d</span><span class=green>o</span><span class=red>o</span>
           </div>
           <mat-card-title fxLayoutAlign=center><h3>Sign in</h3></mat-card-title>
           <mat-card-title fxLayoutAlign=center>Continue to Fundoo</mat-card-title>
 
-          <mat-form-field class="fullwidth">
+          <mat-form-field class="full_width">
             <input matInput placeholder="Email Id" [(ngModel)]="model.email" name="email" 
             [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" #email="ngModel" required >
           </mat-form-field>
@@ -23,7 +22,7 @@
             <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
           </mat-error>
           
-          <mat-form-field class="fullwidth">
+          <mat-form-field class="full_width">
             <input  matInput placeholder="Password" [type]="hide ? 'text' : 'password'" 
               [(ngModel)]="model.password" name="password" #password="ngModel" required>
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
@@ -32,9 +31,10 @@
             <mat-error *ngIf="password.errors.required" class="error">password is required</mat-error>
           </mat-error>
 
-          <div  fxLayoutAlign="end"><button mat-flat-button type="submit"(click)="login()">Log In</button></div>
+          <div  fxLayoutAlign="end"><button mat-button type="submit" class=mat_button (click)="login()">Log In</button></div>
           <div><a href="/forgotpass">Forgot password?</a></div>
-          <div class=page><a href="/signup">Create account</a></div>
+          <div class=margin_top5><a href="/signup">Create account</a></div>
+
         </form>
       </mat-card>
       <!-- ****************************matcard end****************************** -->

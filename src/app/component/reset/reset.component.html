@@ -7,14 +7,14 @@
       <!-- ****************************matcard start****************************** -->        
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-          <div fxLayoutAlign="center" class=header>
-            <span class=blue>F</span><span class=red>U</span><span class=yellow>N</span>
-            <span class=blue>D</span><span class=green>O</span><span class=red>O</span>
+          <div fxLayoutAlign="center" class=userPage_header>
+            <span class=blue>F</span><span class=red>u</span><span class=yellow>n</span>
+            <span class=blue>d</span><span class=green>o</span><span class=red>o</span>
           </div>
           <mat-card-title fxLayoutAlign="center"><h4>Reset Password</h4></mat-card-title>
             
           <div>
-            <mat-form-field class=password>
+            <mat-form-field class=full_width>
               <input  matInput placeholder="Password" name="password" maxlength="16" #password="ngModel"
               [(ngModel)]="model.password" [type]="hide ? 'text' : 'password'" pattern="[a-zA-Z0-9!@#$%^&*]*"
               [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
@@ -24,7 +24,7 @@
               <mat-error *ngIf="password.errors.required" >password is required</mat-error>
           </mat-error>
           <div>
-            <mat-form-field class=password>
+            <mat-form-field class=full_width>
               <input  matInput placeholder="Confirm password" name="confpassword" #confpassword="ngModel" 
               [(ngModel)]="model.confpassword" [type]="hide ? 'text' : 'password'"
               [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
@@ -35,7 +35,7 @@
             <mat-error *ngIf="confpassword.errors.required" >conf password is required</mat-error>
           </mat-error>
 
-          <div  fxLayoutAlign="end"><button mat-flat-button type="submit" (click)="reset()">Next</button></div>
+          <div  fxLayoutAlign="end"><button mat-button class=mat_button type="submit" (click)="reset()">Next</button></div>
         </form>
       </mat-card>
       <!-- ****************************matcard end****************************** -->        

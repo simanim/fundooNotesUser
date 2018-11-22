@@ -32,4 +32,7 @@ export class UserService {
   userSignup(body){
     return this.service.postDataWithoutToken("/user/userSignUp",body);
   }
+  searchUserList(body){
+    return this.service.postDataForJSON("/user/searchUserList",body);
+  }
 }

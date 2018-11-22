@@ -1,59 +1,22 @@
-.a{
-  color:rgb(33, 33, 241);
-  text-decoration-line: none;
-}
+@import '../../../scss/mixins';
+
 .selected{
-  text-align: center;
-  word-wrap: break-word;
-  background-color: rgb(133, 148, 196);
+  @include card-generator(rgb(133, 148, 196));
 }
 .notselected{
-  text-align: center;
-  word-wrap: break-word;
-  background-color: rgb(195, 197, 201);
-}
-.error{
-  font-size: 70%;
-  color:red;
-}
-.input{
-  min-width: 280;;
-  max-width: 500px;
+  @include card-generator(rgb(195, 200, 216));
 }
 .example-container {
-  max-width: 250px;
-  width: 100%;
+  @include input-width;
 }
 .email {
   max-width: 300px;
   width: 100%;
 }
 .firstInput{
-  max-width: 250px;
-  width: 100%;
+  @include input-width;
 }
 .lastInput{
   margin-left:3px;
-  max-width: 250px;
-  width:100%
-}
-.header{
-  font-size: 25px;
-  font-family: fantasy;
-  font-weight: bold;
-}
-.blue{
-  color:rgb(62, 62, 238);
-}
-.red{
-  color:red;
-}
-.yellow{
-  color:rgb(240, 176, 0);
-}
-.green{
-  color:green;
-}
-.page{
-  margin-top:5px;
+  @include input-width;
 }

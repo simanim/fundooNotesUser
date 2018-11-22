@@ -65,7 +65,6 @@ export class CreateLabelComponent implements OnInit {
       this.label=response["data"].details
       this.labelList=[];
       this.labelList=this.label;
-      return;
     },(error) => {
     });
   }
