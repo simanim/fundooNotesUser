@@ -96,7 +96,8 @@ export class NotesService {
   }
   addColaborator(body,id){
     return this.service.postDataForJSON("/notes/"+id+"/AddcollaboratorsNotes",body);
-
   }
-
+  removeColaborator(noteId,userId){
+    return this.service.deleteData("/notes/"+noteId+"/removeCollaboratorsNotes/"+userId);
+  }
 }

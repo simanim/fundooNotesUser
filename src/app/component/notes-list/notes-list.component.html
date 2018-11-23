@@ -65,7 +65,7 @@
       <!-- ****************************icon start****************************** -->        
       <div class="icon">
         <app-remind-me *ngIf="!data.isDeleted" class="iconButton"(onChanges)="entry($event)"[card]=data></app-remind-me>
-        <app-add-collaborator *ngIf="!data.isDeleted"class="iconButton" [card]=data></app-add-collaborator>
+        <app-add-collaborator *ngIf="!data.isDeleted"class="iconButton"(onChanges)="entry($event)" [card]=data></app-add-collaborator>
         <app-change-color *ngIf="!data.isDeleted"class="iconButton" [card]=data (onChangeColor)="entry($event)"></app-change-color>
         <app-add-image *ngIf="!data.isDeleted"class="iconButton"></app-add-image>
         <app-notes-archive *ngIf="!data.isDeleted"class="iconButton" [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive>

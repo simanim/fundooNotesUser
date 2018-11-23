@@ -14,9 +14,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddCollaboratorComponent, DialogData } from '../add-collaborator/add-collaborator.component';
 import { environment } from '../../../environments/environment';
 import { UserService } from '../../core/services/user/user.service';
-import { Note } from '../../core/model/model';
 import { NotesService } from '../../core/services/notes/notes.service';
-
+import { LoggerService } from '../../core/services/logger/logger.service';
 @Component({
   selector: 'app-collaborator',
   templateUrl: './collaborator.component.html',
@@ -35,17 +34,12 @@ export class CollaboratorComponent implements OnInit {
   private email=localStorage.getItem("fundooUserEmail");
   private userList=[];
   private search:Boolean=false;
-  private colaborators=[];
+  private collaborators=[];
   ngOnInit() {
-    console.log(this.data.noteData);
-    
     for(let i=0;i<this.data.noteData["collaborators"].length;i++){
-      this.colaborators.push(this.data.noteData["collaborators"][i])
+      this.collaborators.push(this.data.noteData["collaborators"][i])
     }
-    console.log("hii",this.colaborators[0].id);
-    
   }
-
   cancel(){
     this.dialogRef.close();
   }
@@ -57,33 +51,34 @@ export class CollaboratorComponent implements OnInit {
     .subscribe((response)=>{
       this.userList=[];
       this.userList=response['data'].details;
+
     },(error)=>{
       
     });
   }
   addCol(data){
     console.log(data);
+    console.log(this.collaborators);
     
-  let body={
-    "id":data.userId,
-    "email":data.email,
-    "firstName":data.firstName,
-    "lastName":data.lastName
-  }
-  this.colaborators.push(body)
-  console.log(body);
-  
-  console.log(this.colaborators);
-
-  this.CollaboratorService.addColaborator(body,this.data.noteData['id'])
+    for(let i=0;i<this.collaborators.length;i++){
+      if(data==this.collaborators[i])
+      {
+        return console.log("same");
+      }
+    }
+    this.CollaboratorService.addColaborator(data,this.data.noteData['id'])
     .subscribe((response)=>{
-      console.log(response);
-      
+      this.collaborators.push(data)
     },(error)=>{
-      console.log(error);
-      
     });
+  }
 
+  removeCol(data){
+    this.CollaboratorService.removeColaborator(this.data.noteData['id'],data.userId)
+    .subscribe((response)=>{
+      LoggerService.log("heyy",response);
+    },(error)=>{
+    });
   }
 
 }

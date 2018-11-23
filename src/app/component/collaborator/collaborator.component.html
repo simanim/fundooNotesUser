@@ -8,11 +8,18 @@
         <mat-card-title>{{firstName}}  {{lastName}} (Owner)</mat-card-title>
         <mat-card-subtitle>{{email}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-header *ngFor="let aa of colaborators">
-            <div mat-card-avatar class="addPerson"><mat-icon class=icon>person</mat-icon></div>
-            
-            <mat-card-title>{{aa.firstName}}  {{aa.lastName}}</mat-card-title>
-            <mat-card-subtitle>{{aa.email}}</mat-card-subtitle>
+    <mat-card-header *ngFor="let aa of collaborators">
+
+                <div mat-card-avatar [ngStyle]="{'background-color':'rgba(0, 0, 255,0.3)','background-size':'cover',
+                'height':'40px','width':'40px','border':'1px solid blue','border-radius':'50%'}">
+                <div class=nameIcon>{{aa.firstName[0].toUpperCase()}}</div></div>
+            <div fxFlex=70>
+                <mat-card-title>{{aa.firstName}}  {{aa.lastName}}</mat-card-title>
+                <mat-card-subtitle>{{aa.email}}</mat-card-subtitle>
+            </div>
+            <div fxFlex=10>
+                <button mat-icon-button><mat-icon (click)=removeCol(aa)>clear</mat-icon></button>
+            </div>
     </mat-card-header>
     <mat-card-header>
         <div mat-card-avatar class="addPerson"><mat-icon class=icon>person_add</mat-icon></div>

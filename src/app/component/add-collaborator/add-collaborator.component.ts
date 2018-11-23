@@ -9,7 +9,7 @@
  *  @since          : 19-10-2018
  *
 ******************************************************************************/
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { CollaboratorComponent } from '../collaborator/collaborator.component';
 import { Subject } from 'rxjs';
@@ -26,6 +26,7 @@ export class AddCollaboratorComponent implements OnInit {
   
   destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
+  @Output() onChanges=new EventEmitter()
   constructor( private dialog: MatDialog ) { }
 
   ngOnInit() {
@@ -38,6 +39,7 @@ export class AddCollaboratorComponent implements OnInit {
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))
     .subscribe(result => {
+      this.onChanges.emit({});
     });
   }
 
