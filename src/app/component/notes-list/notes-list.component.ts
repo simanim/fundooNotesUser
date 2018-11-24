@@ -16,6 +16,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 import { DataService } from '../../core/services/data/data.service'
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 export interface DialogData {
   noteData:object
@@ -42,6 +43,7 @@ export class NotesListComponent implements OnInit {
   private current =new Date();
   private dateValue;
   private view:boolean;
+  private date;
   
   ngOnInit() {
     this.data.currentMessageView
@@ -116,7 +118,6 @@ export class NotesListComponent implements OnInit {
     },(error) => {
     });
   }
-  date;
   checkDate(value){
     this.date=new Date(value).getUTCHours()
     let saved=new Date(value).getTime();
@@ -206,6 +207,7 @@ export class NotesListComponent implements OnInit {
     this.data.changeMessageLabel(data)
   }
   showReminder(data){
+    // LoggerService.log("reminder",data)
     this.data.changeMessageReminder(data)
   }
   ngOnDestroy() {

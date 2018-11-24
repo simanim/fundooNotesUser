@@ -11,6 +11,9 @@
 @mixin margin-top($margin-value) {
     margin-top:$margin-value;
 }
+@mixin margin($top,$right,$bottom,$left){
+  margin:$top $right $bottom $left;
+}
 
 @mixin input-width {
   max-width: 250px;
@@ -32,4 +35,10 @@
     outline: none;
     background-color: transparent;
     width:100%
+}
+@mixin padding($top,$right,$bottom,$left){
+  padding:$top $right $bottom $left;
+}
+@mixin opacity($value){
+  opacity:$value;
 }

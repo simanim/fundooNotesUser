@@ -15,6 +15,7 @@ import { NotesListComponent, DialogData } from '../notes-list/notes-list.compone
 import { NotesService } from '../../core/services/notes/notes.service'
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-card-display',
@@ -33,20 +34,15 @@ export class CardDisplayComponent implements OnInit {
   private model : any={
     "item":""
   }
-  private labels=[];
-  private checkList=[];
-  private reminders=[];
-  private isDelete=false;
-  private cardColor;
+  private labels=this.data.noteData["noteLabels"];
+  private checkList=this.data.noteData["noteCheckLists"];
+  private reminders=this.data.noteData["reminder"];
+  private isDelete=this.data.noteData["isDeleted"];
+  private cardColor=this.data.noteData["color"];
   private date;
   private current=new Date();
 
   ngOnInit() {
-    this.labels=this.data.noteData["noteLabels"];
-    this.isDelete=this.data.noteData["isDeleted"];
-    this.cardColor=this.data.noteData["color"];
-    this.checkList=this.data.noteData["noteCheckLists"];
-    this.reminders=this.data.noteData["reminder"];
   }
 
   /**
@@ -56,17 +52,15 @@ export class CardDisplayComponent implements OnInit {
   click(): void {
     let titleValue=this.title.nativeElement.innerHTML;
     if(titleValue == "")
-    {
-      return;
-    }    
+      return; 
     if(this.data.noteData["noteCheckLists"].length==0){
       let descriptionValue=this.description.nativeElement.innerHTML;
-      let body={
+      let body1={
         "noteId":this.data.noteData["id"],
         "title" : titleValue,
         "description" : descriptionValue
       }
-      this.UpdateService.updateNotes(body)
+      this.UpdateService.updateNotes(body1)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response) =>{
       },(error) => {
@@ -138,7 +132,9 @@ export class CardDisplayComponent implements OnInit {
       this.labels.push(event[i])
     }
   }
-
+  entry(event){
+    LoggerService.log("event occu",event);
+  }
  /**
   *
   * @description on note archive
@@ -195,9 +191,9 @@ export class CardDisplayComponent implements OnInit {
     this.UpdateService.removeChecklist(list.notesId,list.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
-      for(let i=0;i<this.checkList.length;i++){
-        if(this.checkList[i]==list)
-        this.checkList.splice(i, 1);
+      for(let j=0;j<this.checkList.length;j++){
+        if(this.checkList[j]==list)
+        this.checkList.splice(j, 1);
       }
     },(error) => {
     });

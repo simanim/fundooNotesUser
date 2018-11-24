@@ -14,6 +14,7 @@ import { NotesService } from '../../core/services/notes/notes.service';
 import { Note } from '../../core/model/model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-notes',
@@ -65,6 +66,7 @@ export class NotesComponent implements OnInit {
           }
         }
       }
+      
     },(error) =>{
     });
   }

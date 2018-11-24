@@ -13,6 +13,9 @@ import { Component, OnInit, Output, EventEmitter, ElementRef, ViewChild } from '
 import { NotesService } from '../../core/services/notes/notes.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { UserService } from '../../core/services/user/user.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-notes-add',
@@ -28,7 +31,7 @@ export class NotesAddComponent implements OnInit {
   @ViewChild('listItem') listItem: ElementRef ;
   @Output() onNewEntry= new EventEmitter()
 
-  constructor( private NoteAddService : NotesService ){}
+  constructor( private NoteAddService : NotesService,private noteAddService: UserService ){}
 
   private noteCard:boolean=true;
   private isPin:boolean=false;
@@ -36,6 +39,7 @@ export class NotesAddComponent implements OnInit {
   private isAchive:boolean=false;
   private labels=[];
   private reminder=[];
+  private collaborators=[];
   private listNote:boolean=false;
   private listArray=[];
   private current =new Date();
@@ -43,6 +47,13 @@ export class NotesAddComponent implements OnInit {
   private model : any={
     "item":""
   }
+  private userList=[];
+  private searchValue :any;  
+  private collaboratorCard=false;
+  private img=environment.Url+localStorage.getItem("fundooUserImage");
+  private firstName=localStorage.getItem("fundooUserFirstname");
+  private lastName=localStorage.getItem("fundooUserLastname");
+  private email=localStorage.getItem("fundooUserEmail");
 
   ngOnInit() {
   }
@@ -96,6 +107,7 @@ export class NotesAddComponent implements OnInit {
   * @description adding a new note
   */
  close(){
+    this.collaborators=[];
     this.noteCard=!(this.noteCard);
     let title1=this.title.nativeElement.innerHTML;
     if(title1 == ""){
@@ -117,7 +129,8 @@ export class NotesAddComponent implements OnInit {
       "color":this.cardColor,
       "isArchived":this.isAchive,
       "labelIdList":	JSON.stringify(labelId),
-      "reminder":this.reminder
+      "reminder":this.reminder,
+      "collaberators":	JSON.stringify(this.collaborators)
     }
     this.NoteAddService.addNote(this.getFormUrlEncoded(body))
     .pipe(takeUntil(this.destroy$))
@@ -134,7 +147,8 @@ export class NotesAddComponent implements OnInit {
         "color":this.cardColor,
         "isArchived":this.isAchive,
         "labelIdList":	JSON.stringify(labelId),
-        "reminder":this.reminder
+        "reminder":this.reminder,
+        "collaberators":	JSON.stringify(this.collaborators)
       }
       this.NoteAddService.addNote(this.getFormUrlEncoded(bodyList))
       .pipe(takeUntil(this.destroy$))
@@ -340,8 +354,38 @@ export class NotesAddComponent implements OnInit {
     return formBody.join('&');
   }
 
+  searchUser(){
+    let body={ 'searchWord':this.searchValue };
+    this.noteAddService.searchUserList(body)
+    .subscribe((response)=>{
+      this.userList=[];
+      this.userList=response['data'].details;
+    },(error)=>{  
+    });
+  }
+  addCol(value){
+    for(var m=0;m<this.collaborators.length;m++){
+      if(value.email==this.collaborators[m]["email"])
+      return;
+    }
+    this.collaborators.push(value);
+  }
+
+  save(){
+    this.collaboratorCard=false;
+    LoggerService.log("col",this.collaborators)
+  }
+  removeCol(value){
+    for(let j=0;j<this.collaborators.length;j++){
+      if(value.email==this.collaborators[j]["email"])
+        this.collaborators.splice(j,1)
+    }
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+
+
 }

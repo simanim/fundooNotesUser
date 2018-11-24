@@ -62,26 +62,35 @@
   <!-- ****************************reminder chip list end****************************** -->
 
   <!-- ****************************label chip list start****************************** -->
+  <div class=margin_top5>
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
       <mat-chip class="chip" *ngIf="cardData.isDeleted==false">
         <span class=label>{{cardData.label}}</span><mat-icon *ngIf=!isDelete (click)=removeLabel(cardData.id,data.noteData.id)>cancel</mat-icon>
       </mat-chip>
     </span>
-  </mat-chip-list>
+  </mat-chip-list></div>
   <!-- ****************************label chip list end****************************** -->
+
+  <!-- **************************collaborators start************************* -->
+  <div class=margin_top5>
+    <span *ngFor="let cardData of data.noteData.collaborators" >
+      <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
+    </span>
+  </div>
+  <!-- ***************************collaborators end*************************** -->
 
   <!-- *******************************maticon start********************************** -->
   <div class="icondiv">
     <app-remind-me *ngIf=!isDelete class="iconButton"[card]=data.noteData 
     (onChanges)=reminderChanges($event)></app-remind-me>
-    <app-add-collaborator *ngIf=!isDelete class="iconButton"></app-add-collaborator>
+    <app-add-collaborator *ngIf=!isDelete class="iconButton" [card]=data.noteData (onChanges)="entry($event)"></app-add-collaborator>
     <app-change-color *ngIf=!isDelete class="iconButton" [card]=data.noteData 
     (onChangeColor)=colorChanges($event)></app-change-color>
     <app-add-image *ngIf=!isDelete class="iconButton"></app-add-image>
     <app-notes-archive [card]=data.noteData (onArchiveEntry)="archive($event)" 
     *ngIf=!isDelete class="iconButton"></app-notes-archive>
-    <app-more [card]=data.noteData (popupChange)="labelChanges($event)"></app-more>
+    <app-more class="iconButton" [card]=data.noteData (popupChange)="labelChanges($event)"></app-more>
     <button *ngIf=!isDelete mat-button  ngClass.xl=pin ngClass.lg=pin ngClass.md=pin ngClass.sm=pin ngClass.xs=close (click)="click()">Close</button>
     </div>
   <!-- *********************************maticon end****************************** -->

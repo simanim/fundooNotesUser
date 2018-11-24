@@ -6,27 +6,27 @@
     width:100%;
 }
 .search {
-    padding:3% 4% 2% 9%;
+    @include padding(3%,4%,2%,9%);
     width:80%;
     @include back-ground-color($test-color-yellow);
     border: none;
-    margin:-1% -3% 0% -3%;
+    @include margin(-1%,-3%,0%,-3%);
     border-radius: 5px;
 } 
 .search2{
     width:150%;
     border: none;
-    margin-left:-50%;
-    padding-top:10%;
-    padding-bottom:5%;
     border-radius: 5px;
+    @include padding(10%,0%,5%,0%);
+    @include margin(0%,0%,0%,-50%);
+
 }
 .searchbutton {
     background-color: transparent;
     cursor: pointer;
     position: absolute;
-    opacity:0.7;
-    @include margin-top(6px);
+    @include opacity(0.7);
+    @include margin(6px,0px,0px,0px);
 }
 input:focus {
     @include back-ground-color(#ffffff);
@@ -34,14 +34,14 @@ input:focus {
 .button {
     border:none;
     cursor: pointer;
-    margin-left:1%;
-    padding:10% 20% 15% 10%;
-    opacity:0.7;
+    @include margin(0%,0%,0%,1%);
+    @include padding(10%,20%,15%,10%);
+    @include opacity(0.7);
 }
 .button:hover {
     @include back-ground-color($test-color-yellow);
     border-radius: 50%;    
-    padding:10% 20% 15% 10%;
+    @include padding(10%,20%,15%,10%);
 }
 .example-container {
     width:100%;
@@ -54,30 +54,29 @@ input:focus {
 }
 
 .plus {
-   margin-left:10%;
-   opacity:0.8;
+   @include margin(0%,0%,0%,10%);
+   @include opacity(0.8);
 }
 .buttonicon {
     width:95%;
     text-align: start;
-    margin-left:10%;
+    @include margin(0%,0%,0%,10%);
     text-decoration-line: none;
-    color:black;
-    opacity:0.7;
+    @include color-test(rgb(0, 0, 0));
+    @include opacity(0.7);
 }
 .name {
-    margin-left:20%;
-    color:black;
+    @include margin(0%,0%,0%,20%);
+    @include color-test(rgb(0, 0, 0));    
 } 
 .side_icon {
-    padding:2%;
+    @include padding(2%,2%,2%,2%);
     width:90%;
     cursor: pointer;
-    margin-top:10px;
-    margin-bottom:10px;
+    @include margin(10px,0px,10px,0px);
 }
 .side_label{
-    padding:2%;
+    @include padding(2%,2%,2%,2%);    
     width:90%;
     cursor: pointer;
 }
@@ -85,22 +84,22 @@ input:focus {
     @include back-ground-color(rgb(187, 184, 184))  
 }
 .account {
-    margin-bottom:-100%;
+    @include margin(0%,0%,-100%,0%);
     width:250px;
     float:right;
     z-index: 10;
 }
 .signout {
-    padding:3%;
+    @include padding(3%,3%,3%,3%);    
     border:1px solid rgb(192, 190, 190);
     background-color: transparent;
     float:right;
-    @include margin-top(5px)
+    @include margin(5px,0px,0px,0px)
 
 }
 .toolbar{
     @include overflowText;  
-    margin-top:3%;
+    @include margin(3%,0%,0%,0%);
     max-width:150px;
 
 }
@@ -120,5 +119,5 @@ input:focus {
     @include back-ground-color($test-color-aqua);
 }
 .edit{
-    @include margin-top(10px);
+    @include margin(10px,0px,0px,0px);
 }

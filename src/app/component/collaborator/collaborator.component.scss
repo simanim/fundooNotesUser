@@ -1,4 +1,5 @@
 @import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 ::ng-deep.mat-dialog-container {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
@@ -12,17 +13,25 @@
     height: 100%;
     min-height: inherit;
     max-height: inherit;
+    max-height:500px;
+
 }
 .addPerson{
     border:1px solid black;
     border-radius:50%;
-    opacity: 0.4;
+    @include opacity(0.4);
 }
 .nameIcon{
     font-size: 22px;
-    padding-left: 13px;
-    color: blue;
-    padding-top: 7px;
+    @include color-test($test-color-blue);
+    @include padding(7px,0px,0px,0px);
+}
+.clear{
+    cursor: pointer;
+    @include opacity(0.3);
+}
+.clear:hover{
+    @include opacity(0.8);
 }
 input{
     border: none;
@@ -30,23 +39,22 @@ input{
     width:100%;
 }
 ::ng-deep.icon[_ngcontent-c24] {
-    padding: 18%;
+    @include padding(18%,18%,18%,18%);
 }
-.pp{
+.save{
     @include margin-top(10px);
     @include back-ground-color(rgb(233, 233, 233) ); 
 }
 .icon{
-    padding:6px;
+    @include padding(6px,6px,6px,6px);
 }
 .margin{
     @include margin-top(15px);
 
 }
 .name{
-    // width: 100%;
-    padding:5px;
-    margin-top:2px;
+    @include padding(5px,5px,5px,5px);
+    @include margin(2px,0px,0px,0px);
     border:none;
     background-color: transparent;
     text-align: left;

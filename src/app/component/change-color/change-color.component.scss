@@ -2,14 +2,14 @@
  @import '../../../scss/variables';
 
 div{
-    margin: 2px;
-    padding: 7px;
+    @include margin(2px,2px,2px,2px);
+    @include padding(7px,7px,7px,7px); 
 }
 span{
-    padding: 6px 15px;
     border: none;
     border-radius: 50%;
-    margin: 3px;
+    @include padding(6px,15px,6px,15px); 
+    @include margin(3px,3px,3px,3px); 
 }
 .blue{
     @include back-ground-color($test-color-blue)  

@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center" >
   <div class="main" fxLayoutAlign=left fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="500px" 
   fxFlex.xs="100%">
-<div  class="pinOthers" *ngIf="length!=0">{{pin}}</div>
+  <div  class="pinOthers" *ngIf="length!=0">{{pin}}</div>
 
     <!-- ****************************matcard start****************************** -->        
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" [ngClass.xl]="view ? 'list' : 'grid'" 
@@ -34,7 +34,7 @@
       <mat-chip-list style="padding-top:10px">
           <div *ngFor="let cardData of data.reminder" >
             <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
-            (click)=showReminder(data.id) (click)=reminderClick()>
+            (click)=showReminder(data.id)>
               <mat-icon>access_time</mat-icon>
               <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
               <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
@@ -60,22 +60,28 @@
         </span>
       </mat-chip-list>
      
-      <!-- ****************************label end****************************** -->        
+      <!-- ******************************label end******************************** -->   
+      
+      <!-- **************************collaborators start************************* -->
+      <div class=margin_top5>
+      <span *ngFor="let cardData of data.collaborators">
+        <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
+      </span></div>
+      <!-- ***************************collaborators end*************************** -->
 
-      <!-- ****************************icon start****************************** -->        
+      <!-- ******************************icon start****************************** -->        
       <div class="icon">
         <app-remind-me *ngIf="!data.isDeleted" class="iconButton"(onChanges)="entry($event)"[card]=data></app-remind-me>
         <app-add-collaborator *ngIf="!data.isDeleted"class="iconButton"(onChanges)="entry($event)" [card]=data></app-add-collaborator>
         <app-change-color *ngIf="!data.isDeleted"class="iconButton" [card]=data (onChangeColor)="entry($event)"></app-change-color>
         <app-add-image *ngIf="!data.isDeleted"class="iconButton"></app-add-image>
         <app-notes-archive *ngIf="!data.isDeleted"class="iconButton" [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive>
-        <app-more *ngIf="!data.isDeleted"class="iconButton" [card]=data (onChanges)="entry($event)"></app-more>
+        <app-more class="iconButton" [card]=data (onChanges)="entry($event)"></app-more>
         </div>
       <!-- ****************************icon start****************************** -->        
 
     </mat-card>
-    <!-- ****************************matcard end****************************** -->        
+    <!-- ******************************matcard end******************************* -->        
 
   </div>
-
 </div>

@@ -102,13 +102,13 @@ export class MoreComponent implements OnInit {
     this.MoreService.addLabelToNotes(this.card.id,label.id)
     .subscribe((response) =>{
       this.onChanges.emit({})
-      for(let i=0;i<this.Array.length;i++){
-        if(this.Array[i].id==label.id){
-          this.Array.splice(i, 1);
-          this.popupChange.emit(this.Array)
-          return;
-        }
-      }
+      // for(let i=0;i<this.Array.length;i++){
+      //   if(this.Array[i].id==label.id){
+      //     this.Array.splice(i, 1);
+      //     this.popupChange.emit(this.Array)
+      //     return;
+      //   }
+      // }
       this.Array.push(label);
       this.popupChange.emit(this.Array)
     },(error) => {
@@ -132,7 +132,7 @@ export class MoreComponent implements OnInit {
   */
   removeLabel(label){
     this.MoreService.removeLabelFromNotes(this.card.id,label.id)
-    .subscribe((response) =>{
+    .subscribe((response) => {
       this.onChanges.emit({})
       for(let i=0;i<this.Array.length;i++){
         if(this.Array[i].id==label.id){
@@ -162,7 +162,7 @@ export class MoreComponent implements OnInit {
       let body={ "noteIdList":id }
       this.MoreService.permanentDeleteNote(body)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((response) =>{
+      .subscribe((response) => {
         this.onChanges.emit({})
         },(error) =>{
       });

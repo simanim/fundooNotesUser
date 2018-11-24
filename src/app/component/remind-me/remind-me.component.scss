@@ -1,16 +1,20 @@
+@import '../../../scss/mixins';
 .menu{
     cursor: pointer;
     font-size: 13px;
     width:200px;
 }
 .menu:hover{
-    background-color: rgb(212, 212, 212);
+    // background-color: rgb(212, 212, 212);
+    @include back-ground-color(rgb(212, 212, 212));
 }
 .button{
     width:200px;
 }
 .dateTime{
-    background-color: gray;
+    @include back-ground-color(rgb(128, 128, 128));
+
+    // background-color: rgb(128, 128, 128);
 }
 
 ::ng-deep.mat-menu-content:not(:empty) {

@@ -1,5 +1,5 @@
 <!-- ****************************notecard start****************************** -->
-<div fxLayoutAlign="center" *ngIf="noteCard" >
+<div fxLayoutAlign="center" *ngIf="noteCard && !collaboratorCard" >
   <mat-card class="card" (click)="noteCardOpen()" fxFlex.xl="700px" fxFlex.lg="600px" fxFlex.md="500px" 
   fxFlex.sm="500px" fxFlex.xs="95%">
     <span>Take a note...</span>
@@ -11,7 +11,7 @@
 <!-- ****************************notecard end****************************** -->
 
 <!-- ****************************add notecard start****************************** -->
-<div fxLayoutAlign="center" *ngIf="!noteCard">
+<div fxLayoutAlign="center" *ngIf="!noteCard && !collaboratorCard">
   <mat-card class="card" [ngStyle]="{'background-color':cardColor}" fxFlex.xl="600px" fxFlex.lg="600px" 
   fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="95%">
     <div fxLayout="row">
@@ -62,12 +62,20 @@
           </mat-chip>
         </span>
       </mat-chip-list>
-    <!-- ****************************label end****************************** -->   
+    <!-- ****************************label end****************************** -->  
+
+    <!-- ************************collaborators start**************************** -->    
+    <div class=margin_top5>
+      <span *ngFor="let list of collaborators" >
+        <button mat-mini-fab>{{list.firstName[0].toUpperCase()}}</button>
+      </span>
+    </div>
+    <!-- *************************collaborators end****************************** -->  
 
     <!-- ****************************icon start****************************** -->    
     <div class="iconsList">
       <app-remind-me class="iconButton" (onChanges)=addRemoveReminder($event)></app-remind-me>
-      <app-add-collaborator class="iconButton"></app-add-collaborator>
+      <app-add-collaborator class="iconButton" (onAddingCol)="collaboratorCard=true"></app-add-collaborator>
       <app-change-color class="iconButton" (onChangeColor)="onColorChange($event)"></app-change-color>
       <app-add-image class="iconButton"></app-add-image>
       <app-notes-archive class="iconButton" (onArchiveEntry)="onArchive($event)"></app-notes-archive>
@@ -79,3 +87,47 @@
   </mat-card>
 </div>
 <!-- ****************************add notecard end****************************** -->
+
+<div fxLayoutAlign="center" *ngIf=collaboratorCard>
+<mat-card class="card" fxFlex.xl="700px" fxFlex.lg="600px" fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="95%">
+  <div>Collaborators</div>
+  <mat-divider></mat-divider>
+  <div>
+      <mat-card-header class=margin_top5>
+          <div mat-card-avatar [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover',
+          'height':'40px','width':'40px','border-radius':'50%'}" ></div>
+          <mat-card-title>{{firstName}}  {{lastName}} (Owner)</mat-card-title>
+          <mat-card-subtitle>{{email}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header *ngFor="let list of collaborators">
+          <div mat-card-avatar [ngStyle]="{'background-color':'rgba(0, 0, 255,0.3)','background-size':'cover',
+          'height':'40px','width':'40px','border':'1px solid blue','border-radius':'50%'}">
+              <div fxLayoutAlign=center class=nameIcon>{{list.firstName[0].toUpperCase()}}</div></div>
+              <div fxFlex=80>
+                  <mat-card-title>{{list.firstName}}  {{list.lastName}}</mat-card-title>
+                  <mat-card-subtitle>{{list.email}}</mat-card-subtitle>
+              </div>
+              <div fxFlex=10>
+                  <mat-icon (click)=removeCol(list) class=clear>clear</mat-icon>
+              </div>
+      </mat-card-header>
+      <mat-card-header>
+          <div mat-card-avatar class="addPerson"><mat-icon class=icon2>person_add</mat-icon></div>
+          <input placeholder="person or email to share with" [matMenuTriggerFor]="menu"
+          [(ngModel)]="searchValue" (keyup)="searchUser()">
+      </mat-card-header>
+  </div>
+  <mat-card-footer class=save>
+      <div fxLayoutAlign="end">
+          <button mat-button (click)=save()>save</button>
+      </div>
+  </mat-card-footer>
+   </mat-card>
+</div>
+   <mat-menu #menu="matMenu">
+      <div *ngFor="let data of userList">
+      <button class=name (click)="addCol(data)">
+          {{data.firstName}} {{data.lastName}} [{{data.email}}]
+      </button>
+      </div>
+  </mat-menu>

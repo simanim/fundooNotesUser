@@ -17,6 +17,6 @@
   @include input-width;
 }
 .lastInput{
-  margin-left:3px;
+  @include margin(0px,0px,0px,3px);
   @include input-width;
 }

@@ -1,4 +1,5 @@
 @import '../../../scss/mixins';
+@import '../../../scss/variables';
 
 .card{
     @include margin-top(15px);
@@ -9,7 +10,17 @@
     font-size: 30px;
     padding-left: 5%;
     cursor: pointer;
-    opacity:0.7;
+    @include opacity(0.7);
+}
+.addPerson{
+    border:1px solid black;
+    border-radius:50%;
+    @include opacity(0.4);
+
+}
+.icon2{
+    padding:6px;
+    font-size: 25px;
 }
 .listIcon{
     font-size: 35px;
@@ -23,7 +34,7 @@
  cursor: pointer;
 }
 .iconButton:hover{
-    opacity: 0.9;
+    @include opacity(0.9);
 }
 .textarea{
     width:90%;
@@ -32,7 +43,7 @@
 }
 .textarea:empty:before{
     content: attr(data-text);
-    opacity: 0.5;
+    @include opacity(0.5);
     font-size: 14px;
     width:60%;
     height:10%;
@@ -40,6 +51,12 @@
 }
 .input{
     @include inputText;      
+}
+.nameIcon{
+    font-size: 22px;
+    @include color-test($test-color-blue);
+    @include padding(7px,0px,0px,0px);
+    @include padding(7px,0px,0px,0px);
 }
 .pin{
     float:right; 
@@ -57,4 +74,20 @@
 }
 .clear{
     cursor: pointer;
+}
+input{
+    border: none;
+    outline: none;
+    width:100%;
+}
+.save{
+    @include margin-top(10px);
+    @include back-ground-color(rgb(233, 233, 233) ); 
+}
+.name{
+    padding:5px;
+    margin-top:2px;
+    border:none;
+    background-color: transparent;
+    text-align: left;
 }

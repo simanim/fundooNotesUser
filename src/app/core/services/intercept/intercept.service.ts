@@ -24,8 +24,8 @@ export class InterceptService implements HttpInterceptor{
 	  });
 	  return next.handle(request)
 	  .pipe(tap(event => {
-      if (event instanceof HttpResponse) {
-	    }
+      // if (event instanceof HttpResponse) {
+	    // }
 	  }, error => {
 	  }))
   };

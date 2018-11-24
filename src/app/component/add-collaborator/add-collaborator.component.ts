@@ -27,14 +27,24 @@ export class AddCollaboratorComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   @Input() card;
   @Output() onChanges=new EventEmitter()
+  @Output() onAddingCol=new EventEmitter()
+
   constructor( private dialog: MatDialog ) { }
 
   ngOnInit() {
   }
-  addCol(cardDetails): void {
+  addCol(){
+    if(this.card){
+      this.addColNote()
+    }
+    else{
+      this.onAddingCol.emit({});
+    }
+  }
+  addColNote(): void {
     const dialogRef = this.dialog.open(CollaboratorComponent, {
       width: '600px',
-      data: { noteData : cardDetails }
+      data: { noteData : this.card }
     });
     dialogRef.afterClosed()
     .pipe(takeUntil(this.destroy$))

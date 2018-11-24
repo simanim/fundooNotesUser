@@ -10,7 +10,7 @@
  *
 ******************************************************************************/
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from '@angular/material';
 import { AddCollaboratorComponent, DialogData } from '../add-collaborator/add-collaborator.component';
 import { environment } from '../../../environments/environment';
 import { UserService } from '../../core/services/user/user.service';
@@ -25,60 +25,75 @@ export class CollaboratorComponent implements OnInit {
 
   constructor( private dialogRef : MatDialogRef<AddCollaboratorComponent>, 
   @Inject(MAT_DIALOG_DATA) private data : DialogData, private collaboratorService : UserService,
-  private CollaboratorService : NotesService ) { }
+  private CollaboratorService : NotesService, private snackBar : MatSnackBar ) { }
 
   private searchValue :any;  
-  private img=environment.Url + localStorage.getItem("fundooUserImage");
-  private firstName=localStorage.getItem("fundooUserFirstname");
-  private lastName=localStorage.getItem("fundooUserLastname");
-  private email=localStorage.getItem("fundooUserEmail");
   private userList=[];
   private search:Boolean=false;
   private collaborators=[];
+  private owner=this.data.noteData["user"];
+  private img=environment.Url+this.owner.imageUrl;
   ngOnInit() {
+    if(this.data.noteData){
+
     for(let i=0;i<this.data.noteData["collaborators"].length;i++){
       this.collaborators.push(this.data.noteData["collaborators"][i])
     }
   }
-  cancel(){
+  }
+  save(){
     this.dialogRef.close();
   }
   searchUser(){
-    let body={
-      'searchWord':this.searchValue
-    }
+    let body={ 'searchWord':this.searchValue };
     this.collaboratorService.searchUserList(body)
     .subscribe((response)=>{
       this.userList=[];
       this.userList=response['data'].details;
-
-    },(error)=>{
-      
+    },(error)=>{  
     });
   }
   addCol(data){
-    console.log(data);
-    console.log(this.collaborators);
-    
-    for(let i=0;i<this.collaborators.length;i++){
-      if(data==this.collaborators[i])
-      {
-        return console.log("same");
+    if(this.data.noteData){
+      for(let i=0;i<this.collaborators.length;i++){
+        if(data.email==this.collaborators[i].email)
+        {
+          this.snackBar.open("failed","this email already exist", {
+            duration: 2000,
+          });
+          return;
+        }
       }
+      this.CollaboratorService.addColaborator(data,this.data.noteData['id'])
+      .subscribe((response)=>{
+        this.collaborators.push(data);
+      },(error)=>{
+      });
     }
-    this.CollaboratorService.addColaborator(data,this.data.noteData['id'])
-    .subscribe((response)=>{
-      this.collaborators.push(data)
-    },(error)=>{
-    });
+    else{
+      this.collaborators.push(data);
+    }
   }
 
   removeCol(data){
-    this.CollaboratorService.removeColaborator(this.data.noteData['id'],data.userId)
-    .subscribe((response)=>{
-      LoggerService.log("heyy",response);
-    },(error)=>{
-    });
+    if(this.data.noteData){
+      this.CollaboratorService.removeColaborator(this.data.noteData['id'],data.userId)
+      .subscribe((response)=>{
+        for(let j=0;j<this.collaborators.length;j++){
+          if(data==this.collaborators[j]){
+            this.collaborators.splice(j, 1);
+          }
+        }
+      },(error)=>{
+      });
+    }
+    else{
+      for(let j=0;j<this.collaborators.length;j++){
+        if(data==this.collaborators[j]){
+          this.collaborators.splice(j, 1);
+        }
+      }
+    }
   }
 
 }
