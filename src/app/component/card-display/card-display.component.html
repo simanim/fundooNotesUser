@@ -91,7 +91,7 @@
     <app-notes-archive [card]=data.noteData (onArchiveEntry)="archive($event)" 
     *ngIf=!isDelete class="iconButton"></app-notes-archive>
     <app-more class="iconButton" [card]=data.noteData (popupChange)="labelChanges($event)"></app-more>
-    <button *ngIf=!isDelete mat-button  ngClass.xl=pin ngClass.lg=pin ngClass.md=pin ngClass.sm=pin ngClass.xs=close (click)="click()">Close</button>
+    <button *ngIf=!isDelete mat-button  class=pin (click)="click()">Close</button>
     </div>
   <!-- *********************************maticon end****************************** -->
 

@@ -15,7 +15,7 @@ export class ErrorsHandler implements ErrorHandler {
   //  } else {
   //    // Handle Client Error (Angular Error, ReferenceError...)     
   //  }
-  // // Log the error anyway
-  console.error('It happens: ', error);
+  // Log the error anyway
+  console.error('ERROR : ', error);
 }
 }

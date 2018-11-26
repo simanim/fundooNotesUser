@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit {
   constructor(private signupService : UserService,private snackBar: MatSnackBar, private router : Router ){ }
  
   private service="";
-  private model : any = {
+  public model : any = {
     "firstname":"",
     "lastname":"",
     "email":"",

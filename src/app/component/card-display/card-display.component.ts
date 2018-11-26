@@ -41,6 +41,8 @@ export class CardDisplayComponent implements OnInit {
   private cardColor=this.data.noteData["color"];
   private date;
   private current=new Date();
+  public titleValue='';
+  public descriptionValue='';
 
   ngOnInit() {
   }
@@ -50,15 +52,15 @@ export class CardDisplayComponent implements OnInit {
   * @description displaying the particular note and updating the note
   */
   click(): void {
-    let titleValue=this.title.nativeElement.innerHTML;
-    if(titleValue == "")
+    this.titleValue=this.title.nativeElement.innerHTML;
+    if(this.titleValue == "")
       return; 
     if(this.data.noteData["noteCheckLists"].length==0){
-      let descriptionValue=this.description.nativeElement.innerHTML;
+      this.descriptionValue=this.description.nativeElement.innerHTML;
       let body1={
         "noteId":this.data.noteData["id"],
-        "title" : titleValue,
-        "description" : descriptionValue
+        "title" : this.titleValue,
+        "description" : this.descriptionValue
       }
       this.UpdateService.updateNotes(body1)
       .pipe(takeUntil(this.destroy$))

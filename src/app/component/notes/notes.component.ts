@@ -66,7 +66,6 @@ export class NotesComponent implements OnInit {
           }
         }
       }
-      
     },(error) =>{
     });
   }

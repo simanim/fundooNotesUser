@@ -5,7 +5,7 @@
 
     <!-- ****************************matcard start****************************** -->        
     <mat-card *ngFor="let data of notes | searchNote: searchItem" class="div" [ngClass.xl]="view ? 'list' : 'grid'" 
-    [ngClass.lg]="view ? 'list' : 'grid'" [ngClass.md]="view ? 'list' : 'grid'" [ngClass.sm]="view ? 'list' : 'grid2'"
+    [ngClass.lg]="view ? 'list' : 'grid'" [ngClass.md]="view ? 'list' : 'grid'" [ngClass.sm]="view ? 'list' : 'grid'"
     [ngClass.xs]="view ? 'list' : 'list'" [ngStyle]="{'background-color':data.color}">
       <app-pin class=pin [card]=data (onChange)="entry($event)"></app-pin>
       <div (click)="openDialog(data)">
@@ -31,7 +31,7 @@
 
       <!-- ****************************reminder start******************************** -->
 
-      <mat-chip-list style="padding-top:10px">
+      <mat-chip-list class=paddingTop3>
           <div *ngFor="let cardData of data.reminder" >
             <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
             (click)=showReminder(data.id)>
@@ -54,8 +54,8 @@
       <mat-chip-list  >
         <span *ngFor="let cardData of data.noteLabels">
           <mat-chip  class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
-            <span class="chip">{{cardData.label}}</span><mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id) 
-            class="cancelIcon">cancel</mat-icon>
+            <span class="chip">{{cardData.label}}</span>
+            <mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id)>cancel</mat-icon>
           </mat-chip>
         </span>
       </mat-chip-list>
@@ -63,8 +63,8 @@
       <!-- ******************************label end******************************** -->   
       
       <!-- **************************collaborators start************************* -->
-      <div class=margin_top5>
-      <span *ngFor="let cardData of data.collaborators">
+      <div class=margin_top5> 
+      <span *ngFor="let cardData of data.collaborators" class=margin>
         <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
       </span></div>
       <!-- ***************************collaborators end*************************** -->

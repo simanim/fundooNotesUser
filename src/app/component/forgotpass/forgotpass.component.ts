@@ -25,7 +25,7 @@ export class ForgotpassComponent implements OnInit {
   destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private resetService : UserService, private snackBar: MatSnackBar) { }
 
-  private model : any = {
+  public model : any = {
     "email":""
   }
 

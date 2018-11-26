@@ -87,6 +87,7 @@ export class NotesListComponent implements OnInit {
   openDialog(noteData1): void {
     const dialogRef = this.dialog.open(CardDisplayComponent, {
       width: '600px',
+      maxWidth: 'auto',
       data: { noteData : noteData1 }
     });
     dialogRef.afterClosed()

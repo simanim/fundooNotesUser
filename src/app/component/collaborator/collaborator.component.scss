@@ -14,7 +14,6 @@
     min-height: inherit;
     max-height: inherit;
     max-height:500px;
-
 }
 .addPerson{
     border:1px solid black;
@@ -26,9 +25,23 @@
     @include color-test($test-color-blue);
     @include padding(7px,0px,0px,0px);
 }
+@media only screen and (max-width: 599px){
+    .nameIcon{
+        font-size: 15px;
+        @include color-test($test-color-blue);
+        @include padding(7px,0px,0px,0px);
+    }
+}
 .clear{
     cursor: pointer;
     @include opacity(0.3);
+}
+@media only screen and (max-width: 599px){
+    .clear{
+        cursor: pointer;
+        @include opacity(0.3);
+        font-size: 15px;
+    }
 }
 .clear:hover{
     @include opacity(0.8);
@@ -58,4 +71,10 @@ input{
     border:none;
     background-color: transparent;
     text-align: left;
+}
+
+@media only screen and (max-width: 599px){
+    .fontXs{
+       font-size:12px;
+    }
 }

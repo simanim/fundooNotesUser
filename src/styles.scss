@@ -47,11 +47,6 @@ a {
   .full_width{
     width: 100%;
   }
-
-// .chip{
-//     @include back-ground-color(rgba(135, 167, 159, 0.465))
-// }
-// .delchip{
-//     @include back-ground-color(rgba(135, 167, 159, 0.465));    
-//     opacity: 0.8;
-// }
+  .paddingTop3{
+      padding:3px
+  }

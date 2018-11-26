@@ -25,11 +25,11 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should be invalid', () => {
+    expect(component.model.email).toEqual('');
+    expect(component.model.password).toEqual('');
     expect(component.model.email).toEqual('Aabc@gmail.com');
     expect(component.model.email).toEqual('@abc.ABC.com');
     expect(component.model.email).toEqual('AbC.23@abc.com');
-    expect(component.model.email).toEqual('');
-    expect(component.model.password).toEqual('');
 
     expect(component.model.email).toBeFalsy();
     expect(component.model.password).toBeFalsy();

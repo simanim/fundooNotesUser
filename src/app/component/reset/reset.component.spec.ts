@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { ResetComponent } from './reset.component';
 
 describe('ResetComponent', () => {
@@ -8,9 +8,13 @@ describe('ResetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResetComponent ]
+      declarations: [ ResetComponent ],
+      imports: [BrowserModule]
     })
-    .compileComponents();
+    .compileComponents().then(()=>{
+      fixture = TestBed.createComponent(ResetComponent);
+      component = fixture.componentInstance;
+    });
   }));
 
   beforeEach(() => {
@@ -21,5 +25,16 @@ describe('ResetComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should be invalid', () => {
+    expect(component.model.password).toEqual('');
+
+    expect(component.model.password).toBeFalsy();
+  });
+  it('should be valid', () => {
+    expect(component.model.password).toEqual('abc123');
+    expect(component.model.password).toEqual('@qwert');
+
+    expect(component.model.password).toBeTruthy();
   });
 });

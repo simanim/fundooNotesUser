@@ -44,6 +44,7 @@ export class AddCollaboratorComponent implements OnInit {
   addColNote(): void {
     const dialogRef = this.dialog.open(CollaboratorComponent, {
       width: '600px',
+      maxWidth: 'auto',
       data: { noteData : this.card }
     });
     dialogRef.afterClosed()

@@ -27,7 +27,7 @@ export class ResetComponent implements OnInit {
   constructor( private resetService : UserService, private snackBar : MatSnackBar, 
     private route : ActivatedRoute, private router : Router ) { }
 
-  private model : any = {
+  public model : any = {
     "password":"",
     "confpassword":""
   };

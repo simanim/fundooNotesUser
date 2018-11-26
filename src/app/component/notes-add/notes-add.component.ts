@@ -107,7 +107,6 @@ export class NotesAddComponent implements OnInit {
   * @description adding a new note
   */
  close(){
-    this.collaborators=[];
     this.noteCard=!(this.noteCard);
     let title1=this.title.nativeElement.innerHTML;
     if(title1 == ""){
@@ -132,6 +131,8 @@ export class NotesAddComponent implements OnInit {
       "reminder":this.reminder,
       "collaberators":	JSON.stringify(this.collaborators)
     }
+    LoggerService.log("body",body);
+
     this.NoteAddService.addNote(this.getFormUrlEncoded(body))
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) =>{
@@ -159,6 +160,7 @@ export class NotesAddComponent implements OnInit {
       this.listArray=[];
       this.listNote=false;
     }
+    this.collaborators=[];
   }
 
  /**
@@ -373,7 +375,6 @@ export class NotesAddComponent implements OnInit {
 
   save(){
     this.collaboratorCard=false;
-    LoggerService.log("col",this.collaborators)
   }
   removeCol(value){
     for(let j=0;j<this.collaborators.length;j++){
