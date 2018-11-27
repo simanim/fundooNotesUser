@@ -8,19 +8,20 @@
     margin:5px;
     border-radius: 5%;
     height: min-content; 
-    width:100%
+    width:100%;
 }
 .checkBox{
     word-break: break-all;
     @include margin(0px,0px,10px,0px);    
 }
 .margin{
-    @include margin(2px,3px,2px,3px);    
+    @include margin(2px,3px,2px,3px);
+      
 }
 .title{
     word-wrap: break-word;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     max-width:90%;
     @include opacity(0.6);
     @include margin(0px,0px,10px,0px);
@@ -48,12 +49,13 @@
 }
 .label{
     @include back-ground-color(rgba(135, 167, 159, 0.465));
-    font-size: 12px;
-    max-width:150px;
+    font-size: 10px;
+    max-width:140px;
 }
 .dellabel{
     @include back-ground-color(rgba(135, 167, 159, 0.465));    
-    font-size: 11px;
+    font-size: 10px;
+    max-width:140px;
     color:rgba(0, 0, 0,0.4);
 }
 .chip{
@@ -87,7 +89,7 @@
 }
 .list{
     width:100%;
-    border-radius:2%;
+    border-radius:10px;
     overflow-x: hidden;
 }
 .pinOthers{

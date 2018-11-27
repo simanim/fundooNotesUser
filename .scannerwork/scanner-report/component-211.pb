@@ -1,0 +1,1 @@
+Ócoverage/lcov-report :ÔÕÅ

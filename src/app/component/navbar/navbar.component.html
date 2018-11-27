@@ -8,7 +8,8 @@
           
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%" class="example-sidenav-content">
       <mat-icon (click)="drawer.toggle()"ngStyle.xs="font-size:25px"ngStyle.sm="font-size:25px"
-      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" class="button" matTooltip="main menu">menu</mat-icon>
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" class="button" 
+      matTooltip="main menu">menu</mat-icon>
     </div>
 
     <div fxHide.xs=true fxFlex.sm="25%" fxFlex.md="20%" fxFlex.lg="20%" fxFlex.xl="20%">
@@ -24,9 +25,11 @@
     </div>
 
     <div *ngIf=!showSearchBar fxFlex.xs=40% fxFlex.sm="50%" fxFlex.md="50%" fxFlex.lg="55%" fxFlex.xl="56%">
-      <mat-icon ngStyle.xl="font-size:50px" class="searchbutton" matTooltip="search" (click)="showSearchBar=true">search</mat-icon>
+      <mat-icon ngStyle.xl="font-size:50px" class="searchbutton" matTooltip="search" (click)="showSearchBar=true">
+      search</mat-icon>
       <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
-      placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" ngStyle.sm="font-style:10px;margin-top:2px;" 
+      placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" 
+      ngStyle.sm="font-style:10px;margin-top:2px;" 
       fxHide.xs=true ngStyle.xl="font-size:30px">
     </div>
     <div *ngIf=showSearchBar fxFlex.xs="40%" fxHide.sm=true fxHide.md=true fxHide.lg=true fxHide.xl=true>
@@ -37,14 +40,17 @@
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon class="button" (click)="refresh()" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"
-      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" matTooltip="refresh">refresh</mat-icon>
+      ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" 
+      matTooltip="refresh">refresh</mat-icon>
     </div>
             
     <div fxHide.xs=true fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon *ngIf=gridView class="button"  ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() matTooltip="list view">view_stream</mat-icon>
+      ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() 
+      matTooltip="list view">view_stream</mat-icon>
       <mat-icon *ngIf=!gridView class="button" ngStyle.md="font-size:25px" 
-      ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() matTooltip="grid view">view_module</mat-icon>
+      ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() 
+      matTooltip="grid view">view_module</mat-icon>
     </div>
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
@@ -80,11 +86,13 @@
 <!-- *****************************menu start************************************* -->
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
-  <mat-drawer #drawer class="example-sidenav"  [mode]="width > 720?'side':'over'" closed>
-    <div class="side_icon"><a routerLink="/home" (click)="searchValue=null;labelShow=false" routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/notes.svg"><small class="name">Note</small></a></div>
-    <div class="side_icon"><a routerLink="/reminder" (click)="toolbarName('Reminder')" routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></a></div>
+  <mat-drawer #drawer class="example-sidenav" [mode]="width > 720?'side':'over'" closed>
+    <div class="side_icon"(click)="homeClick()" [ngClass]="home? 'selected' : 'side_icon'">
+      <img class=margin_left20 src="../../../assets/img/notes.svg">
+      <small class="name">Note</small></div>
+    <div class="side_icon" (click)="reminderClick()" 
+    [ngClass]="reminder? 'selected' : 'side_icon'">
+      <img class=margin_left20 src="../../../assets/img/reminder.svg"><small class="name">Reminder</small></div>
     <mat-divider></mat-divider>    
     
       <div fxLayout="row"  class="edit">
@@ -93,25 +101,23 @@ ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
         <div fxFlex=40%><button mat-button (click)=createLabel()><small>EDIT</small></button></div>
       </div>
 
-    <a *ngFor="let data of labelList" class=buttonicon routerLink="/label/{{data}}" (click)="toolbarName(data)"
-    routerLinkActive=active >
-      <div fxLayout=row class="side_label">
+    <div *ngFor="let data of labelList" (click)="labelClick(data)" 
+    [ngClass]="data==labelclick && labelShowing? 'selected' : 'side_icon'" fxLayout=row class="side_icon">
         <div fxFlex="10%"></div>
         <div fxFlex="20%"><mat-icon class=label>label</mat-icon></div>
         <div fxFlex="60%" class=label >{{data}}</div>
-      </div>
-    </a>
+    </div>
 
     <div><button mat-button class=side_icon (click)=createLabel()><mat-icon>add</mat-icon> 
       <span class="plus">Create new label</span></button></div>
       <mat-divider></mat-divider>
 
-    <div class="side_icon"><a routerLink="/archive" (click)="searchValue=null;toolbarName('Archive')" 
-      routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/archive.svg"><small class="name">Archive</small></a></div>
-    <div class="side_icon"><a routerLink="/trash" (click)="searchValue=null;toolbarName('Trash')" 
-      routerLinkActive="active" 
-      class="buttonicon"><img src="../../../assets/img/trash.svg"><small class="name">Trash</small></a></div>
+    <div class=side_icon (click)="searchValue=null;archiveClick()"
+    [ngClass]="archive? 'selected' : 'side_icon'">
+      <img class=margin_left20 src="../../../assets/img/archive.svg"><small class="name">Archive</small></div>
+    <div class=side_icon (click)="searchValue=null;trashClick()"
+    [ngClass]="trash? 'selected' : 'side_icon'">
+      <img class=margin_left20 src="../../../assets/img/trash.svg"><small class="name">Trash</small></div>
       
   </mat-drawer>
   <router-outlet></router-outlet>

@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="5%">
+<div fxLayout=column fxLayoutGap="5%">
   <div fxFlex.lg="20%" fxFlex.md="10%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
   <div  fxLayout="row" fxFlex.lg="70%">
     <div fxFlex.lg="30%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
@@ -23,8 +23,9 @@
             <mat-error *ngIf="email.errors.required" class="error">email is required</mat-error>
           </mat-error>
 
-          <div  fxLayoutAlign="end"><button mat-button class=mat_button type="submit" (click)="reset()">Next</button></div>
-          <div><a class="a" href="/login">back</a></div>
+          <div  fxLayoutAlign="end"><button mat-button class=mat_button type="submit" (click)="reset()">
+          Next</button></div>
+          <div class=back (click)=login()>back</div>
 
         </form>
       </mat-card>

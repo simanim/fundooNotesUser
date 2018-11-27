@@ -156,4 +156,7 @@ export class SignupComponent implements OnInit {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+  signin(){
+    this.router.navigateByUrl('/login');
+  }
 }

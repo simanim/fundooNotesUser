@@ -55,6 +55,7 @@ import {  MatFormFieldModule,
           MatDividerModule,
           MatDatepickerModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
         } from '@angular/material';
+import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 
 
 
@@ -86,7 +87,8 @@ import {  MatFormFieldModule,
                   SearchNotePipe,
                   ImageCropComponent,
                   ReminderComponent,
-                  AddCollaboratorComponent
+                  AddCollaboratorComponent,
+                  QuestionAnswerComponent
   ],
   
   imports: [

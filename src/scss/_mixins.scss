@@ -1,26 +1,24 @@
-@mixin card-generator($card-bg-color) { // take a color as a parameter
-    background-color: $card-bg-color;
-    text-align: center;
-    word-wrap: break-word;
-  }
- 
+@mixin card-generator($card-bg-color) {
+  background-color: $card-bg-color;
+  text-align: center;
+  word-wrap: break-word;
+}
 @mixin error-snap($error-snap-color) {
   font-size: 70%;
   color:$error-snap-color;
 }
 @mixin margin-top($margin-value) {
-    margin-top:$margin-value;
+  margin-top:$margin-value;
 }
 @mixin margin($top,$right,$bottom,$left){
   margin:$top $right $bottom $left;
 }
-
 @mixin input-width {
   max-width: 250px;
   width: 100%;
 }
 @mixin color-test($property) {
-    color:$property;
+  color:$property;
 }
 @mixin back-ground-color($color-value) {
   background-color: $color-value;
@@ -31,10 +29,10 @@
   overflow: hidden!important;
 }
 @mixin inputText {
-    border:none;
-    outline: none;
-    background-color: transparent;
-    width:100%
+  border:none;
+  outline: none;
+  background-color: transparent;
+  width:100%
 }
 @mixin padding($top,$right,$bottom,$left){
   padding:$top $right $bottom $left;

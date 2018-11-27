@@ -1,0 +1,1 @@
+Rsrc/app/component/reset :TU

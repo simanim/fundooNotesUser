@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material';
 import { UserService } from '../../core/services/user/user.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgotpass',
@@ -23,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
 export class ForgotpassComponent implements OnInit {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(private resetService : UserService, private snackBar: MatSnackBar) { }
+  constructor(private resetService : UserService, private snackBar: MatSnackBar, private router : Router) { }
 
   public model : any = {
     "email":""
@@ -69,5 +70,8 @@ export class ForgotpassComponent implements OnInit {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+  login(){
+    this.router.navigateByUrl('/login');
   }
 }

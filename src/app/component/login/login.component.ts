@@ -105,4 +105,10 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
+  forgotPass(){
+    this.router.navigateByUrl('/forgotpass');
+  }
+  signup(){
+    this.router.navigateByUrl('/signup');
+  }
 }

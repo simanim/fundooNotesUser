@@ -16,6 +16,8 @@ import { Label } from '../../core/model/model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { Router } from '@angular/router';
+import { DataService } from '../../core/services/data/data.service';
 
 @Component({
   selector: 'app-more',
@@ -31,7 +33,8 @@ export class MoreComponent implements OnInit {
   @Output() popupChange = new EventEmitter(); 
   @Output() showCheckbox = new EventEmitter();
 
-  constructor( private MoreService : NotesService, private snackBar : MatSnackBar) { }
+  constructor( private MoreService : NotesService, private snackBar : MatSnackBar,private router : Router,
+    private data: DataService) { }
 
   private labelList;
   private labelArray=[];
@@ -52,8 +55,6 @@ export class MoreComponent implements OnInit {
   * @description deleting the selecting note
   */
  deleteNotes(){
-    LoggerService.log("card",this.card.id);
-   
     if(this.card){
     let id=[];
     id.push(this.card.id);
@@ -61,16 +62,13 @@ export class MoreComponent implements OnInit {
       "isDeleted":!this.isDelete,
       "noteIdList":id
     }
-    LoggerService.log("body",body)
     this.MoreService.deleteNote(body)
     .subscribe((response) =>{
-      LoggerService.log("response",response)
       this.onChanges.emit({})
       this.snackBar.open(this.string,"undo", {
         duration: 2000,
       });
       },(error) =>{
-        LoggerService.error("error",error)
     });}
   }
 
@@ -174,6 +172,12 @@ export class MoreComponent implements OnInit {
       });
     }
   }
+
+  questAns(){
+    this.data.changeNoteQuestion(this.card)
+    this.router.navigateByUrl('/QuestionAnswer')
+  }
+
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

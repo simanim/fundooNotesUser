@@ -21,6 +21,7 @@ import { Label } from '../../core/model/model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-navbar',
@@ -47,11 +48,16 @@ export class NavbarComponent implements OnInit {
   private labelList=[];
   private selectedFile=null;
   private gridView:boolean=true
-  private  labelShow:boolean=false;
+  private labelShow:boolean=false;
   private showSearchBar:boolean=false;
   private labelValue=''
+  private labelclick='';
   
-  
+  private reminder:boolean=false;
+  private archive:boolean=false;
+  private trash:boolean=false;
+  private home:boolean=false;
+  private labelShowing:boolean=false
     
   ngOnInit() {
     this.showLabel()
@@ -63,7 +69,30 @@ export class NavbarComponent implements OnInit {
       });
     this.img=environment.Url + this.image;
     this.isLargeScreen();
+    this.routeCheck()
   }
+  routeCheck(){
+    let temp=this.router.url.split("/").pop()
+    if(temp=='home'){
+      this.homeClick();
+    }
+    else if(temp=='reminder'){
+      this.reminderClick();
+    }
+    else if(temp=='archive'){
+      this.archiveClick();
+    }
+    else if(temp=='trash'){
+      this.trashClick();
+    }
+    else if(temp=='QuestionAnswer'){
+      this.labelShowing=false;
+    }
+    else{
+      this.labelClick(temp);
+    }
+  }
+
 
   hideSearch(){
     this.showSearchBar=false;
@@ -96,8 +125,9 @@ export class NavbarComponent implements OnInit {
   * @description for refresh of page
   */
   refresh(){
+    this.home=true;
+    this.reminder=this.archive=this.trash=false;
     this.router.navigateByUrl('/home');
-    this.labelShow=false;
   }
 
   /**
@@ -162,12 +192,45 @@ export class NavbarComponent implements OnInit {
     this.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
   }
 
-  toolbarName(aa){
+  toolbarName(name){
     this.labelShow=true
-    this.labelValue=aa
+    this.labelValue=name;
   }
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+  
+  homeClick(){
+    this.home=true;
+    this.labelShowing=false;
+    this.reminder=this.archive=this.trash=this.labelShowing=false;
+    this.labelShow=false;
+    this.router.navigateByUrl('/home');
+  }
+  reminderClick(){
+    this.router.navigateByUrl('/reminder');
+    this.toolbarName('reminder');
+    this.reminder=true;
+    this.home=this.archive=this.trash=this.labelShowing=false;
+  }
+  archiveClick(){
+    this.toolbarName('archive');
+    this.archive=true;
+    this.reminder=this.home=this.trash=this.labelShowing=false;
+    this.router.navigateByUrl('/archive');
+  }
+  trashClick(){
+    this.toolbarName('trash');
+    this.trash=true;
+    this.reminder=this.archive=this.home=this.labelShowing=false;
+    this.router.navigateByUrl('/trash');
+  }
+  labelClick(label){
+    this.labelShowing=true;
+    this.labelclick=label;
+    this.home=this.reminder=this.archive=this.trash=false;
+    this.router.navigateByUrl('/label/'+label);
+    this.toolbarName(label)
   }
 }

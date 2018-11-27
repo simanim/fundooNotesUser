@@ -1,0 +1,1 @@
+%src/app/core/pipe/search-note.pipe.ts 2tsXh

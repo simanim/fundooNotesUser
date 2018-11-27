@@ -1,8 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
-
-// html, body { height: 100%; }
-// body { margin: 0; font-family: 'Roboto', sans-serif; }
-/* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import './scss/variables';
 @import './scss/mixins';
@@ -16,13 +11,16 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 .margin_top5{
     @include margin(5px,0px,0px,0px);
 }
+.margin_left20{
+    @include margin(0px,0px,0px,20px);
+}
 .margin_top10{
     @include margin(30px,0px,0px,0px);
 }
-
-a {
+.back {
     @include color-test($test-color-blue);
-    text-decoration-line: none;
+    cursor: pointer;
+    @include margin(5px,0px,0px,0px);
 }
 .blue{
     @include color-test($test-color-blue)  
@@ -39,14 +37,14 @@ a {
 .mat_button{
     @include back-ground-color(rgb(62, 62, 238));
 }
-  .userPage_header{
+.userPage_header{
     font-size: 25px;
     font-family: fantasy;
     font-weight: bold;
-  }
-  .full_width{
+}
+.full_width{
     width: 100%;
-  }
-  .paddingTop3{
-      padding:3px
-  }
+}
+.paddingTop3{
+    padding:3px
+}

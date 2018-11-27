@@ -11,7 +11,9 @@ import { ArchiveComponent} from "./component/archive/archive.component";
 import { TrashComponent } from "./component/trash/trash.component";
 import { LabelComponent } from "./component/label/label.component";
 import { SearchNotesComponent } from './component/search-notes/search-notes.component';
-import { ReminderComponent } from './component/reminder/reminder.component'
+import { ReminderComponent } from './component/reminder/reminder.component';
+import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
+
 const routes: Routes = [
   { path: '', redirectTo:"login", pathMatch: "full"},
   { path: 'login', component: LoginComponent },
@@ -20,6 +22,7 @@ const routes: Routes = [
   { path: 'resetpassword/:id', component: ResetComponent },
   { path: '', component: NavbarComponent,canActivate:[AuthGuard],children:[
     { path: 'home', component: NotesComponent },
+    { path: 'QuestionAnswer', component: QuestionAnswerComponent },
     { path: 'archive', component: ArchiveComponent },
     { path: 'trash', component: TrashComponent },
     { path: 'label/:label', component: LabelComponent },

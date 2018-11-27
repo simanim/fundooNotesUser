@@ -15,12 +15,13 @@
   <mat-card class="card" [ngStyle]="{'background-color':cardColor}" fxFlex.xl="600px" fxFlex.lg="600px" 
   fxFlex.md="500px" fxFlex.sm="500px" fxFlex.xs="95%">
     <div fxLayout="row">
-      <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea"
+      <div fxFlex="90%" data-text="Title" contenteditable="true" class="textarea" [innerHTML]=titleValue
       #title></div>
       <app-pin class=pin (onChange)="onPinChange($event)"></app-pin>
     </div>
 
-    <div *ngIf=!listNote data-text="Take a Note..." contenteditable="true" class="textarea" #description></div>
+    <div *ngIf=!listNote data-text="Take a Note..." contenteditable="true" [innerHTML]=descriptionValue 
+    class="textarea" #description></div>
     <!-- ****************************checkbox end****************************** -->    
     <div *ngIf=listNote>
       <div *ngFor="let data of listArray" fxLayout=row class=listInput>
@@ -75,7 +76,7 @@
     <!-- ****************************icon start****************************** -->    
     <div class="iconsList">
       <app-remind-me class="iconButton" (onChanges)=addRemoveReminder($event)></app-remind-me>
-      <app-add-collaborator class="iconButton" (onAddingCol)="collaboratorCard=true"></app-add-collaborator>
+      <app-add-collaborator class="iconButton" (onAddingCol)="collaboratorCardOpen()"></app-add-collaborator>
       <app-change-color class="iconButton" (onChangeColor)="onColorChange($event)"></app-change-color>
       <app-add-image class="iconButton"></app-add-image>
       <app-notes-archive class="iconButton" (onArchiveEntry)="onArchive($event)"></app-notes-archive>

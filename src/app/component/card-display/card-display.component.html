@@ -2,39 +2,40 @@
 <mat-card [ngStyle]="{'background-color':cardColor}">
 
   <app-pin class=pin [card]=data.noteData></app-pin>
-  <div mat-dialog-title contenteditable="true" #title class="input"[innerHTML]=data.noteData.title></div>
-  <div *ngIf="data.noteData.noteCheckLists.length==0" mat-dialog-content contenteditable="true" #description class="input" [innerHTML]=data.noteData.description></div>
+  <div mat-dialog-title contenteditable=true #title class=input [innerHTML]=data.noteData.title></div>
+  <div *ngIf="data.noteData.noteCheckLists.length==0" mat-dialog-content contenteditable=true #description 
+  class=input [innerHTML]=data.noteData.description></div>
 
   <!-- ****************************checkbox start****************************** -->
   <div *ngIf="data.noteData.noteCheckLists.length!=0">
     <div *ngFor="let list of checkList" >
       <div *ngIf="list.isDeleted==false && list.status=='open'" fxLayout=row>
-      <div fxFlex=10%>
+      <div fxFlex=10>
         <mat-checkbox (click)=check(list,data)></mat-checkbox>
       </div>
-      <div fxFlex=75%>
+      <div fxFlex=75>
         <input placeholder="List item" class=input [(ngModel)]="list.itemName"(keydown.enter)="listitem(list)">
       </div>
-      <div fxFlex=10%><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
+      <div fxFlex=10><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
       </div>
     </div>
     <mat-divider></mat-divider>
     <div fxLayout=row class=listInput>
-      <div fxFlex=10%><mat-icon class=clear>add</mat-icon></div>
-      <input fxFlex=75% placeholder="List item" #item=ngModel class=input [(ngModel)]="model.item"
+      <div fxFlex=10><mat-icon class=clear>add</mat-icon></div>
+      <input fxFlex=75 placeholder="List item" #item=ngModel class=input [(ngModel)]="model.item"
       (keydown.enter)="listAdd()">
-      <div fxFlex=10%><mat-icon class=clear (click)=clear()>clear</mat-icon></div>
+      <div fxFlex=10><mat-icon class=clear (click)=clear()>clear</mat-icon></div>
     </div>
     <mat-divider></mat-divider>
     <div *ngFor="let list of checkList" >
       <div *ngIf="list.isDeleted==false && list.status=='close'" fxLayout=row>
-      <div fxFlex=10%>
+      <div fxFlex=10>
         <mat-checkbox checked=true (click)=check(list,data)></mat-checkbox>
       </div>
-      <div fxFlex=75%>
+      <div fxFlex=75>
         <input placeholder="List item" class=input2 [(ngModel)]="list.itemName"(keydown.enter)="listitem(list)">
       </div>
-      <div fxFlex=10%><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
+      <div fxFlex=10><mat-icon class=clear (click)=removeCheckList(list)>clear</mat-icon></div>
       </div>
     </div>
   </div>
@@ -65,8 +66,9 @@
   <div class=margin_top5>
   <mat-chip-list>
     <span *ngFor="let cardData of labels" >
-      <mat-chip class="chip" *ngIf="cardData.isDeleted==false">
-        <span class=label>{{cardData.label}}</span><mat-icon *ngIf=!isDelete (click)=removeLabel(cardData.id,data.noteData.id)>cancel</mat-icon>
+      <mat-chip class=chip *ngIf="cardData.isDeleted==false">
+        <span class=label>{{cardData.label}}</span><mat-icon *ngIf=!isDelete 
+        (click)=removeLabel(cardData.id,data.noteData.id)>cancel</mat-icon>
       </mat-chip>
     </span>
   </mat-chip-list></div>
@@ -81,17 +83,18 @@
   <!-- ***************************collaborators end*************************** -->
 
   <!-- *******************************maticon start********************************** -->
-  <div class="icondiv">
-    <app-remind-me *ngIf=!isDelete class="iconButton"[card]=data.noteData 
+  <div class=icondiv>
+    <app-remind-me *ngIf=!isDelete class=iconButton [card]=data.noteData 
     (onChanges)=reminderChanges($event)></app-remind-me>
-    <app-add-collaborator *ngIf=!isDelete class="iconButton" [card]=data.noteData (onChanges)="entry($event)"></app-add-collaborator>
-    <app-change-color *ngIf=!isDelete class="iconButton" [card]=data.noteData 
+    <app-add-collaborator *ngIf=!isDelete class=iconButton [card]=data.noteData 
+    (onChanges)="entry($event)"></app-add-collaborator>
+    <app-change-color *ngIf=!isDelete class=iconButton [card]=data.noteData 
     (onChangeColor)=colorChanges($event)></app-change-color>
-    <app-add-image *ngIf=!isDelete class="iconButton"></app-add-image>
+    <app-add-image *ngIf=!isDelete class=iconButton></app-add-image>
     <app-notes-archive [card]=data.noteData (onArchiveEntry)="archive($event)" 
-    *ngIf=!isDelete class="iconButton"></app-notes-archive>
-    <app-more class="iconButton" [card]=data.noteData (popupChange)="labelChanges($event)"></app-more>
-    <button *ngIf=!isDelete mat-button  class=pin (click)="click()">Close</button>
+    *ngIf=!isDelete class=iconButton></app-notes-archive>
+    <app-more class=iconButton [card]=data.noteData (popupChange)="labelChanges($event)"></app-more>
+    <button *ngIf=!isDelete mat-button  class=pin (click)=click()>Close</button>
     </div>
   <!-- *********************************maticon end****************************** -->
 

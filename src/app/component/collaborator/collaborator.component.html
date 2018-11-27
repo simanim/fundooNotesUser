@@ -1,41 +1,39 @@
 <mat-card class=fontXs>
-<div>Collaborators</div>
-<mat-divider></mat-divider>
-<div class=margin>
+    <div>Collaborators</div>
+    <mat-divider></mat-divider>
+    <div class=margin>
     <mat-card-header>
-        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover',
-        'height':'40px','width':'40px','border-radius':'50%'}"></div>
+        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" [ngStyle]="{'background-image':'url(' +img+ ')',
+        'background-size':'cover','height':'40px','width':'40px','border-radius':'50%'}"></div>
         <mat-card-title class=fontXs >{{owner.firstName}}  {{owner.lastName}} (Owner)</mat-card-title>
         <mat-card-subtitle  class=fontXs>{{owner.email}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-header *ngFor="let list of collaborators">
-        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" [ngStyle]="{'background-color':'rgba(0, 0, 255,0.3)','background-size':'cover',
-        'height':'40px','width':'40px','border-radius':'50%','border':'1px solid blue'}">
-            <div fxLayoutAlign=center class=nameIcon>{{list.firstName[0].toUpperCase()}}</div></div>
-            <div fxFlex=80>
-                <mat-card-title class=fontXs>{{list.firstName}}  {{list.lastName}}</mat-card-title>
-                <mat-card-subtitle class=fontXs>{{list.email}}</mat-card-subtitle>
-            </div>
-            <div fxFlex=10>
-                <mat-icon (click)=removeCol(list) class=clear>clear</mat-icon>
-            </div>
+        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" [ngStyle]="{'background-color':'rgba(0, 0, 255,0.3)',
+        'background-size':'cover','height':'40px','width':'40px','border-radius':'50%','border':'1px solid blue'}">
+            <div fxLayoutAlign=center class=nameIcon>{{list.firstName[0].toUpperCase()}}</div>
+        </div>
+        <div fxFlex=80>
+            <mat-card-title class=fontXs>{{list.firstName}}  {{list.lastName}}</mat-card-title>
+            <mat-card-subtitle class=fontXs>{{list.email}}</mat-card-subtitle>
+        </div>
+        <div fxFlex=10><mat-icon (click)=removeCol(list) class=clear>clear</mat-icon></div>
     </mat-card-header>
     <mat-card-header>
-        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" class="addPerson"><mat-icon ngStyle.xs="padding:1px"class=icon>person_add</mat-icon></div>
-        <input class=fontXs placeholder="person or email to share with" [matMenuTriggerFor]="menu"
-        [(ngModel)]="searchValue" (keyup)="searchUser()">
+        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" class="addPerson"><mat-icon ngStyle.xs="padding:1px"
+        class=icon>person_add</mat-icon></div>
+        <input class=fontXs placeholder="person or email to share with" [matMenuTriggerFor]=menu
+        [(ngModel)]="searchValue" (keyup)=searchUser()>
     </mat-card-header>
-</div>
-<mat-card-footer class=save>
-    <div fxLayoutAlign="end">
-        <button mat-button (click)=save()>save</button>
     </div>
-</mat-card-footer>
- </mat-card>
- <mat-menu #menu="matMenu">
+    <mat-card-footer class=save>
+        <div fxLayoutAlign=end><button mat-button (click)=save()>save</button></div>
+    </mat-card-footer>
+</mat-card>
+
+<mat-menu #menu=matMenu>
     <div *ngFor="let data of userList">
-    <button class=name (click)="addCol(data)" ngStyle.xs="font-size:10px">
-        {{data.firstName}} {{data.lastName}} [{{data.email}}]
-    </button>
+    <button class=name (click)=addCol(data) ngStyle.xs="font-size:10px">
+    {{data.firstName}} {{data.lastName}} [{{data.email}}]</button>
     </div>
 </mat-menu>

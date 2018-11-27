@@ -30,43 +30,38 @@
       <!-- ****************************checklist end****************************** -->    
 
       <!-- ****************************reminder start******************************** -->
-
       <mat-chip-list class=paddingTop3>
-          <div *ngFor="let cardData of data.reminder" >
-            <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
-            (click)=showReminder(data.id)>
-              <mat-icon>access_time</mat-icon>
-              <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
-              <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
-              <mat-icon (click)=removeReminder(data.id)>cancel</mat-icon>
-            </mat-chip>
-            <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
-              <mat-icon>access_time</mat-icon>
-              <div *ngIf="checkDate(cardData)==2">{{date}}</div>
-              <div *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</div>
-              <mat-icon (click)=removeReminder(data.id)>cancel</mat-icon>
-            </mat-chip>
-          </div>
-        </mat-chip-list>
+        <span *ngFor="let cardData of data.reminder" >
+          <mat-chip class=dellabel *ngIf="checkDate(cardData)==1 || checkDate(cardData)==4" 
+          (click)=showReminder(data.id)>
+            <mat-icon>access_time</mat-icon>
+            <del  *ngIf="checkDate(cardData)==1">{{date}}</del>
+            <del  *ngIf="checkDate(cardData)==4">{{cardData| date:medium}}</del>
+            <mat-icon (click)=removeReminder(data.id) class=cancelIcon>cancel</mat-icon>
+          </mat-chip>
+          <mat-chip class=label *ngIf="checkDate(cardData)==2 || checkDate(cardData)==3"(click)=showReminder(data.id)>
+            <mat-icon>access_time</mat-icon>
+            <div *ngIf="checkDate(cardData)==2">{{date}}</div>
+            <div *ngIf="checkDate(cardData)==3">{{cardData| date:'medium'}}</div>
+            <mat-icon (click)=removeReminder(data.id) class=cancelIcon>cancel</mat-icon>
+          </mat-chip>
+        </span>
       <!-- ****************************reminder end******************************** -->
 
       <!-- ****************************label start****************************** -->        
-      <mat-chip-list  >
         <span *ngFor="let cardData of data.noteLabels">
           <mat-chip  class="label"*ngIf="cardData.isDeleted==false" (click)=showLabel(cardData.label)>
             <span class="chip">{{cardData.label}}</span>
-            <mat-icon *ngIf="!data.isDeleted" (click)=removeLabel(cardData.id,data.id)>cancel</mat-icon>
+            <mat-icon *ngIf="!data.isDeleted" class=cancelIcon (click)=removeLabel(cardData.id,data.id)>cancel</mat-icon>
           </mat-chip>
         </span>
-      </mat-chip-list>
-     
       <!-- ******************************label end******************************** -->   
       
       <!-- **************************collaborators start************************* -->
-      <div class=margin_top5> 
-      <span *ngFor="let cardData of data.collaborators" class=margin>
-        <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
-      </span></div>
+        <span *ngFor="let cardData of data.collaborators" class=margin>
+          <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
+        </span>
+      </mat-chip-list>
       <!-- ***************************collaborators end*************************** -->
 
       <!-- ******************************icon start****************************** -->        

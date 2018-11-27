@@ -1,0 +1,1 @@
+„*src/app/component/trash/trash.component.ts 2tsX?h

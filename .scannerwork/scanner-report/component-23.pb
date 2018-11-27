@@ -1,0 +1,1 @@
+*src/app/core/pipe/search-note.pipe.spec.ts 2tsX	h
