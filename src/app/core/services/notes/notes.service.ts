@@ -100,4 +100,16 @@ export class NotesService {
   removeColaborator(noteId,userId){
     return this.service.deleteData("/notes/"+noteId+"/removeCollaboratorsNotes/"+userId);
   }
+  getNoteById(id){
+    return this.service.getData2("/notes/getNotesDetail/"+id);
+  }
+  addAQuestion(body){
+    return this.service.postDataForJSON("/questionAndAnswerNotes/addQuestionAndAnswer",body);
+  }
+  addLike(body,parentId){
+    return this.service.postDataForJSON("/questionAndAnswerNotes/like/"+parentId,body);
+  }
+  addReply(body,parentId){
+    return this.service.postDataForJSON("/questionAndAnswerNotes/reply/"+parentId,body);
+  }
 }

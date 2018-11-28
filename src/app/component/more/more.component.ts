@@ -174,8 +174,8 @@ export class MoreComponent implements OnInit {
   }
 
   questAns(){
-    this.data.changeNoteQuestion(this.card)
-    this.router.navigateByUrl('/QuestionAnswer')
+    // LoggerService.log("hiii",this.card)
+    this.router.navigateByUrl('/QuestionAnswer/'+this.card.id)
   }
 
   ngOnDestroy() {

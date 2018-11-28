@@ -84,6 +84,9 @@
         max-width:190px;
     }
 }
+.question{
+    @include overflowText()
+}
 .grid{
     width:190px;
 }

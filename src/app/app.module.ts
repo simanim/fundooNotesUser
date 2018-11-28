@@ -13,6 +13,7 @@ import { FirebaseService } from './core/services/firebase/firebase.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
+import { BarRatingModule } from "ngx-bar-rating";
 import { SignupComponent } from './component/signup/signup.component';
 import { ForgotpassComponent } from './component/forgotpass/forgotpass.component';
 import { ResetComponent } from './component/reset/reset.component';
@@ -36,6 +37,7 @@ import { PinComponent } from './component/pin/pin.component';
 import { ImageCropComponent } from './component/image-crop/image-crop.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { AddCollaboratorComponent } from './component/add-collaborator/add-collaborator.component';
+import {RatingModule} from "ngx-rating/index";
 
 import { SearchPipe } from './core/pipe/search.pipe';
 import { SearchNotePipe } from './core/pipe/search-note.pipe';
@@ -113,7 +115,9 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
             ImageCropperModule,
             MatDividerModule,
             MatDatepickerModule,         
-            ReactiveFormsModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
+            ReactiveFormsModule,MatSelectModule,MatNativeDateModule,MatTooltipModule,
+            RatingModule,
+            BarRatingModule
 
   ],
 

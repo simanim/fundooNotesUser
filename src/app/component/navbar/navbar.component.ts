@@ -72,7 +72,8 @@ export class NavbarComponent implements OnInit {
     this.routeCheck()
   }
   routeCheck(){
-    let temp=this.router.url.split("/").pop()
+    let temp=this.router.url.split("/").pop();
+    let temp2=this.router.url.split("/")
     if(temp=='home'){
       this.homeClick();
     }
@@ -85,7 +86,7 @@ export class NavbarComponent implements OnInit {
     else if(temp=='trash'){
       this.trashClick();
     }
-    else if(temp=='QuestionAnswer'){
+    else if(temp2[1]=='QuestionAnswer'){
       this.labelShowing=false;
     }
     else{

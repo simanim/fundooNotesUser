@@ -73,10 +73,16 @@
         <app-notes-archive *ngIf="!data.isDeleted"class="iconButton" [card]=data (onArchiveEntry)="entry($event)"></app-notes-archive>
         <app-more class="iconButton" [card]=data (onChanges)="entry($event)"></app-more>
         </div>
-      <!-- ****************************icon start****************************** -->        
-
+      <!-- ****************************icon start****************************** --> 
+      <div *ngIf="data.questionAndAnswerNotes.length!=0">       
+      <mat-divider></mat-divider>
+      <div *ngFor="let question of data.questionAndAnswerNotes">
+        <div><small>Question Asked</small></div>
+        <div class=question [innerHTML]=question.message></div>
+      </div>
+      </div>
     </mat-card>
-    <!-- ******************************matcard end******************************* -->        
+    <!-- ******************************matcard end******************************* -->   
 
   </div>
 </div>

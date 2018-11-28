@@ -1,9 +1,51 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
 .title{
-    font-size: 30px;
+    font-size: 20px;
+    word-wrap: break-word;
+    width:90%;
 }
 .description{
-    font-size: 20px;
+    font-size: 18px;
+    word-wrap: break-word;
+    width:90%;
+}
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+  .rating > span:hover:before,
+  .rating > span:hover ~ span:before {
+     content: "\2605";
+     position: absolute;
+  }
+ 
+.icon{
+    margin-left:5%;
 }
 .body{
     margin:20px
+}
+.input{
+   font-size: 15px;
+   outline: none;
+   width:80%
+}
+.input:empty:before{
+    content: attr(data-text);
+    @include opacity(0.5);
+    font-size: 15px;
+    width:60%;
+}
+.image{
+    @include margin(0px,20px,0px,10px);
+}
+.nameIcon{
+    font-size: 29px;
+    @include color-test($test-color-blue);
+    @include padding(3px,0px,0px,0px);
+}
+.close{
+    float:right;
+    margin-top:10px;
 }

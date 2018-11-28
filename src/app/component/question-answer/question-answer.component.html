@@ -1,17 +1,61 @@
-<div class=body>
-  <div class=title>{{note.title}}</div>
-  <div class=description>{{note.description}}</div>
-</div>
-<mat-divider></mat-divider>
-<div class=body>
-  <div class=description>Question Asked</div>
-  <div>{{note.questionAndAnswerNotes[0].message}}</div>
-</div>
-<div class=body>
-  <div>
-    <span class=title>{{note.questionAndAnswerNotes[0].message}}</span>
-      <mat-icon>folder</mat-icon>
-      <mat-icon>thumb_up</mat-icon>
-      <!-- <mat-icon>folder</mat-icon> -->
+<div fxLayout=row fxLayoutAlign=center>
+<div fxFlex.xl=900px fxFlex.lg=1000px fxFlex.md=700px fxFlex.sm=100% fxFlex.xs=100%>
+  <!-- <div fxFlex=100%> -->
+  <button mat-button class=close (click)=close()>close</button>
+  <div class=body>
+    <div class=title>{{note.title}}</div>
+    <div class=description>{{note.description}}</div>
+    <div *ngFor='let data of note.noteCheckLists'>
+      <div *ngIf="data.status=='open'" class=description><mat-checkbox>{{data.itemName}}</mat-checkbox></div>
+      <div *ngIf="data.status=='close'" class=description><mat-checkbox checked=true><del>{{data.itemName}}</del></mat-checkbox></div>
     </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class=body *ngIf="questions.length==0">
+    <div class=description>Question Asked</div>
+    <div class=input contenteditable=true #question editable=true data-text="Ask a Question???"
+    (keydown.enter)=addQuestion()></div>
+  </div>
+
+  <div class=body *ngIf="questions.length!=0" >
+  <!-- <div *ngFor="let data of questions"> -->
+    <div fxLayout=row>
+      <div><div class=image>
+        <!-- <div fxLayoutAlign=center class=nameIcon>{{note.user.firstName[0]}}</div> -->
+        <div mat-card-avatar ngStyle.xs="width:30px;height:30px" [ngStyle]="{'background-image':'url(' +img+ ')',
+        'background-size':'cover','height':'40px','width':'40px','border-radius':'50%'}"></div>
+      </div></div>
+      <div>
+        <div><small>{{questions.user.email}}</small></div>
+        <div [innerHTML]="questions.message"></div>
+      </div>
+      <button mat-icon-button class=icon><mat-icon (click)=replyToQuestion()>reply</mat-icon></button>
+      <button mat-icon-button class=icon><mat-icon (click)=like(questions)>thumb_up_alt</mat-icon></button>
+      <div style="margin-top:15px">{{questions.like.length}}</div>
+      <!-- <bar-rating [(rate)]="starValue"  (click)="rating()" [max]="5"></bar-rating> -->
+      <!-- <rating [(ngModel)]="model.rating"
+        [max]="5"
+        iconClass="fa-star"
+        fullIcon="★"
+        emptyIcon="☆"
+        [readonly]="false"
+        [disabled]="false"
+        [required]="true"
+        [float]="true"
+        [titles]="['one', 'two', 'three', 'four', 'five']">
+</rating> -->
+    </div>
+    
+    <div *ngIf=reply>
+      <mat-divider></mat-divider>
+      <div fxLayout=row class=body>
+        <div class=input contenteditable=true #replayMessage editable=true data-text="Reply..."></div>
+        <button mat-button (click)=answer(questions)>Reply</button>
+      </div>
+    </div>
+  <!-- </div> -->
+  </div>
+
+</div>
 </div>

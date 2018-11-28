@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'resetpassword/:id', component: ResetComponent },
   { path: '', component: NavbarComponent,canActivate:[AuthGuard],children:[
     { path: 'home', component: NotesComponent },
-    { path: 'QuestionAnswer', component: QuestionAnswerComponent },
+    { path: 'QuestionAnswer/:noteId', component: QuestionAnswerComponent },
     { path: 'archive', component: ArchiveComponent },
     { path: 'trash', component: TrashComponent },
     { path: 'label/:label', component: LabelComponent },

@@ -56,6 +56,8 @@ export class LabelComponent implements OnInit {
       for(let i=this.label.length;i>0;i--){
         this.labelNotesList.push(this.label[i-1])
       }
+      console.log(this.labelNotesList);
+      
     },(error) => {
     });
   }
