@@ -17,7 +17,7 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
     @include margin(0px,0px,0px,20px);
 }
 .margin_top10{
-    @include margin(30px,0px,0px,0px);
+    @include margin(10px,0px,0px,0px);
 }
 .back {
     @include color-test($test-color-blue);

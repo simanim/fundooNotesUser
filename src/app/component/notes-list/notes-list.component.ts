@@ -17,6 +17,7 @@ import { DataService } from '../../core/services/data/data.service'
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   noteData:object
@@ -37,7 +38,8 @@ export class NotesListComponent implements OnInit {
   @Input() searchItem;
   @Output() anyChanges= new EventEmitter();
 
-  constructor( private dialog: MatDialog, private noteListService : NotesService, private data: DataService ) { }
+  constructor( private dialog: MatDialog, private noteListService : NotesService, private data: DataService,
+    private router : Router ) { }
 
   private noteData:object;
   private current =new Date();
@@ -51,6 +53,10 @@ export class NotesListComponent implements OnInit {
     .subscribe(message => {
       this.view = message      
     })
+  }
+
+  questionAnswer(id){
+    this.router.navigateByUrl('/QuestionAnswer/'+id)
   }
  /**
   * 

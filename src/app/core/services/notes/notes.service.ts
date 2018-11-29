@@ -112,4 +112,7 @@ export class NotesService {
   addReply(body,parentId){
     return this.service.postDataForJSON("/questionAndAnswerNotes/reply/"+parentId,body);
   }
+  addrating(body,parentId){
+    return this.service.postDataForJSON("/questionAndAnswerNotes/rate/"+parentId,body);
+  }
 }

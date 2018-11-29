@@ -19,21 +19,17 @@ export class QuestionAnswerComponent implements OnInit {
   private questions=[]
   private reply:boolean=false;
   private img;
-  starValue;
+  
   ngOnInit() {
-    LoggerService.log("ID",this.id)
     this.getDetails();
   }
-
   getDetails(){
     this.QAService.getNoteById(this.id)
     .subscribe( (response)=>{
-    this.note=response["data"].data[0];
-    this.questions=this.note["questionAndAnswerNotes"][0];
-    LoggerService.log("details",this.questions)
-
-      LoggerService.log("details",this.questions["user"].email)
-      this.img=environment.Url+this.questions["user"].imageUrl;
+      this.note=response["data"].data[0];
+      this.questions=this.note['questionAndAnswerNotes']
+      LoggerService.log("notes",this.questions)
+      this.img=environment.Url;
     },(error)=>{
     });
   }
@@ -51,43 +47,80 @@ export class QuestionAnswerComponent implements OnInit {
   close(){
     this.router.navigateByUrl('/home');
   }
-  replyToQuestion(){
+  replyToQuestion(data){
+    this.id=data.id
     this.reply=true;
   }
   like(data){
+    console.log(data);
+    
     let body={
-      "like":true
+      "like":false
     }
-    LoggerService.log("hiii",data)
-
-    LoggerService.log("hiii",data.id)
+    if(data.like.length==0)
+      body.like=true;
+    else
+      body.like=!data.like[0].like
     this.QAService.addLike(body,data.id)
     .subscribe((response)=>{
-      LoggerService.log("success",response);
+      this.getDetails()
     },(error)=>{
-      LoggerService.log("success",error);
 
     })
   }
-  answer(data){
+  likeCheck(question){
+    for(let m=0;m<question.length;m++){
+      if(question[m].like==true){
+        if(question[m].userId==localStorage.getItem("fundooUserId")){
+          return true
+        }
+      }
+    }
+    return false
+  }
+  Check(data){
+    
+    for(let m=0;m<data.length;m++){
+      if(data[m].like==true){
+        if(data[m].userId==localStorage.getItem("fundooUserId")){
+          return true
+        }
+      }
+    }
+    return false;
+  }
+  countLIke(data){
+    let count=0
+    for(let m=0;m<data.like.length;m++){
+      if(data.like[m].like==true){
+        count+=1;
+      }
+    }
+    return count;
+  }
+  
+  answer(){
     let reply=this.replayMessage.nativeElement.innerHTML;
-    LoggerService.log("reply",reply);
-    LoggerService.log("data",data)
     let body={
       "message":reply
     }
-    this.QAService.addReply(body,data.id)
+    LoggerService.log("data",this.id);
+    LoggerService.log("body",body)
+    this.QAService.addReply(body,this.id)
     .subscribe((response)=>{
-      LoggerService.log("success",response);
     },(error)=>{
-      LoggerService.log("success",error);
 
     })
   }
-  rating(){
-    
-    
-    console.log("rating",this.starValue);
-    
+  rating(data,rate){
+    let body={
+      "rate":rate
+    }
+    this.QAService.addrating(body,data.id)
+    .subscribe((response)=>{
+      this.getDetails()
+    },(error)=>{
+
+    })
   }
 }

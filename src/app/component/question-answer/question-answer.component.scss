@@ -21,10 +21,21 @@
   }
  
 .icon{
-    margin-left:5%;
+    margin-left:3%;
+}
+.star{
+    @include margin(-1%,0%,0%,3%);
 }
 .body{
-    margin:20px
+    @include margin(2%,0%,2%,10%);
+}
+.body2{
+    @include margin(3%,0%,0%,10%);
+    border:1px solid black
+}
+.body3{
+    @include margin(0%,0%,0%,10%);
+    border:1px solid teal
 }
 .input{
    font-size: 15px;

@@ -74,12 +74,10 @@
         <app-more class="iconButton" [card]=data (onChanges)="entry($event)"></app-more>
         </div>
       <!-- ****************************icon start****************************** --> 
-      <div *ngIf="data.questionAndAnswerNotes.length!=0">       
+      <div *ngIf="data.questionAndAnswerNotes.length!=0" (click)=questionAnswer(data.id)>       
       <mat-divider></mat-divider>
-      <div *ngFor="let question of data.questionAndAnswerNotes">
         <div><small>Question Asked</small></div>
-        <div class=question [innerHTML]=question.message></div>
-      </div>
+        <div class=question [innerHTML]=data.questionAndAnswerNotes[0].message></div>
       </div>
     </mat-card>
     <!-- ******************************matcard end******************************* -->   
