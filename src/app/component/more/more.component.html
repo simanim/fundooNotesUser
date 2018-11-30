@@ -2,10 +2,11 @@
 
 <!-- ****************************more menu start****************************** -->
 <mat-menu #menu="matMenu">
-    <button mat-menu-item class="menu" (click)="deleteNotes()">Delete Note</button>
+    <button mat-menu-item class="menu" *ngIf="card" (click)="deleteNotes()">Delete Note</button>
     <button mat-menu-item class="menu" [matMenuTriggerFor]="nestedMenu" (click)="showLabel()">Add label</button>
     <button mat-menu-item class="menu" (click)="showCheckBox()">Show checkboxes</button>
-    <button mat-menu-item class="menu" (click)="questAns()">Ask a Question</button>
+    <button mat-menu-item class="menu" *ngIf="card && card.questionAndAnswerNotes.length==0"(click)="questAns()">Ask a Question</button>
+    <button mat-menu-item class="menu" *ngIf="card && card.questionAndAnswerNotes.length!=0" (click)="questAns()">Show Question</button>
 </mat-menu>
 <!-- ****************************more menu end****************************** -->
 

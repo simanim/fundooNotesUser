@@ -55,7 +55,7 @@
 
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <div [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover','width':'40px','height':'40px'}" 
-      class=img (click)="account()" ngStyle.xl="width:60px;height:60px"></div>
+      class=img (click)="account()" ngStyle.xl="width:60px;height:60px"  ngStyle.xs="width:30px;height:30px"></div>
     </div>
 
     <div fxFlex.xs="0%" fxFlex.sm="0%" fxFlex.md="2%" fxFlex.lg="2%" fxFlex.xl="2%"></div>
@@ -86,7 +86,7 @@
 <!-- *****************************menu start************************************* -->
 <mat-drawer-container class="example-container"ngStyle.xs="height:93%"ngStyle.sm="height:95%"
 ngStyle.md="height:95%" ngStyle.lg="height:90%" ngStyle.lg="height:90%">
-  <mat-drawer #drawer class="example-sidenav" [mode]="width > 720?'side':'over'" closed>
+  <mat-drawer #drawer class="example-sidenav" [mode]="width > 960?'side':'over'" closed>
     <div class="side_icon"(click)="homeClick()" [ngClass]="home? 'selected' : 'side_icon'">
       <img class=margin_left20 src="../../../assets/img/notes.svg">
       <small class="name">Note</small></div>

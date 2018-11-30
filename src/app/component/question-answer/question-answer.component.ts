@@ -19,7 +19,7 @@ export class QuestionAnswerComponent implements OnInit {
   private questions=[]
   private reply:boolean=false;
   private img;
-  
+  private id2;
   ngOnInit() {
     this.getDetails();
   }
@@ -28,10 +28,31 @@ export class QuestionAnswerComponent implements OnInit {
     .subscribe( (response)=>{
       this.note=response["data"].data[0];
       this.questions=this.note['questionAndAnswerNotes']
-      LoggerService.log("notes",this.questions)
       this.img=environment.Url;
     },(error)=>{
+      LoggerService.log("details",error);
     });
+  }
+  ratingValue;
+  rateCheck(data){
+    for(let i=0;i<data.length;i++){
+      if(data[i].userId==localStorage.getItem("fundooUserId")){
+        this.ratingValue=data[i].rate;
+        return true
+      }
+    }
+    this.ratingValue=0;
+    return true
+  }
+  rateCount(data){
+    if(data.length==0)
+    return 0;
+    let value=0;
+    for(let a=0;a<data.length;a++){
+      value+=data[a].rate;
+    }
+    let rate=value/(data.length)
+    return rate
   }
   addQuestion(){
     let body={
@@ -48,19 +69,28 @@ export class QuestionAnswerComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
   replyToQuestion(data){
-    this.id=data.id
-    this.reply=true;
+    this.id2=data.id
+    this.reply=!this.reply;
+  }
+  reply2;
+  replyToReply(data){
+    this.id2=data.id
+    this.reply2=!this.reply2;
   }
   like(data){
-    console.log(data);
-    
     let body={
       "like":false
     }
     if(data.like.length==0)
       body.like=true;
-    else
+    else{
       body.like=!data.like[0].like
+      for(let l=0;l<data.like.length;l++){
+        if(data.like[l].userId==localStorage.getItem("fundooUserId") && data.like[l].like==false)
+          body.like=true;
+      }
+    }
+    LoggerService.log("body",body)
     this.QAService.addLike(body,data.id)
     .subscribe((response)=>{
       this.getDetails()
@@ -79,7 +109,6 @@ export class QuestionAnswerComponent implements OnInit {
     return false
   }
   Check(data){
-    
     for(let m=0;m<data.length;m++){
       if(data[m].like==true){
         if(data[m].userId==localStorage.getItem("fundooUserId")){
@@ -104,12 +133,14 @@ export class QuestionAnswerComponent implements OnInit {
     let body={
       "message":reply
     }
-    LoggerService.log("data",this.id);
+    LoggerService.log("data",this.id2);
     LoggerService.log("body",body)
-    this.QAService.addReply(body,this.id)
+    this.QAService.addReply(body,this.id2)
     .subscribe((response)=>{
+      LoggerService.log("refreshing",response)
+      this.reply=this.reply2=false
+      this.getDetails();
     },(error)=>{
-
     })
   }
   rating(data,rate){

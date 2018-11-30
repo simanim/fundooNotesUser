@@ -68,7 +68,7 @@ input:focus {
 .example-container {
     width:100%;
     @include back-ground-color(#e8e8e8);
-    // overflow: hidden;
+    overflow-x: hidden
 }
 .example-sidenav {
     @include back-ground-color(#e8e8e8);
