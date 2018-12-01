@@ -59,7 +59,7 @@
       
       <!-- **************************collaborators start************************* -->
         <span *ngFor="let cardData of data.collaborators" class=margin>
-          <button mat-mini-fab>{{cardData.firstName[0].toUpperCase()}}</button>
+          <button mat-mini-fab [ngStyle]="{'background-color':data.color}">{{cardData.firstName[0].toUpperCase()}}</button>
         </span>
       </mat-chip-list>
       <!-- ***************************collaborators end*************************** -->

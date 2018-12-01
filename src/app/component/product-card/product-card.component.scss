@@ -1,0 +1,29 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+.navbar {
+    @include back-ground-color(#fb0);
+    width:100%;
+    // height:fixed;
+    position: fixed
+}
+.card{
+    width: 200px;
+    margin-top: -120%;
+    padding:128% 0% 7% 15%;
+
+    margin-left: 10%;
+    background-color: rgb(172, 172, 172);
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+}
+.card2{
+    width: 220px;
+    padding:120% 0% 12% 15%;
+    margin-top: -110%;
+    margin-left: 10%;
+    background-color: rgb(238, 214, 80);
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+}

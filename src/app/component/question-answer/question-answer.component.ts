@@ -20,6 +20,7 @@ export class QuestionAnswerComponent implements OnInit {
   private reply:boolean=false;
   private img;
   private id2;
+  private showReply:boolean=false;
   ngOnInit() {
     this.getDetails();
   }
@@ -43,6 +44,10 @@ export class QuestionAnswerComponent implements OnInit {
     }
     this.ratingValue=0;
     return true
+  }
+  replyShowing(data,value){
+    this.showReply=value;
+    this.id2=data.id
   }
   rateCount(data){
     if(data.length==0)

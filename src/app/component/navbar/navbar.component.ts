@@ -86,6 +86,9 @@ export class NavbarComponent implements OnInit {
     else if(temp=='trash'){
       this.trashClick();
     }
+    else if(temp=='search' || temp=='shoppingCart'){
+      this.homeClick();
+    }
     else if(temp2[1]=='QuestionAnswer'){
       this.labelShowing=false;
     }
@@ -125,12 +128,16 @@ export class NavbarComponent implements OnInit {
   * 
   * @description for refresh of page
   */
-  refresh(){
-    this.home=true;
-    this.reminder=this.archive=this.trash=false;
-    this.router.navigateByUrl('/home');
-  }
+  // refresh(){
+  //   this.home=true;
+  //   this.reminder=this.archive=this.trash=false;
+  //   this.router.navigateByUrl('/home');
+  // }
 
+  cardPayment(){
+    this.router.navigateByUrl('/shoppingCart');
+
+  }
   /**
   * 
   * @description for logging out from account

@@ -55,9 +55,16 @@ import {  MatFormFieldModule,
           MatToolbarModule,
           MatSidenavModule,
           MatDividerModule,
-          MatDatepickerModule,MatSelectModule,MatNativeDateModule,MatTooltipModule
+          MatDatepickerModule,
+          MatSelectModule,
+          MatNativeDateModule,
+          MatTooltipModule,
+          MatTabsModule
         } from '@angular/material';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
+import { ProductCardComponent } from './component/product-card/product-card.component';
+import { CardDetailsComponent } from './component/card-details/card-details.component';
+import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 
 
 
@@ -90,7 +97,10 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
                   ImageCropComponent,
                   ReminderComponent,
                   AddCollaboratorComponent,
-                  QuestionAnswerComponent
+                  QuestionAnswerComponent,
+                  ProductCardComponent,
+                  CardDetailsComponent,
+                  ShoppingCartComponent
   ],
   
   imports: [
@@ -113,9 +123,13 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
             MatChipsModule,
             MatCheckboxModule,
             ImageCropperModule,
+            MatTabsModule,
             MatDividerModule,
             MatDatepickerModule,         
-            ReactiveFormsModule,MatSelectModule,MatNativeDateModule,MatTooltipModule,
+            ReactiveFormsModule,
+            MatSelectModule,
+            MatNativeDateModule,
+            MatTooltipModule,
             RatingModule,
             BarRatingModule
 
@@ -140,7 +154,11 @@ import { QuestionAnswerComponent } from './component/question-answer/question-an
                     CardDisplayComponent, 
                     CreateLabelComponent,
                     NavbarComponent ,
-                    ImageCropComponent,AddCollaboratorComponent,CollaboratorComponent
+                    ImageCropComponent,
+                    AddCollaboratorComponent,
+                    CollaboratorComponent,
+                    ProductCardComponent,
+                    CardDetailsComponent
   ]
 
 })

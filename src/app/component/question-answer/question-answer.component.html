@@ -24,8 +24,6 @@
       <div *ngIf="item.parentId==undefined" class=description>Question Asked</div>
       <div *ngIf="item.parentId==undefined"class=description2 style="opacity:0.5">{{item.message}}</div>
     </div>
-    <!-- <mat-divider></mat-divider>
-    <mat-divider></mat-divider> -->
   </div>
 </div></div>
 </div>
@@ -43,7 +41,7 @@
       <div>
         <div class=details>{{item.user.firstName}} {{item.user.lastName}}
           <span class=details> {{item.createdDate | date:'medium'}}</span></div>
-        <div class=description style="max-width:80%" [innerHTML]="item.message"></div>
+        <div class=description [innerHTML]="item.message"></div>
       </div>
       <div fxLayout=row>
       <button mat-icon-button class=icon><mat-icon (click)=replyToQuestion(item)>reply</mat-icon></button>
@@ -101,6 +99,10 @@
               <bar-rating [(rate)]=ratingValue (rateChange)="rating(data,$event)"[max]="5"></bar-rating>
           </div>
           <div class=margin_top10>{{rateCount(data.rate)}}</div>
+          <button mat-icon-button class=icon *ngIf="!showReply || id2!=data.id" 
+          (click)="replyShowing(data,true)"><mat-icon>keyboard_arrow_down</mat-icon></button>
+          <button mat-icon-button class=icon *ngIf="showReply && id2==data.id" 
+          (click)="replyShowing(data,false)"><mat-icon>keyboard_arrow_up</mat-icon></button>
         </div></div>
       </div>
       <div *ngIf="reply2 && id2==data.id">
@@ -116,20 +118,18 @@
 
         <div *ngFor="let data2 of questions">
           <div *ngIf="data2.parentId==data.id" class=body3>
-            <div fxLayout="row" >
+            <div fxLayout="row" *ngIf="showReply && id2==data.id">
                 <div fxFlex.xl=8 fxFlex.lg=8 fxFlex.md=8 fxFlex.sm=8 fxFlex.xs=15><div class=image>
                 <div mat-card-avatar ngStyle.xs="width:30px;height:30px" 
                 [ngStyle]="{'background-image':'url(' +img+data2.user.imageUrl+ ')',
                 'background-size':'cover','height':'40px','width':'40px','border-radius':'50%'}"></div>
               </div></div>
-              <!-- <div fxLayout="row wrap"> -->
                   <div fxFlex.xl=85 fxFlex.lg=85 fxFlex.md=85 fxFlex.sm=85 fxFlex.xs=80>
                 <div class=details>{{data2.user.firstName}} {{data2.user.lastName}}
                 <span class=details>{{data2.createdDate | date:'medium'}}</span></div>
                 <div [innerHTML]="data2.message"></div>
               
             <div fxLayout=row fxLayoutAlign=end>
-              <!-- <button mat-icon-button class=icon><mat-icon (click)=replyToQuestion(data2)>reply</mat-icon></button> -->
               <button mat-icon-button class=icon *ngIf="likeCheck(data2.like)">
               <mat-icon class=blue (click)=like(data2)>thumb_up_alt</mat-icon></button>
               <button mat-icon-button class=icon *ngIf="!likeCheck(data2.like)">

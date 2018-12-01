@@ -13,9 +13,12 @@ import { LabelComponent } from "./component/label/label.component";
 import { SearchNotesComponent } from './component/search-notes/search-notes.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
+import { ProductCardComponent } from './component/product-card/product-card.component';
+import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', redirectTo:"login", pathMatch: "full"},
+  { path: 'card', component: ProductCardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgotpass', component: ForgotpassComponent },
@@ -27,7 +30,8 @@ const routes: Routes = [
     { path: 'trash', component: TrashComponent },
     { path: 'label/:label', component: LabelComponent },
     { path: 'search', component: SearchNotesComponent},
-    { path: 'reminder', component: ReminderComponent}
+    { path: 'reminder', component: ReminderComponent},
+    { path: 'shoppingCart', component: ShoppingCartComponent}
   ]}
 ];
 
