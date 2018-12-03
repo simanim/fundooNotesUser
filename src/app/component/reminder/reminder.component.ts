@@ -17,6 +17,7 @@ export class ReminderComponent implements OnInit {
   private notes:Note[]=[];
   private reminderArray=[];
   private arr=[];
+  private spinnerValue=true;
 
   ngOnInit() {
     this.reminders()
@@ -38,6 +39,7 @@ export class ReminderComponent implements OnInit {
         b=new Date(b.reminder[0]);
         return b-a;
       })
+      this.spinnerValue=false
     },(error) =>{
     });
   }

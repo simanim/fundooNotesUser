@@ -56,6 +56,7 @@ export class NotesListComponent implements OnInit {
   }
 
   questionAnswer(id){
+    this.data.hideView(true);
     this.router.navigateByUrl('/QuestionAnswer/'+id)
   }
  /**
@@ -93,6 +94,7 @@ export class NotesListComponent implements OnInit {
   openDialog(noteData1): void {
     const dialogRef = this.dialog.open(CardDisplayComponent, {
       width: '600px',
+      maxHeight: '400px',
       maxWidth: 'auto',
       data: { noteData : noteData1 }
     });

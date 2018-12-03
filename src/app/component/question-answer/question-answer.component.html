@@ -1,11 +1,10 @@
 <div fxLayout="column">
 <div fxLayout=row fxLayoutAlign=center class=div >
-<div class=main2>
-<div>
+<div class=main2 >
   <button mat-button class=close (click)=close()>close</button>
-  <div style="margin-bottom:20px;margin-top:20px">
-    <div class="title">{{note.title}}</div>
-    <div class=description2>{{note.description}}</div>
+  <div class=margin >
+    <div class="title" [innerHTML]=note.title></div>
+    <div class=description2 [innerHTML]=note.description></div>
     <div *ngFor='let data of note.noteCheckLists'>
       <div *ngIf="data.status=='open'" class=description><mat-checkbox>{{data.itemName}}</mat-checkbox></div>
       <div *ngIf="data.status=='close'" class=description><mat-checkbox checked=true>
@@ -22,10 +21,10 @@
   <div class=body *ngIf="questions.length!=0">
     <div *ngFor="let item of questions">
       <div *ngIf="item.parentId==undefined" class=description>Question Asked</div>
-      <div *ngIf="item.parentId==undefined"class=description2 style="opacity:0.5">{{item.message}}</div>
+      <div *ngIf="item.parentId==undefined"class=description2 class=opacity>{{item.message}}</div>
     </div>
   </div>
-</div></div>
+</div>
 </div>
 <div fxLayout=row fxLayoutAlign=center>
   <div *ngIf="questions.length!=0" class=main>
@@ -62,9 +61,9 @@
     <div *ngIf="reply">
         <mat-divider></mat-divider>
         <div fxLayout=row class=body>
-          <div fxFlex=70 class=input style="border:1px dashed gray" contenteditable=true 
+          <div fxFlex=70 class=input class=border contenteditable=true 
           #replayMessage editable=true data-text="Reply..."></div>
-          <button fxFlex=10 mat-button style="border:1px dashed gray" (click)=answer()>Reply</button>
+          <button fxFlex=10 mat-button class=border (click)=answer()>Reply</button>
         </div>
      </div>
     <!-- *******************************question end************************************ -->
@@ -108,8 +107,8 @@
       <div *ngIf="reply2 && id2==data.id">
           <mat-divider></mat-divider>
           <div fxLayout=row class=body>
-            <div fxFlex=70 class=input style="border:1px dashed gray" contenteditable=true #replayMessage editable=true data-text="Reply..."></div>
-            <button fxFlex=10 mat-button style="border:1px dashed gray" (click)=answer()>Reply</button>
+            <div fxFlex=70 class=input class=border contenteditable=true #replayMessage editable=true data-text="Reply..."></div>
+            <button fxFlex=10 mat-button class=border (click)=answer()>Reply</button>
           </div>
        </div>
       <!-- *******************************reply of question end************************************ -->

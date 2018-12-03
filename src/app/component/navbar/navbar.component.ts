@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
   private label:Label[] = [];
   private searchValue : any
   private message:string;
+  
   private signoutCard:boolean=false;
   private firstName = localStorage.getItem("fundooUserFirstname");
   private lastName = localStorage.getItem("fundooUserLastname");
@@ -58,9 +59,10 @@ export class NavbarComponent implements OnInit {
   private trash:boolean=false;
   private home:boolean=false;
   private labelShowing:boolean=false
-    
+  private viewHide=false;
   ngOnInit() {
-    this.showLabel()
+    this.showLabel();
+    this.data.currentMessageViewHide.subscribe(message => this.viewHide = message);
     this.data.currentMessageSearch.subscribe(message => this.message = message);
     this.data.currentMessageLabel.subscribe(message =>{ this.message = message;
       if(this.message!="default"){
@@ -78,22 +80,32 @@ export class NavbarComponent implements OnInit {
       this.homeClick();
     }
     else if(temp=='reminder'){
+      this.viewHide=false;
       this.reminderClick();
     }
     else if(temp=='archive'){
+      this.viewHide=false;
       this.archiveClick();
     }
     else if(temp=='trash'){
+      this.viewHide=false;
       this.trashClick();
     }
-    else if(temp=='search' || temp=='shoppingCart'){
+    else if(temp=='search'){
+      this.viewHide=false;
       this.homeClick();
+    }
+    else if(temp=='shoppingCart'){
+      this.viewHide=true;
+      this.router.navigateByUrl('/shoppingCart');
     }
     else if(temp2[1]=='QuestionAnswer'){
       this.labelShowing=false;
+      this.viewHide=true;
     }
     else{
       this.labelClick(temp);
+      this.viewHide=false;
     }
   }
 
@@ -136,7 +148,7 @@ export class NavbarComponent implements OnInit {
 
   cardPayment(){
     this.router.navigateByUrl('/shoppingCart');
-
+    this.viewHide=false;
   }
   /**
   * 
@@ -210,6 +222,7 @@ export class NavbarComponent implements OnInit {
   }
   
   homeClick(){
+    this.viewHide=false;    
     this.home=true;
     this.labelShowing=false;
     this.reminder=this.archive=this.trash=this.labelShowing=false;
@@ -217,24 +230,28 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/home');
   }
   reminderClick(){
+    this.viewHide=false;
     this.router.navigateByUrl('/reminder');
     this.toolbarName('reminder');
     this.reminder=true;
     this.home=this.archive=this.trash=this.labelShowing=false;
   }
   archiveClick(){
+    this.viewHide=false;    
     this.toolbarName('archive');
     this.archive=true;
     this.reminder=this.home=this.trash=this.labelShowing=false;
     this.router.navigateByUrl('/archive');
   }
   trashClick(){
+    this.viewHide=false;    
     this.toolbarName('trash');
     this.trash=true;
     this.reminder=this.archive=this.home=this.labelShowing=false;
     this.router.navigateByUrl('/trash');
   }
   labelClick(label){
+    this.viewHide=false;    
     this.labelShowing=true;
     this.labelclick=label;
     this.home=this.reminder=this.archive=this.trash=false;

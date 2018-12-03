@@ -11,13 +11,14 @@ export class DataService {
   private messageSourceLabel = new BehaviorSubject('default');
   private messageSourceReminder = new BehaviorSubject('default');
   private viewSource = new BehaviorSubject(false);
-  // private noteSource = new BehaviorSubject({});
+  private viewHidden = new BehaviorSubject(false);
+
 
   currentMessageSearch = this.messageSourceSearch.asObservable();
   currentMessageLabel = this.messageSourceLabel.asObservable();
   currentMessageView = this.viewSource.asObservable();
   currentMessageReminder = this.messageSourceReminder.asObservable();
-  // currentMessageNote = this.noteSource.asObservable();
+  currentMessageViewHide = this.viewHidden.asObservable();
 
   constructor() { }
 
@@ -33,9 +34,9 @@ export class DataService {
   changeView(message: boolean) {
     this.viewSource.next(message)
   }
-  // changeNoteQuestion(message:object){
-  //   this.noteSource.next(message)
-  // }
+  hideView(message: boolean) {
+    this.viewHidden.next(message)
+  }
 
 }
 

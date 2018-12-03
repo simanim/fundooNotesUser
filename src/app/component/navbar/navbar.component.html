@@ -45,10 +45,10 @@
     </div>
             
     <div fxHide.xs=true fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
-      <mat-icon *ngIf=gridView class="button"  ngStyle.md="font-size:25px" 
+      <mat-icon *ngIf="gridView && !viewHide" class="button"  ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() 
       matTooltip="list view">view_stream</mat-icon>
-      <mat-icon *ngIf=!gridView class="button" ngStyle.md="font-size:25px" 
+      <mat-icon *ngIf="!gridView && !viewHide"class="button" ngStyle.md="font-size:25px" 
       ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" (click)=view() 
       matTooltip="grid view">view_module</mat-icon>
     </div>

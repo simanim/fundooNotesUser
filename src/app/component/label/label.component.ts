@@ -29,7 +29,7 @@ export class LabelComponent implements OnInit {
   private label:Label[] = [];
   private labelNotesList=[];
   private labelName='';
-
+  private spinnerValue=true;
   ngOnInit() {
     this.route.params.subscribe((params: Params) =>{
       this.labelName=params['label'];
@@ -57,7 +57,7 @@ export class LabelComponent implements OnInit {
         this.labelNotesList.push(this.label[i-1])
       }
       console.log(this.labelNotesList);
-      
+      this.spinnerValue=false;
     },(error) => {
     });
   }

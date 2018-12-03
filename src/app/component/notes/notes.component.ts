@@ -29,6 +29,7 @@ export class NotesComponent implements OnInit {
   private notes:Note[]=[];
   private pinedArray=[];
   private unpinedArray=[];
+  private spinnerValue=true;
 
   ngOnInit() {
     this.getNotes();
@@ -67,6 +68,7 @@ export class NotesComponent implements OnInit {
         }
       }
       console.log(this.pinedArray);
+      this.spinnerValue=false;
       
     },(error) =>{
     });

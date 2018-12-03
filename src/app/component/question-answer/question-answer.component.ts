@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoggerService } from '../../core/services/logger/logger.service';
 import { NotesService } from '../../core/services/notes/notes.service';
 import { environment } from '../../../environments/environment';
+import { DataService } from '../../core/services/data/data.service';
 
 @Component({
   selector: 'app-question-answer',
@@ -13,7 +14,8 @@ export class QuestionAnswerComponent implements OnInit {
   @ViewChild('question') question: ElementRef ;
   @ViewChild('replayMessage') replayMessage: ElementRef ;
 
-  constructor( private route : ActivatedRoute,private QAService : NotesService, private router : Router) { }
+  constructor( private route : ActivatedRoute,private QAService : NotesService, private router : Router, 
+    private data: DataService) { }
   private id = this.route.snapshot.params.noteId;
   private note:object={};
   private questions=[]
@@ -27,6 +29,7 @@ export class QuestionAnswerComponent implements OnInit {
   getDetails(){
     this.QAService.getNoteById(this.id)
     .subscribe( (response)=>{
+      LoggerService.log("response",response);
       this.note=response["data"].data[0];
       this.questions=this.note['questionAndAnswerNotes']
       this.img=environment.Url;
@@ -72,6 +75,8 @@ export class QuestionAnswerComponent implements OnInit {
   }
   close(){
     this.router.navigateByUrl('/home');
+    this.data.hideView(false);
+
   }
   replyToQuestion(data){
     this.id2=data.id

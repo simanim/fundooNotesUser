@@ -1,5 +1,6 @@
 <app-notes-add (onNewEntry)=refresh($event)></app-notes-add>
-<app-notes-list [length]=pinedArray.length [pin]="'PINNED'" [notes]="pinedArray" 
+<app-notes-list *ngIf="spinnerValue==false" [length]=pinedArray.length [pin]="'PINNED'" [notes]="pinedArray" 
 (anyChanges)="refresh($event)"></app-notes-list>
-<app-notes-list [length]=pinedArray.length [notes]="unpinedArray" (anyChanges)="refresh($event)" 
+<app-notes-list *ngIf="spinnerValue==false" [length]=pinedArray.length [notes]="unpinedArray" (anyChanges)="refresh($event)" 
 [pin]="'OTHERS'"></app-notes-list>
+<app-loader *ngIf="spinnerValue==true"></app-loader>

@@ -13,6 +13,10 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 .margin_top5{
     @include margin(5px,0px,0px,0px);
 }
+.margin_15{
+    @include margin(15px,15px,15px,15px);
+    
+}
 .margin_left20{
     @include margin(0px,0px,0px,20px);
 }
@@ -50,3 +54,7 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 .paddingTop3{
     padding:3px
 }
+.button1{
+    background-color: rgb(14, 137, 194);color:white;border-radius:3px;border:none;outline:none;
+}
+

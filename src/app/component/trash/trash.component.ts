@@ -27,7 +27,7 @@ export class TrashComponent implements OnInit {
 
   private notes:Note[]=[];
   private trashList=[];
-  
+  private spinnerValue=true;
   ngOnInit() {
     this.getTrashList();
   }
@@ -51,6 +51,7 @@ export class TrashComponent implements OnInit {
       for(let i=this.notes.length;i>0;i--){
         this.trashList.push(this.notes[i-1])
       }
+      this.spinnerValue=false;
     },(error) =>{
     });
   }

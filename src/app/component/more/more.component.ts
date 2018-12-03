@@ -176,6 +176,7 @@ export class MoreComponent implements OnInit {
   questAns(){
     // LoggerService.log("hiii",this.card)
     this.router.navigateByUrl('/QuestionAnswer/'+this.card.id)
+    this.data.hideView(true);
   }
 
   ngOnDestroy() {

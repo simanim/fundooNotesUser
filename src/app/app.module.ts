@@ -59,12 +59,14 @@ import {  MatFormFieldModule,
           MatSelectModule,
           MatNativeDateModule,
           MatTooltipModule,
-          MatTabsModule
+          MatTabsModule,
+          MatStepperModule
         } from '@angular/material';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 import { ProductCardComponent } from './component/product-card/product-card.component';
 import { CardDetailsComponent } from './component/card-details/card-details.component';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
+import { LoaderComponent } from './component/loader/loader.component';
 
 
 
@@ -100,7 +102,8 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
                   QuestionAnswerComponent,
                   ProductCardComponent,
                   CardDetailsComponent,
-                  ShoppingCartComponent
+                  ShoppingCartComponent,
+                  LoaderComponent
   ],
   
   imports: [
@@ -131,8 +134,8 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
             MatNativeDateModule,
             MatTooltipModule,
             RatingModule,
-            BarRatingModule
-
+            BarRatingModule,
+            MatStepperModule
   ],
 
   providers: [MatDatepickerModule, FirebaseService, InterceptService,

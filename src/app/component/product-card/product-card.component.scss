@@ -6,6 +6,18 @@
     // height:fixed;
     position: fixed
 }
+.notSelected{
+    width:200px;z-index: 10
+}
+.font_20{
+    font-size: 20px;
+}
+.features{
+    margin-top:10px;font-size: 12px
+}
+.font{
+    font-size: 25px
+}
 .card{
     width: 200px;
     margin-top: -120%;
@@ -17,8 +29,8 @@
     box-sizing: border-box;
     display: flex;
 }
-.card2{
-    width: 220px;
+.div:hover .card{
+    width: 200px;
     padding:120% 0% 12% 15%;
     margin-top: -110%;
     margin-left: 10%;
@@ -27,3 +39,4 @@
     box-sizing: border-box;
     display: flex;
 }
+

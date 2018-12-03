@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ShoppingCartComponent implements OnInit {
 
   constructor() { }
-
+  private completed=false
   ngOnInit() {
   }
 
