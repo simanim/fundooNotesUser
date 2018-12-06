@@ -42,6 +42,8 @@ import {RatingModule} from "ngx-rating/index";
 import { SearchPipe } from './core/pipe/search.pipe';
 import { SearchNotePipe } from './core/pipe/search-note.pipe';
 
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 import {  MatFormFieldModule,
           MatInputModule,
           MatButtonModule,
@@ -135,7 +137,8 @@ import { LoaderComponent } from './component/loader/loader.component';
             MatTooltipModule,
             RatingModule,
             BarRatingModule,
-            MatStepperModule
+            MatStepperModule,
+            FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
 
   providers: [MatDatepickerModule, FirebaseService, InterceptService,

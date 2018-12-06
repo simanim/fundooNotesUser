@@ -8,6 +8,7 @@
 .main{
     margin-top:2%;
 }
+
 @media only screen and (min-width: 320px) and (max-width:599px){
     .main {
         width:100%;
@@ -21,11 +22,9 @@
        width:100%;
     }
     .main2 {
-        max-height:200px;
-        overflow-y: auto;
         width:100%;
         position: fixed;
-        z-index: 1;
+        z-index:99;
     }
     .div{
         margin-bottom:180px;
@@ -38,9 +37,7 @@
     .main2 {
         width:700px;
         position: fixed;
-        z-index: 1;
-        max-height:200px;
-        overflow-y: auto;
+        z-index:99;
     }
     .div{
         margin-bottom:180px
@@ -53,9 +50,7 @@
     .main2 {
         width:1000px;
         position: fixed;
-        z-index: 1;
-        max-height:200px;
-        overflow-y: auto;
+        z-index:99;
     }
     .div{
         margin-bottom:180px;
@@ -68,38 +63,37 @@
     .main2 {
         width:1100px;
         position: fixed;
-        z-index: 1;
-        max-height:200px;
-        overflow-y: auto;
+        z-index: 99;
     }
     .div{
         margin-bottom:180px
     }
 }
 .margin{
-    margin-bottom:20px;margin-top:20px
+    margin-bottom:20px;
+    margin-top:20px;
+    max-height:80px;
+    overflow-y: auto;
+
 }
 
 .title{
     font-size: 28px;
     word-wrap: break-word;
-    // width:90%;
     @include overflowText;
 }
 .description2{
     font-size: 20px;
     @include overflowText;
     word-wrap: break-word;
-    // width:90%;
+
 }
 .description{
     font-size: 20px;
     word-wrap: break-word;
-    // width:90%;
 }
 .message{
     word-wrap: break-word;
-    // width:90%;
 }
 .aaa{
     word-wrap: break-all;
@@ -107,20 +101,22 @@
 .star{
     @include margin(-8px,0px,0px,0px);
 }
+.body1{
+    @include margin(2%,0%,2%,0%);
+    overflow-y: auto;
+    max-height: 80px
+}
 .body{
     @include margin(2%,0%,2%,0%);
 }
 .details{
     font-size: 12px;
-    // margin-right:5%;
 }
 .body2{
     @include margin(2%,0%,0%,0%);
-    // border:1px solid black
 }
 .body3{
     @include margin(1%,0%,0%,10%);
-    // border:1px solid teal
 }
 .input{
    font-size: 15px;
@@ -149,4 +145,3 @@
 .opacity{
     opacity: 0.5;
 }
-.border{border:1px dashed gray}

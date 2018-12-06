@@ -23,9 +23,29 @@ export class QuestionAnswerComponent implements OnInit {
   private img;
   private id2;
   private showReply:boolean=false;
+  public editorContent: string 
   ngOnInit() {
     this.getDetails();
   }
+  public options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['fullscreen','bold', 'italic', 'underline','strikeThrough','subscript','superscript','fontFamily','fontSize',
+                    'color','inlineClass','inlineStyle','paragraphStyle','lineHeight','paragraphFormat','align',
+                    'formatOL','formatUL','outdent','indent','quote','specialCharacters',
+                    'selectAll','undo','redo'],
+    toolbarButtonsXS: ['fullscreen','bold', 'italic', 'underline','strikeThrough','subscript','superscript','fontFamily','fontSize',
+                      'color','inlineClass','inlineStyle','paragraphStyle','lineHeight','paragraphFormat','align',
+                      'formatOL','formatUL','outdent','indent','quote','specialCharacters',
+                      'selectAll','undo','redo'],
+    toolbarButtonsSM: ['fullscreen','bold', 'italic', 'underline','strikeThrough','subscript','superscript','fontFamily','fontSize',
+                      'color','inlineClass','inlineStyle','paragraphStyle','lineHeight','paragraphFormat','align',
+                      'formatOL','formatUL','outdent','indent','quote','specialCharacters',
+                      'selectAll','undo','redo'],
+    toolbarButtonsMD: ['fullscreen','bold', 'italic', 'underline','strikeThrough','subscript','superscript','fontFamily','fontSize',
+                      'color','inlineClass','inlineStyle','paragraphStyle','lineHeight','paragraphFormat','align',
+                      'formatOL','formatUL','outdent','indent','quote','specialCharacters',
+                      'selectAll','undo','redo']
+  };
   getDetails(){
     this.QAService.getNoteById(this.id)
     .subscribe( (response)=>{
@@ -33,6 +53,7 @@ export class QuestionAnswerComponent implements OnInit {
       this.note=response["data"].data[0];
       this.questions=this.note['questionAndAnswerNotes']
       this.img=environment.Url;
+      console.log(this.questions)
     },(error)=>{
       LoggerService.log("details",error);
     });
@@ -64,7 +85,7 @@ export class QuestionAnswerComponent implements OnInit {
   }
   addQuestion(){
     let body={
-      "message":this.question.nativeElement.innerHTML,
+      "message":this.editorContent,
       "notesId":this.id
     }
     this.QAService.addAQuestion(body)
@@ -139,9 +160,9 @@ export class QuestionAnswerComponent implements OnInit {
   }
   
   answer(){
-    let reply=this.replayMessage.nativeElement.innerHTML;
+    // let reply=this.replayMessage.nativeElement.innerHTML;
     let body={
-      "message":reply
+      "message":this.editorContent
     }
     LoggerService.log("data",this.id2);
     LoggerService.log("body",body)

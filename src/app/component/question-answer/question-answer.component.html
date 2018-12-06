@@ -1,5 +1,6 @@
 <div fxLayout="column">
 <div fxLayout=row fxLayoutAlign=center class=div >
+
 <div class=main2 >
   <button mat-button class=close (click)=close()>close</button>
   <div class=margin >
@@ -15,16 +16,17 @@
   <mat-divider></mat-divider>
   <div class=body *ngIf="questions.length==0">
     <div class=description>Ask a Question</div>
-    <div class=input contenteditable=true #question editable=true data-text="Type your question here???"
-    (keydown.enter)=addQuestion()></div>
+    <div class=full_width  [froalaEditor]=options [(froalaModel)]="editorContent"></div>
+    <button mat-button color=primary class=close (click)=addQuestion()>Ask</button>
   </div>
-  <div class=body *ngIf="questions.length!=0">
+  <div class=body1 *ngIf="questions.length!=0">
     <div *ngFor="let item of questions">
       <div *ngIf="item.parentId==undefined" class=description>Question Asked</div>
-      <div *ngIf="item.parentId==undefined"class=description2 class=opacity>{{item.message}}</div>
+      <div *ngIf="item.parentId==undefined"class=description2 class=opacity [innerHTML]=item.message></div>
     </div>
   </div>
 </div>
+
 </div>
 <div fxLayout=row fxLayoutAlign=center>
   <div *ngIf="questions.length!=0" class=main>
@@ -59,18 +61,14 @@
     </div>
     </div>
     <div *ngIf="reply">
-        <mat-divider></mat-divider>
-        <div fxLayout=row class=body>
-          <div fxFlex=70 class=input class=border contenteditable=true 
-          #replayMessage editable=true data-text="Reply..."></div>
-          <button fxFlex=10 mat-button class=border (click)=answer()>Reply</button>
-        </div>
+          <div class=full_width [froalaEditor]=options [(froalaModel)]="editorContent"></div>
+          <div><button color=primary mat-button (click)=answer()>Reply</button></div>
      </div>
     <!-- *******************************question end************************************ -->
 
     <!-- *******************************reply of question start************************************ -->
     <div *ngFor="let data of questions" >
-      <div  *ngIf="data.parentId==questions[0].id" class=body2>
+      <div  *ngIf="data.parentId==questions[0].id && data.isApproved" class=body2>
 
         <div fxLayout="row">
           <div fxFlex.xl=8 fxFlex.lg=8 fxFlex.md=8 fxFlex.sm=8 fxFlex.xs=15>
@@ -80,7 +78,6 @@
             'background-size':'cover','height':'40px','width':'40px','border-radius':'50%'}"></div>
           </div>
         </div>
-          <!-- <div fxLayout="row wrap"> -->
           <div fxFlex.xl=85 fxFlex.lg=85 fxFlex.md=85 fxFlex.sm=85 fxFlex.xs=80>
             <div class=details>{{data.user.firstName}} {{data.user.lastName}} 
             <span class=details>{{data.createdDate | date:'medium'}}</span></div>
@@ -106,17 +103,15 @@
       </div>
       <div *ngIf="reply2 && id2==data.id">
           <mat-divider></mat-divider>
-          <div fxLayout=row class=body>
-            <div fxFlex=70 class=input class=border contenteditable=true #replayMessage editable=true data-text="Reply..."></div>
-            <button fxFlex=10 mat-button class=border (click)=answer()>Reply</button>
-          </div>
+          <div class=full_width [froalaEditor]=options [(froalaModel)]="editorContent"></div>
+          <div><button color=primary mat-button (click)=answer()>Reply</button></div>
        </div>
       <!-- *******************************reply of question end************************************ -->
 
         <!-- *******************************reply of reply start************************************ --> 
 
         <div *ngFor="let data2 of questions">
-          <div *ngIf="data2.parentId==data.id" class=body3>
+          <div *ngIf="data2.parentId==data.id && data2.isApproved" class=body3>
             <div fxLayout="row" *ngIf="showReply && id2==data.id">
                 <div fxFlex.xl=8 fxFlex.lg=8 fxFlex.md=8 fxFlex.sm=8 fxFlex.xs=15><div class=image>
                 <div mat-card-avatar ngStyle.xs="width:30px;height:30px" 

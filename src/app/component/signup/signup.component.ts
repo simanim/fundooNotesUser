@@ -16,6 +16,7 @@ import {MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-signup',
@@ -50,6 +51,8 @@ export class SignupComponent implements OnInit {
     this.signupService.getService()
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) => {
+      LoggerService.log("service",response);
+      
       for(let i=0;i<response["data"].data.length;i++)
       {
         response["data"].data[i].select=false;
