@@ -1,134 +1,140 @@
-<div fxLayoutAlign="center" >
+<div *ngIf=loader><app-loader></app-loader></div>
+<div *ngIf='!loader && cartItem.length==0' fxLayoutAlign="center"><h1>Your Cart is Empty</h1></div>
+<div *ngIf='!loader && cartItem.length!=0' fxLayoutAlign="center">
 
-<div fxLayout=column fxLayoutGap=2% fxFlex fxLayoutAlign=center fxFlex.xl="70%" fxFlex.lg="750px" fxFlex.md="750px" fxFlex.sm="500px" 
-fxFlex.xs="100%">
-<div></div>
-<div class=fundoo>FundooNotes</div>
-<div>
-    <mat-horizontal-stepper [linear]="isLinear" #stepper class=transparent>
-      
-        <mat-step [stepControl]="firstFormGroup">
-          <!-- <form> -->
-            <ng-template matStepLabel>SIGN IN</ng-template>
-            <!-- <mat-form-field> -->
-                <div class=margin_15><b>Shopping Cart</b></div>
-                <div fxLayout=row fxLayoutGap=3% class=margin_TB_10>
-                    <div fxFlex=10% >
-                      </div>
-                    <div fxFlex=30% fxLayout=column>
-                      
-                    </div>
-                    <div fxFlex=10% fxLayoutAlign=center><small>price</small></div>
-                    <div fxFlex=10% fxLayoutAlign=center><small>validity</small></div>
-            
-          
-                </div>
-                <mat-divider></mat-divider>
-                <div fxLayout=row fxLayoutGap=3% class=margin_TB_10>
-                  <div fxFlex=10% class=details >
-                    $6.99$ per month advance</div>
-                  <div fxFlex=30% fxLayout=column>
-                    <div class=text_color>Advance Pack Details</div>
-                    <li></li>
-                    <li></li>
-                  </div>
-                  <div fxFlex=10% fxLayoutAlign=center class=error>$6.99</div>
-                  <div fxFlex=10%><button><small>per month</small></button></div>
-                  <div fxFlex=30% fxLayout=column class=box fxLayoutGap=5%>
-                    <div></div>
-                    <div fxLayoutAlign=center><small>Subtotal(1 item) : 6.99$</small></div>
-                    <div fxLayoutAlign=center><button matStepperNext class=button1 >
-                      Proceed to Checkout</button></div>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div>Subtotal ( 1 item ): 6.99$</div>
-            <!-- </mat-form-field> -->
-          <!-- </form> -->
-        </mat-step>
+<div fxLayout=column fxLayoutGap=5% fxFlex fxLayoutAlign=center fxFlex.xl=70 fxFlex.lg=880px fxFlex.md=750px 
+fxFlex.sm=100 fxFlex.xs=100>
+  <div></div>
+  <div fxLayout=row fxFlex=100>
+    <div fxFlex.xl=20 fxFlex.lg=20 fxFlex.md=20 fxFlex.sm=40 fxFlex.xs=40
+    fxLayoutAlign=center><div class=fundoo>FundooNotes</div></div>
+    <div fxFlex.xl=30 fxFlex.lg=30 fxFlex.md=30 fxFlex.sm=40 fxFlex.xs=50 fxLayout=column>
+      <div fxLayout=row>
+        <mat-progress-bar *ngIf=shoppingCart class=margin_top10 mode="determinate" value=0></mat-progress-bar>
+        <mat-progress-bar *ngIf=review class=margin_top10 mode="determinate" value=50></mat-progress-bar>
+        <mat-progress-bar *ngIf=placed class=margin_top10 mode="determinate" value=100></mat-progress-bar>
 
+        <mat-icon *ngIf=shoppingCart class="icon shoppingCart">shopping_cart</mat-icon>
+        <mat-icon *ngIf=review class="icon review">shopping_cart</mat-icon>
+        <mat-icon *ngIf=placed class="icon placed">shopping_cart</mat-icon>
+      </div>
+      <div fxLayout=row>
+        <div fxFlex=33 fxLayoutAlign=start class=step class=step>signin</div>
+        <div fxFlex=33 fxLayoutAlign=center [ngClass]="placed || review ? 'step' : 'stepNotDone'" >review</div>
+        <div fxFlex=33 fxLayoutAlign=end [ngClass]="placed ? 'step' : 'stepNotDone'">complete</div>
+      </div>
+    </div>
+  </div>
+  <div>
 
+      <!-- ****************************First Step Checkout start******************************* -->
+      <div *ngIf=shoppingCart fxLayout=column>
+        <div class=margin_15><b>Shopping Cart</b></div>
+        <mat-divider></mat-divider>
+        <div fxLayout='row wrap'class=margin_TB_10>
+          <div class=margin_15 fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=10 fxFlex.xs=100>
+            <div class=details>
+              <div>${{cartItem.price}} per month</div>
+              <div> {{product.name}}</div>
+            </div>
+          </div>
+          <div class=margin_15 fxLayout='row' fxLayoutGap=5% fxFlex.xl=50 fxFlex.lg=50 fxFlex.md=50 
+          fxFlex.sm=50 fxFlex.xs=100>
+            <div fxLayout=column>
+              <div class=text_color>{{product.name}} Pack Details</div>
+              <li><small>{{product.description}}</small></li>
+            </div>
+            <div fxLayout=column>
+              <div><small><b>price</b></small></div>
+              <div class=text_color>$ {{cartItem.price}}</div>
+            </div>
+            <div>
+              <div fxLayout=column><small><b>validity</b></small></div>
+              <div class=text_color>per month</div>
+            </div>
+          </div>
+          <div fxLayoutAlign=center class=margin_15 fxFlex.xl=25 fxFlex.lg=25 fxFlex.md=25 fxFlex.sm=25
+          fxFlex.xs=100 fxLayout=column class=box fxLayoutGap=5%>
+            <div></div>
+            <div fxLayoutAlign=center><small>Subtotal(1 item) : ${{cartItem.price}}</small></div>
+            <div fxLayoutAlign=center><button class=button1 (click)=proceed()>Proceed to Checkout</button></div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+       <div class="margin_15 color">Subtotal ( 1 item ): ${{cartItem.price}}</div>
+      </div>
+      <!-- ****************************First Step Checkout end******************************* -->
 
+      <!-- **************************Second Step Order Place start**************************** -->
+      <div *ngIf=review fxLayout=column>
+        <div class=margin_15><b>Review your Order</b></div>
+        <mat-divider></mat-divider>
+        <div fxLayout='row wrap'fxLayoutGap=3% class=margin_TB_10>
+          <div class=margin_15 fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=100 fxFlex.xs=100>
+            <div class=details>
+              <div>${{cartItem.price}} per month</div>
+              <div> {{product.name}}</div>
 
-        <mat-step [stepControl]="secondFormGroup">
-          <!-- <form > -->
-            <ng-template matStepLabel>PLACE ORDER</ng-template>
-            <!-- <mat-form-field> -->
-                <div class=margin_15><b>Review your Order</b></div>
-                <div fxLayout=row fxLayoutGap=3% class=margin_TB_10>
-                    <div fxFlex=10% >
-                      </div>
-                    <div fxFlex=30% fxLayout=column>
-                      
-                    </div>
-                    <div fxFlex=10%><small>price</small></div>
-                    <div fxFlex=10%><small>validity</small></div>
-            
-          
-                  </div>
-                <mat-divider></mat-divider>
-                <div fxLayout=row fxLayoutGap=3% class=margin_TB_10>
-                  <div fxFlex=10% class=details >
-                    $6.99$ per month advance</div>
-                  <div fxFlex=30% fxLayout=column>
-                    <div class=text_color>Advance Pack Details</div>
-                    <li></li>
-                    <li></li>
-                  </div>
-                  <div fxFlex=10% class=error>$6.99</div>
-                  <div fxFlex=10%><button><small>per month</small></button></div>
-                  <div fxFlex=30% fxLayout=column class=box  fxLayoutGap=5%>
-                    <div></div>
-                    <div fxLayoutAlign=center><small>Subtotal(1 item) : 6.99$</small></div>
-                    <div fxLayoutAlign=center><button matStepperNext class=button1>
-                      Proceed to Checkout</button></div>
-                  </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div fxLayout=row class=margin_15 fxLayoutGap=10%>
-                  <div fxFlex=50%>
-                    <textarea name="address" id="address" cols="40" rows="5"></textarea>
-                  </div>
-                  <div fxFlex=20%>
-                    <div><small>payment method</small></div>
-                    <div>Cash on Delivery</div>
-                  </div>
-                </div>
-            <!-- </mat-form-field> -->
-            
-          <!-- </form> -->
-        </mat-step>
-
-
-
-        <mat-step>
-          <ng-template matStepLabel>COMPLETE PAYMENT</ng-template>
-          <div class=margin_15><b>Order List</b></div>
-                <mat-divider></mat-divider>
-                <div fxLayout=row fxLayoutGap=3% class=margin_TB_10>
-                  <div fxFlex=10% class=details>
-                    $6.99$ per month advance</div>
-                  <div fxFlex=30% fxLayout=column>
-                    <div class=aaa >Advance Pack Details</div>
-                    <li></li>
-                    <li></li>
-                  </div>
-                  <div fxFlex=10%></div>
-                  <div fxFlex=10%></div>
-                  <div fxFlex=30% fxLayout=column fxLayoutGap=5%>
-                    <div></div>
-                    <div fxLayoutAlign=center class=error>6.99$</div>
-                    <div fxLayoutAlign=center>per month</div>
-                    <div></div>
-                  </div>
-                </div>
-                <div fxLayoutAlign=center *ngIf="!completed" class=text_color (click)="completed=true">pending</div>
-                <div fxLayoutAlign=center *ngIf="completed" class=green>completed</div>
-          
-        </mat-step>
-      </mat-horizontal-stepper>
-
-
+            </div>
+          </div>
+          <div class=margin_15 fxLayout='row' fxLayoutGap=5% fxFlex.xl=50 fxFlex.lg=50 fxFlex.md=50
+          fxFlex.sm=100 fxFlex.xs=100>
+            <div fxLayout=column>
+              <div class=text_color>{{product.name}} Pack Details</div>
+              <li><small>{{product.description}}</small></li>
+            </div>
+            <div fxLayout=column>
+              <div class=text_color><b>$ {{cartItem.price}}</b></div>
+              <small>per month</small>
+            </div>
+          </div>
+          <div class=margin_15 fxFlex.xl=25 fxFlex.lg=25 fxFlex.md=25 fxFlex.sm=100 fxFlex.xs=100
+          fxLayout=column class=box fxLayoutGap=5%>
+            <div></div>
+            <div fxLayoutAlign=center><button  class=button1 (click)=place()>Place your Order</button></div>
+            <div fxLayoutAlign=center><small>Subtotal(1 item) : ${{cartItem.price}}</small></div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div fxLayout="row wrap" class=margin_15 fxLayoutGap=10%>
+          <div fxFlex.xl=50 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=100 fxFlex.xs=100>
+            <textarea [(ngModel)]="address" name="address" id="address" cols="30" rows="5"></textarea>
+          </div>
+          <div fxFlex.xl=30 fxFlex.lg=40 fxFlex.md=40 fxFlex.sm=100 fxFlex.xs=100>
+            <div><small>payment method</small></div>
+            <div class=color>Cash on Delivery</div>
+          </div>
+        </div>
+      </div>
+      <!-- **************************Second Step Order Place end**************************** -->
+ 
+      <!-- **************************Third Step Complete Payment start**************************** -->
+      <div *ngIf=placed fxLayout=column>
+        <div class=margin_15><b>Order List</b></div>
+        <mat-divider></mat-divider>
+        <div fxLayout='row wrap'fxLayoutGap=3% class=margin_TB_10>
+          <div class=margin_15 fxFlex.xl=10 fxFlex.lg=10 fxFlex.md=10 fxFlex.sm=100 fxFlex.xs=100>
+            <div class=details>
+              <div>${{cartItem.price}} per month</div>
+              <div> {{product.name}}</div>
+            </div>
+          </div>
+          <div class=margin_15 fxLayout='row' fxLayoutGap=5% fxFlex.xl=70 fxFlex.lg=70 fxFlex.md=70 
+          fxFlex.sm=100 fxFlex.xs=100>
+            <div fxLayout=column class=description>
+              <div class=text_color>{{product.name}} Pack Details</div>
+              <li><small>{{product.description}}</small></li>
+            </div>
+            <div fxLayout=column>
+              <div class=text_color><b>$ {{cartItem.price}}</b></div>
+              <small>per month</small>
+            </div>
+          </div>
+        </div>
+        <div fxLayoutAlign=end class=text_color>{{status}}</div>
+        <mat-divider></mat-divider>
+      </div>
+      <!-- **************************Third Step Complete Payment end**************************** -->
 
   </div>
 </div>

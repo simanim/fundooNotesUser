@@ -22,6 +22,11 @@ export class ReminderComponent implements OnInit {
   ngOnInit() {
     this.reminders()
   }
+
+ /**
+  * 
+  * @description getting reminder list
+  */
   reminders(){
     this.reminderService.getRemindersLIst()
     .pipe(takeUntil(this.destroy$))
@@ -43,11 +48,17 @@ export class ReminderComponent implements OnInit {
     },(error) =>{
     });
   }
+
   refresh(event){
     if(event){
       this.reminders();
     }
   }
+
+ /**
+  * 
+  * @description unsubscribing
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

@@ -1,2 +1,75 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
+
+.gray_background{
+    background-color: rgb(208, 209, 209);
+}
+@media only screen and (max-width:599px){
+    
+    .card {
+      width: 124px;
+      margin-top: -159%;
+      padding: 169% 0% 6% 16%;
+      margin-left: 10%;
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+    }
+    .cardNotSelected{
+        background-color: rgb(172, 172, 172);
+      }
+      .cardSelected{
+        background-color: #fb0;
+      }
+    .matCard{
+      width:120px;
+      z-index: 10;
+      height:200px;
+    }
+    
+    .font_20{
+      font-size: 15px;
+    }
+    .features{
+      margin-top:10px;
+      font-size: 9px
+    }
+    .add{
+      font-size: 10px;
+    }
+    }
+    @media only screen and (min-width:600px){
+      .card {
+        width: 150px;
+        margin-top: -117%;
+        padding: 122% 0% 7% 15%;
+        margin-left: 10%;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+      }
+      .cardNotSelected{
+        background-color: rgb(172, 172, 172);
+      }
+      .cardSelected{
+        background-color: #fb0;
+      }
+      .matCard{
+        width:150px;
+        z-index: 10;
+        height:200px;
+      }
+      .font_25{
+        font-size: 25px;
+      }
+      .font_20{
+        font-size: 20px;
+      }
+      .features{
+        margin-top:10px;
+        font-size: 12px
+      }
+      .add{
+        font-size: 17px;
+      }
+    }

@@ -25,9 +25,9 @@
     </div>
 
     <div *ngIf=!showSearchBar fxFlex.xs=40% fxFlex.sm="50%" fxFlex.md="50%" fxFlex.lg="55%" fxFlex.xl="56%">
-      <mat-icon ngStyle.xl="font-size:50px" class="searchbutton" matTooltip="search" (click)="showSearchBar=true">
+      <mat-icon *ngIf=!viewHide ngStyle.xl="font-size:50px" class="searchbutton" matTooltip="search" (click)="showSearchBar=true">
       search</mat-icon>
-      <input type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
+      <input *ngIf=!viewHide type="text" [(ngModel)]="searchValue" class="search" (click)="search()" (keyup)=newMessage() 
       placeholder="Search.." ngStyle.md="font-size:13px" ngStyle.lg="font-size:16px" 
       ngStyle.sm="font-style:10px;margin-top:2px;" 
       fxHide.xs=true ngStyle.xl="font-size:30px">
@@ -41,7 +41,7 @@
     <div fxFlex.xs="10%" fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">
       <mat-icon class="button" ngStyle.xs="font-size:25px" ngStyle.sm="font-size:25px"
       ngStyle.md="font-size:25px" ngStyle.lg="font-size:30px" ngStyle.xl="font-size:50px" 
-      matTooltip="refresh" (click)="cardPayment()">shopping_cart</mat-icon>
+      matTooltip="cart" (click)="cardPayment()">shopping_cart</mat-icon>
     </div>
             
     <div fxHide.xs=true fxFlex.sm="5%" fxFlex.md="5%" fxFlex.lg="5%" fxFlex.xl="5%">

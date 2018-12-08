@@ -16,18 +16,26 @@ export class SearchNotesComponent implements OnInit {
   constructor( private data: DataService, private searchService : NotesService ) { }
 
   private notes:Note[]=[];
-  private message : string
+  private message : string;
   private notesArray=[];
 
   ngOnInit() {
-    this.getNotes()
+    this.getNotes();
+   /**
+    * 
+    * @description getting search word
+    */
     this.data.currentMessageSearch
     .pipe(takeUntil(this.destroy$))
     .subscribe(message => {
-      this.message = message
+      this.message = message;
     })
   }
 
+ /**
+  * 
+  * @description getting user note list
+  */
   getNotes(){
     this.searchService.getNoteList()
     .pipe(takeUntil(this.destroy$))
@@ -42,9 +50,13 @@ export class SearchNotesComponent implements OnInit {
     },(error) =>{
     });
   }
+  
+ /**
+  * 
+  * @description unsubscribing
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
-
 }

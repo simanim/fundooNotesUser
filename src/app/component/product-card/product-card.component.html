@@ -6,50 +6,32 @@
       <div fxFlex="5%"></div>
     </div>
   </mat-toolbar-row>
-  <mat-card  fxLayout="column" fxLayoutGap="5%">
+</div>
+  <div  fxLayout="column" fxLayoutGap="4%">
     <div fxFlex="2%"></div>
     <div fxLayoutAlign=center class=font>Which FundooNotes service package do you want?</div>
-    <div fxLayoutAlign=center fxLayoutGap="10%">
-          <div class=div (click)=cardSelect()>
-          <mat-card  class=notSelected>
-            
-            <div fxFlex=column fxLayoutGap="10%">
-                <div class=font_20>$6.99 per month</div>
-                <div>advance</div>
-                <ul>
-                    <li class=features>Unlimited Wall space</li>
-                    <li class=features>Nice interface</li>
-                    <li class=features>$6.99/month</li>
-                    <li class=features>Ability to add only title and description</li>
-                </ul>
-              </div>
-          </mat-card>
-          <mat-card class="card">
-              <div>ADD TO CART</div>
-          </mat-card>
-         
-      </div>
-      <div class=div (click)=cardSelect()>
-        <mat-card class=notSelected >
-          <div fxFlex=column fxLayoutGap="12%">
-            <div class=font_20>$3.99 per month</div>
-            <div>basic</div>
-            <ul>
-              <li class=features>Unlimited Wall space</li>
-              <li class=features>Nice interface</li>
-              <li class=features>$3.99/month</li>
-              <li class=features>Ability to add only title and description</li>
-            </ul>
-          </div>
-        </mat-card>
-        
-        <mat-card class="card">
-            <div>ADD TO CART</div>
-        </mat-card>
-        
-      </div>
-    </div>
-    <div></div>
 
-  </mat-card>
+    <app-loader *ngIf=loader></app-loader>
+    <div fxLayout=row fxLayoutAlign=center fxLayoutGap="10%">
+        <div  *ngFor="let data of card" class=div (click)=cardSelect(data)>
+        <mat-card  class=notSelected >
+          
+          <div fxFlex=column fxLayoutGap="10%">
+              <div class=font_size>price: ${{data.price}} per month</div>
+              <div class=blue>{{data.name}}</div>
+                  <li class=features>${{data.price}}/month</li>
+                  <li class=features>{{data.description}}</li>
+            </div>
+        </mat-card>
+        <mat-card class=card>
+            <div *ngIf="data.id!=cardId" class=add>ADD TO CART</div>
+        </mat-card>
+       
+    </div>
+   
+  </div>
+  <div class="back" fxLayoutAlign=center (click)=signin()>Sign in instead</div>
+
+
+
   </div>

@@ -15,6 +15,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoggerService } from '../../core/services/logger/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -30,14 +31,35 @@ export class LoginComponent implements OnInit,OnDestroy {
     "email":"",
     "password":""
   }
-  private id= localStorage.getItem("fundooUserToken");
-  
-  ngOnInit() {
-    if(this.id != null){
-      this.router.navigateByUrl('/home');
-    }
-  }
+  private card=[];
 
+  private cartId=localStorage.getItem("productCartId");
+  private cardId;
+  private productCartId='';
+  ngOnInit() {
+    
+    
+    if(this.cartId){
+      this.productCartId=this.cartId;
+    this.loginService.getCardDetails(this.cartId)
+    .subscribe((response) => {
+      LoggerService.log("response",response);
+      this.cardId=response["data"].product.id
+    },(error)=>{
+    });}
+    this.getService();
+  }
+  getService(){
+    this.loginService.getService()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((response) => {
+      for(let i=0;i<response["data"].data.length;i++){
+        response["data"].data[i].select=false;
+        this.card.push(response["data"].data[i]);
+      }
+     
+    });
+  }
  /**
   * 
   * @description user login
@@ -68,7 +90,8 @@ export class LoginComponent implements OnInit,OnDestroy {
     }
     let body={
       "email": this.model.email,
-      "password":this.model.password
+      "password":this.model.password,
+      "cartId":this.productCartId
     }
     this.loginService.userLogin(body)
     .subscribe((response) =>{
@@ -109,6 +132,6 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.router.navigateByUrl('/forgotpass');
   }
   signup(){
-    this.router.navigateByUrl('/signup');
+    this.router.navigateByUrl('/card');
   }
 }

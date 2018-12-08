@@ -62,7 +62,8 @@ import {  MatFormFieldModule,
           MatNativeDateModule,
           MatTooltipModule,
           MatTabsModule,
-          MatStepperModule
+          MatStepperModule,
+          MatProgressBarModule
         } from '@angular/material';
 import { QuestionAnswerComponent } from './component/question-answer/question-answer.component';
 import { ProductCardComponent } from './component/product-card/product-card.component';
@@ -138,7 +139,8 @@ import { LoaderComponent } from './component/loader/loader.component';
             RatingModule,
             BarRatingModule,
             MatStepperModule,
-            FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+            FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+            MatProgressBarModule
   ],
 
   providers: [MatDatepickerModule, FirebaseService, InterceptService,

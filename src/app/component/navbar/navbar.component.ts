@@ -136,15 +136,6 @@ export class NavbarComponent implements OnInit {
     this.signoutCard=!(this.signoutCard);
   }
 
-  /**
-  * 
-  * @description for refresh of page
-  */
-  // refresh(){
-  //   this.home=true;
-  //   this.reminder=this.archive=this.trash=false;
-  //   this.router.navigateByUrl('/home');
-  // }
 
   cardPayment(){
     this.router.navigateByUrl('/shoppingCart');
@@ -164,7 +155,7 @@ export class NavbarComponent implements OnInit {
       localStorage.removeItem("fundooUserFirstname");
       localStorage.removeItem("fundooUserLastname");
       localStorage.removeItem("fundooUserImage");
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/card');
     },(error) => {
     });
   }

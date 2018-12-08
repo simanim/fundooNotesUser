@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LoggerService } from '../../core/services/logger/logger.service';
+import { DataService } from '../../core/services/data/data.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +28,8 @@ import { LoggerService } from '../../core/services/logger/logger.service';
 export class SignupComponent implements OnInit {
   
   destroy$: Subject<boolean> = new Subject<boolean>();
-  constructor(private signupService : UserService,private snackBar: MatSnackBar, private router : Router ){ }
+  constructor(private signupService : UserService,private snackBar: MatSnackBar, private router : Router,
+              private dataService :DataService ){ }
  
   private service="";
   public model : any = {
@@ -36,11 +38,34 @@ export class SignupComponent implements OnInit {
     "email":"",
     "password":"",
     "confpassword":""
-  }
+  };
   private card=[];
-
+  private cardId="";
+  private cartId=localStorage.getItem("productCartId");
   ngOnInit() {
+    this.getCardDetails();
     this.getService();
+  }
+
+ /**
+  * 
+  * @description getting details of cart
+  */
+  getCardDetails(){
+    this.signupService.getCardDetails(this.cartId)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((response) => {
+      this.cardId=response["data"].product.id;
+    },(error)=>{
+    });
+  }
+
+ /**
+  * 
+  * @description selecting product
+  */
+  goToCart(){
+    this.router.navigateByUrl('/card');
   }
 
  /**
@@ -51,31 +76,21 @@ export class SignupComponent implements OnInit {
     this.signupService.getService()
     .pipe(takeUntil(this.destroy$))
     .subscribe((response) => {
-      LoggerService.log("service",response);
-      
-      for(let i=0;i<response["data"].data.length;i++)
-      {
+      for(let i=0;i<response["data"].data.length;i++){
         response["data"].data[i].select=false;
         this.card.push(response["data"].data[i]);
+      }
+      for(let j=0;j<this.card.length;j++){
+        if(this.card[j].id==this.cardId)
+          this.service=this.card[j].name;
       }
     });
   }
 
-  response(data){
-    data.select=!data.select;
-    if(data.select==false){
-      this.service="";
-    }
-    else{
-      this.service=data.name;
-    }
-    for(let j=0;j<this.card.length;j++){
-      if(data.name==this.card[j].name)
-      continue;
-      this.card[j].select=false;
-    }
-  }
-
+ /**
+  * 
+  * @description user signup
+  */
   signup(){
    /**
     * 
@@ -139,7 +154,8 @@ export class SignupComponent implements OnInit {
       "lastName" : this.model.lastname,
       "service": this.service,
       "email": this.model.email,
-      "password":this.model.password
+      "password":this.model.password,
+      "cartId":this.cartId
     }
     this.signupService.userSignup(body)
     .pipe(takeUntil(this.destroy$))
@@ -155,11 +171,21 @@ export class SignupComponent implements OnInit {
       });
     });
   }
+
+ /**
+  * 
+  * @description already have account
+  */
+  signin(){
+    this.router.navigateByUrl('/login');
+  }
+
+ /**
+  * 
+  * @description unsubscribing
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
-  }
-  signin(){
-    this.router.navigateByUrl('/login');
   }
 }

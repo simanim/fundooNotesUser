@@ -1,9 +1,9 @@
 <div fxLayout="column" fxLayoutGap="5%">
   <div fxFlex.lg="15%" fxFlex.md="10%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
-  <div  fxLayout="row" fxFlex.lg="70%">
-    <div fxFlex.lg="35%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+  <div  fxLayout="row wrap" fxFlex.lg="70%" fxLayoutAlign=center>
+    <!-- <div fxFlex.lg="15%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div> -->
 
-    <div fxFlex.lg="30%" fxFlex.md="50%" fxFlex.sm="60%" fxFlex.xs="100%">
+    <div fxFlex.lg="30%" fxFlex.md="55%" fxFlex.sm="100%" fxFlex.xs="100%">
       <!-- ****************************matcard start****************************** -->
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
@@ -40,7 +40,32 @@
       <!-- ****************************matcard end****************************** -->
     </div>
 
-    <div fxFlex.lg="35%" fxFlex.md="0%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+    <div *ngIf=cartId class=gray_background fxFlex.lg="30%" fxFlex.md="55%" fxFlex.sm="80%" fxFlex.xs="100%" fxLayout=column 
+     fxLayoutGap="10%">
+     <div></div>
+    <div fxLayoutAlign=center>Service</div>
+    <div fxLayout=row fxLayoutAlign=center fxLayoutGap="10%" >
+        <div  *ngFor="let data of card" class=div>
+        <mat-card  class=matCard >
+          
+          <div fxFlex=column fxLayoutGap="10%">
+              <div class=font_20>price: ${{data.price}} per month</div>
+              <div class=blue>{{data.name}}</div>
+                  <li class=features>${{data.price}}/month</li>
+                  <li class=features>{{data.description}}</li>
+            </div>
+        </mat-card>
+        <mat-card [ngClass]="data.id==cardId ? 'card cardSelected' : 'cardNotSelected card'">
+            <div *ngIf="data.id==cardId" class=add>SELECTED</div>
+            <div *ngIf="data.id!=cardId" class=add>ADD TO CART</div>
+        </mat-card>
+       
+    </div>
+    </div>
+    <div></div>
+   
+  </div>
+
   </div>
   <div fxFlex.lg="15%" fxFlex.md="10%" fxFlex.sm="5%" fxFlex.xs="0%"></div>
 </div>

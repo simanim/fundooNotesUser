@@ -36,7 +36,7 @@ export class ResetComponent implements OnInit {
   ngOnInit() {
   }
 
-  /**
+ /**
   * 
   * @description password reset
   */
@@ -68,8 +68,13 @@ export class ResetComponent implements OnInit {
       });
     });
     localStorage.removeItem("fundooUserToken");
-
   }
+
+
+ /**
+  * 
+  * @description converting data to encoded value
+  */
   getFormUrlEncoded(toConvert) {
     const formBody = [];
     for (const property in toConvert) {
@@ -79,6 +84,11 @@ export class ResetComponent implements OnInit {
     }
     return formBody.join('&');
    }
+
+ /**
+  * 
+  * @description unsubscribing
+  */
    ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

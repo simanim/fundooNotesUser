@@ -8,6 +8,7 @@
       <!-- ****************************matcard start****************************** -->        
       <mat-card>
         <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <div><small (click)=goToCart() class=cart>go to cart</small></div>
           <div fxLayoutAlign="center" class=userPage_header>
             <span class=blue>F</span><span class=red>u</span><span class=yellow>n</span>
             <span class=blue>d</span><span class=green>o</span><span class=red>o</span>
@@ -64,14 +65,28 @@
             <mat-error *ngIf="password.errors.required" >password is required</mat-error>
             <mat-error *ngIf="confpassword.errors.required" >conf password is required</mat-error>
           </mat-error>
-          
-          <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="1%">
-            <mat-card fxFlex=40% *ngFor="let data of card" mat-button (click)="response(data)" 
-            [ngClass]="data.select ? 'selected' : 'notselected'">
-              <mat-card-subtitle><h2>{{data.name}}</h2></mat-card-subtitle>
-              <mat-card-content>{{data.description}}</mat-card-content>
-            </mat-card>
+
+
+          <div fxLayout=row fxLayoutAlign=center fxLayoutGap="10%">
+              <div  *ngFor="let data of card" class=div>
+              <mat-card  class=notSelected >
+                
+                <div fxFlex=column fxLayoutGap="10%">
+                    <div class=font_20>price: ${{data.price}} per month</div>
+                    <div class=blue>{{data.name}}</div>
+                        <li class=features>${{data.price}}/month</li>
+                        <li class=features>{{data.description}}</li>
+                  </div>
+              </mat-card>
+              <mat-card [ngClass]="data.id==cardId ? 'cardSelected' : 'card'">
+                  <div *ngIf="data.id==cardId" class=add>SELECTED</div>
+                  <div *ngIf="data.id!=cardId" class=add>ADD TO CART</div>
+              </mat-card>
+             
           </div>
+         
+        </div>
+
 
           <div class="back" (click)=signin()>Sign in instead</div>
           <div fxLayoutAlign="end"><button mat-button class=mat_button type="submit" routerLink="."

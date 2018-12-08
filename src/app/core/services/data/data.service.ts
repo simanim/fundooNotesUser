@@ -12,16 +12,20 @@ export class DataService {
   private messageSourceReminder = new BehaviorSubject('default');
   private viewSource = new BehaviorSubject(false);
   private viewHidden = new BehaviorSubject(false);
-
+  // private messageSourceCard = new BehaviorSubject('default');
 
   currentMessageSearch = this.messageSourceSearch.asObservable();
   currentMessageLabel = this.messageSourceLabel.asObservable();
   currentMessageView = this.viewSource.asObservable();
   currentMessageReminder = this.messageSourceReminder.asObservable();
   currentMessageViewHide = this.viewHidden.asObservable();
+  // currentMessageCard = this.messageSourceCard.asObservable();
 
   constructor() { }
 
+  // changeMessageCard(message: string) {
+  //   this.messageSourceCard.next(message)
+  // }
   changeMessageSearch(message: string) {
     this.messageSourceSearch.next(message)
   }

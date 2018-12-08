@@ -35,4 +35,16 @@ export class UserService {
   searchUserList(body){
     return this.service.postDataForJSON("/user/searchUserList",body);
   }
+  addToCart(body){
+    return this.service.postDataWithoutToken("/productcarts/addToCart",body);
+  }
+  getCardDetails(cartId){
+    return this.service.getData("/productcarts/getCartDetails/"+cartId);
+  }
+  placeOrder(body){
+    return this.service.postDataForJSON("/productcarts/placeOrder",body);
+  }
+  getmyCart(){
+    return this.service.getData("/productcarts/myCart");
+  }
 }

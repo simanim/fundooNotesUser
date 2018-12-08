@@ -3,7 +3,7 @@
       <div fxLayout="row" fxFlex="100%" fxLayoutGap="5%" class=margin_15>
         <div fxFlex="5%"></div>
         <div fxFlex="70%" class="packDetails">Advance Pack Details</div>
-        <div fxFlex="10%" class=price >$6.99/month</div>
+        <div fxFlex="10%" class=price >${{data.noteData.price}}/month</div>
         <div fxFlex="5%"></div>
       </div>
     </mat-toolbar-row>
@@ -17,5 +17,5 @@
 </div>
 <div class=margin_15 fxLayout=row>
     <div fxFlex=40% fxLayoutAlign='start'><button class=button1 (click)=remove()>Remove</button></div>
-    <div fxFlex=60% fxLayoutAlign='end'><button class=button1>Proceed to Checkout</button></div>
+    <div fxFlex=60% fxLayoutAlign='end'><button class=button1 (click)=checkout()>Proceed to Checkout</button></div>
   </div>

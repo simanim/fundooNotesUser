@@ -34,11 +34,11 @@ export class TrashComponent implements OnInit {
 
   onChange(event){
     if(event){
-      this.getTrashList()
+      this.getTrashList();
     }
   }
 
-  /**
+ /**
   * 
   * @description getting the trashed notes list
   */
@@ -55,6 +55,11 @@ export class TrashComponent implements OnInit {
     },(error) =>{
     });
   }
+
+ /**
+  * 
+  * @description unsubscribing
+  */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

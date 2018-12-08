@@ -11,7 +11,7 @@
  ******************************************************************************/
 import { Component, OnInit, Input, Output ,EventEmitter, ViewChild } from '@angular/core';
 import { NotesService } from '../../core/services/notes/notes.service';
-// import { LoggerService } from '../../core/services/logger/logger.service';
+import { LoggerService } from '../../core/services/logger/logger.service';
 import { DataService } from '../../core/services/data/data.service';
 import { MatMenuTrigger } from '@angular/material';
 import { trigger } from '@angular/animations';
@@ -26,8 +26,8 @@ import { takeUntil } from 'rxjs/operators';
 export class RemindMeComponent implements OnInit {
   
   destroy$: Subject<boolean> = new Subject<boolean>(); 
-  @Input() card
-  @Output() onChanges=new EventEmitter()
+  @Input() card;
+  @Output() onChanges=new EventEmitter();
   @ViewChild(MatMenuTrigger) trigger:MatMenuTrigger;
 
   constructor( private remindMeService : NotesService, private data: DataService ) { }
@@ -35,8 +35,8 @@ export class RemindMeComponent implements OnInit {
   private model: any={
     "date":'',
     'time':''
-   }
-  private message:String
+   };
+  private message:String;
   private  value;
   private timePick:boolean=false;
   private currentDate=new Date();
@@ -57,6 +57,11 @@ export class RemindMeComponent implements OnInit {
     });
 
   }
+
+ /**
+  * 
+  * @description reminder show
+  */
   reminder(){
     this.value=this.currentDate;
     if(this.card){

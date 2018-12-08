@@ -4,50 +4,147 @@
     @include back-ground-color(#fb0);
     width:100%;
     // height:fixed;
-    position: fixed
+    // position: fixed;
+    // z-index:99;
 }
-.notSelected{
-    width:200px;z-index: 10
-}
-.font_20{
-    font-size: 20px;
-}
-.features{
-    margin-top:10px;
-    font-size: 12px
-}
+// .notSelected{
+//     width:200px;z-index: 10
+// }
+// .font_20{
+//     font-size: 20px;
+// }
+// .features{
+//     margin-top:10px;
+//     font-size: 12px
+// }
+// .font{
+//     font-size: 25px
+// }
+// .card{
+//     width: 200px;
+//     margin-top: -120%;
+//     padding:128% 0% 7% 15%;
+
+//     margin-left: 10%;
+//     background-color: rgb(172, 172, 172);
+//     flex-direction: row;
+//     box-sizing: border-box;
+//     display: flex;
+// }
+// .div:hover .card{
+//     width: 240px;
+//     padding:120% 0% 9% 15%;
+//     margin-top: -110%;
+//     margin-left: 10%;
+//     background-color: rgb(238, 214, 80);
+//     flex-direction: row;
+//     box-sizing: border-box;
+//     display: flex;
+// }
+// .div:hover .notSelected{
+//     width:240px;z-index: 10
+
+// }
+// .div:hover .font_20{
+//     font-size: 25px;
+// }
+// .div:hover .features{
+//     margin-top:10px;
+//     font-size: 16px
+// }
 .font{
-    font-size: 25px
-}
-.card{
-    width: 200px;
-    margin-top: -120%;
-    padding:128% 0% 7% 15%;
-
-    margin-left: 10%;
-    background-color: rgb(172, 172, 172);
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-}
-.div:hover .card{
-    width: 240px;
-    padding:120% 0% 9% 15%;
-    margin-top: -110%;
-    margin-left: 10%;
-    background-color: rgb(238, 214, 80);
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-}
-.div:hover .notSelected{
-    width:240px;z-index: 10
-
-}
-.div:hover .font_20{
-    font-size: 25px;
-}
-.div:hover .features{
-    margin-top:10px;
-    font-size: 16px
-}
+        font-size: 25px
+    }
+@media only screen and (max-width:599px){
+    .card {
+      width: 120px;
+      margin-top: -128%;
+      padding: 135% 0% 5% 15%;
+      margin-left: 10%;
+      background-color: rgb(172, 172, 172);
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+    }
+    .div:hover .card{
+      width: 130px;
+      margin-top: -128%;
+      padding: 135% 0% 5% 15%;
+      margin-left: 10%;
+      background-color: #fb0;
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+    }
+    .notSelected{
+      width:120px;
+      z-index: 10;
+      height:170px;
+    }
+    .div:hover .notSelected{
+        width:130px;
+        z-index: 10;
+        height:180px;
+    }
+    
+    .font_20{
+      font-size: 15px;
+    }
+    .features{
+      margin-top:10px;
+      font-size: 9px
+    }
+    .add{
+      font-size: 10px;
+    }
+    }
+    @media only screen and (min-width:600px){
+      .card {
+        width: 240px;
+        margin-top: -97%;
+        padding: 99% 0% 7% 15%;
+        margin-left: 10%;
+        background-color: rgb(172, 172, 172);
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+      }
+      .div:hover .card{
+        width: 260px;
+        margin-top: -97%;
+        padding: 99% 0% 7% 15%;
+      
+        margin-left: 10%;
+        background-color: #fb0;
+        flex-direction: row;
+        box-sizing: border-box;
+        display: flex;
+      }
+      .notSelected{
+        width:240px;
+        z-index: 10;
+        height:260px;
+      }
+      .div:hover .notSelected{
+        width:260px;
+        z-index: 10;
+        height:290px;
+      }
+      .div:hover .font_size{
+        font-size: 30px;
+      }
+      .font_size{
+        font-size: 25px;
+      }
+      .div:hover .features{
+        margin-top:10px;
+        font-size: 20px
+      }
+      .features{
+        margin-top:10px;
+        font-size: 17px
+      }
+      .add{
+        font-size: 17px;
+      }
+    }

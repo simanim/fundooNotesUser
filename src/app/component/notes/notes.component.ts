@@ -67,7 +67,6 @@ export class NotesComponent implements OnInit {
           }
         }
       }
-      console.log(this.pinedArray);
       this.spinnerValue=false;
       
     },(error) =>{
